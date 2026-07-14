@@ -1,0 +1,2013 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Year 6 Science: When Planets Move - Lesson 1</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;1,300&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <style>
+        /* 1. RESET & VARIABLES */
+        :root {
+            --space-dark: #090d16;
+            --space-card: #131a2b;
+            --space-border: #222f4d;
+            --accent-blue: #38bdf8;
+            --accent-blue-hover: #0ea5e9;
+            --accent-orange: #f59e0b;
+            --accent-green: #10b981;
+            --accent-red: #ef4444;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --font-display: 'Merriweather', serif;
+            --font-body: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: var(--space-dark);
+            color: var(--text-main);
+            font-family: var(--font-body);
+            height: 100vh;
+            width: 100vw;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        /* 2. DECK LAYOUT WINDOW */
+        #presentation-wrapper {
+            flex-grow: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            padding: 20px;
+            overflow: hidden;
+        }
+
+        .slide {
+            display: none;
+            width: 100%;
+            max-width: 1200px;
+            height: 100%;
+            max-height: 675px; /* Keeps perfect 16:9 aspect ratio */
+            background-color: var(--space-card);
+            border: 1px solid var(--space-border);
+            border-radius: 16px;
+            padding: 40px 60px;
+            position: relative;
+            flex-direction: column;
+            justify-content: space-between;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            opacity: 0;
+            transform: scale(0.98);
+        }
+
+        .slide.active {
+            display: flex;
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        /* Slide Top Accents */
+        .slide::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 8px;
+            background: linear-gradient(90deg, var(--accent-blue), var(--accent-orange), var(--accent-green));
+            border-top-left-radius: 16px;
+            border-top-right-radius: 16px;
+        }
+
+        /* 3. SLIDE HEADER STYLING */
+        .slide-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            border-left: 5px solid var(--accent-blue);
+            padding-left: 18px;
+            margin-bottom: 20px;
+            height: 65px;
+        }
+
+        .slide-title-group h2 {
+            font-family: var(--font-display);
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--text-main);
+            line-height: 1.2;
+        }
+
+        .slide-title-group p {
+            color: var(--text-muted);
+            font-size: 14px;
+            margin-top: 4px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .ejss-badge {
+            background: rgba(56, 189, 248, 0.1);
+            border: 1px solid rgba(56, 189, 248, 0.3);
+            color: var(--accent-blue);
+            padding: 6px 14px;
+            border-radius: 30px;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            white-space: nowrap;
+        }
+
+        /* 4. CONTENT GRID DESIGNS */
+        .slide-content {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            width: 100%;
+            overflow: hidden;
+            padding-right: 8px;
+        }
+
+        .two-col {
+            display: grid;
+            grid-template-columns: 1.15fr 0.85fr; /* Optimized column balances */
+            gap: 35px;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+        }
+
+        .two-col-equal {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            align-items: start;
+            width: 100%;
+        }
+
+        /* Media Frame Layout */
+        .media-frame {
+            background-color: var(--space-dark);
+            border: 2px solid var(--space-border);
+            border-radius: 12px;
+            overflow: hidden;
+            height: 340px;
+            width: 100%;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .media-frame img, .media-frame svg {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .media-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(9, 13, 22, 0.85);
+            padding: 10px 15px;
+            font-size: 13px;
+            color: var(--text-muted);
+            border-top: 1px solid var(--space-border);
+            text-align: center;
+        }
+
+        /* Title Slide Layout */
+        .hero-layout {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero-layout h1 {
+            font-family: var(--font-display);
+            font-size: 54px;
+            font-weight: 700;
+            color: #ffffff;
+            line-height: 1.15;
+            margin-bottom: 15px;
+            text-shadow: 0 4px 12px rgba(0,0,0,0.5);
+        }
+
+        .hero-divider {
+            height: 4px;
+            width: 100px;
+            background: linear-gradient(90deg, var(--accent-blue), var(--accent-orange));
+            margin: 20px auto;
+            border-radius: 2px;
+        }
+
+        /* Cards/Tiles */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            width: 100%;
+        }
+
+        .concept-card {
+            background-color: var(--space-dark);
+            border: 1px solid var(--space-border);
+            border-radius: 12px;
+            padding: 20px;
+            transition: all 0.2s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .concept-card:hover {
+            border-color: var(--accent-blue);
+            transform: translateY(-3px);
+        }
+
+        .concept-card h3 {
+            font-family: var(--font-display);
+            font-size: 18px;
+            color: var(--accent-blue);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .concept-card p {
+            font-size: 14px;
+            line-height: 1.5;
+            color: var(--text-muted);
+        }
+
+        /* 5. INTERACTIVE VOCABULARY FLIP CARDS - Upgraded for multi-card adaptive column scaling */
+        .vocab-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            width: 100%;
+        }
+
+        .vocab-card {
+            background-color: var(--space-dark);
+            border: 1px solid var(--space-border);
+            border-radius: 12px;
+            padding: 25px;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            min-height: 140px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .vocab-card::after {
+            content: 'Click Card to Reveal Explanation';
+            position: absolute;
+            bottom: 12px;
+            right: 15px;
+            font-size: 11px;
+            color: var(--accent-blue);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 600;
+            opacity: 0.7;
+            transition: opacity 0.2s ease;
+        }
+
+        .vocab-card.revealed::after {
+            content: 'Click to Hide Definition';
+            color: var(--accent-orange);
+        }
+
+        .vocab-word {
+            font-family: var(--font-display);
+            font-size: 22px;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 5px;
+            transition: color 0.3s ease;
+        }
+
+        .vocab-card.revealed .vocab-word {
+            color: var(--accent-blue);
+        }
+
+        .vocab-def {
+            font-size: 14px;
+            line-height: 1.6;
+            color: var(--text-muted);
+            margin-top: 10px;
+            display: none;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .vocab-card.revealed .vocab-def {
+            display: block;
+            opacity: 1;
+        }
+
+        /* Lists */
+        ul.custom-bullets, ol.custom-numbers {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        ul.custom-bullets li {
+            position: relative;
+            padding-left: 28px;
+            font-size: 16px;
+            line-height: 1.5;
+            color: var(--text-muted);
+        }
+
+        ul.custom-bullets li::before {
+            content: "\f058";
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            position: absolute;
+            left: 0;
+            top: 2px;
+            color: var(--accent-blue);
+            font-size: 16px;
+        }
+
+        ol.custom-numbers li {
+            position: relative;
+            padding-left: 36px;
+            font-size: 16px;
+            line-height: 1.5;
+            color: var(--text-muted);
+        }
+
+        ol.custom-numbers li::before {
+            content: attr(data-num);
+            position: absolute;
+            left: 0;
+            top: 1px;
+            background-color: var(--space-border);
+            color: var(--accent-blue);
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        /* Table Matrix styling */
+        .matrix-table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: var(--space-dark);
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid var(--space-border);
+        }
+
+        .matrix-table th {
+            background-color: rgba(255,255,255,0.02);
+            color: var(--accent-blue);
+            font-family: var(--font-display);
+            font-size: 16px;
+            font-weight: 700;
+            padding: 14px 20px;
+            text-align: left;
+            border-bottom: 2px solid var(--space-border);
+        }
+
+        .matrix-table td {
+            padding: 14px 20px;
+            border-bottom: 1px solid var(--space-border);
+            font-size: 15px;
+            color: var(--text-muted);
+        }
+
+        .matrix-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        /* 6. TEACHER SCAFFOLD NOTE ACCORDION */
+        .teacher-notes-panel {
+            background-color: rgba(245, 158, 11, 0.05);
+            border-top: 1px solid rgba(245, 158, 11, 0.2);
+            padding: 15px 60px;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            z-index: 10;
+            transition: transform 0.3s ease;
+            transform: translateY(100%);
+            height: 70px;
+        }
+
+        .teacher-notes-panel.visible {
+            transform: translateY(0);
+        }
+
+        .teacher-notes-panel i {
+            color: var(--accent-orange);
+            font-size: 20px;
+        }
+
+        .teacher-notes-panel p {
+            font-size: 13px;
+            color: #fcd34d;
+            font-style: italic;
+            line-height: 1.4;
+        }
+
+        /* 7. CONTROLS FOOTER BAR */
+        #deck-controls {
+            background-color: #0b0f19;
+            border-top: 1px solid var(--space-border);
+            padding: 15px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 20;
+        }
+
+        .control-btn-group {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .control-btn {
+            background-color: var(--space-card);
+            border: 1px solid var(--space-border);
+            color: var(--text-main);
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .control-btn:hover:not(:disabled) {
+            border-color: var(--accent-blue);
+            color: var(--accent-blue);
+            background-color: rgba(56, 189, 248, 0.05);
+        }
+
+        .control-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        .toggle-btn {
+            background-color: var(--space-card);
+            border: 1px solid var(--space-border);
+            color: var(--text-muted);
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s ease;
+        }
+
+        .toggle-btn.active {
+            border-color: var(--accent-orange);
+            color: var(--accent-orange);
+            background-color: rgba(245, 158, 11, 0.08);
+        }
+
+        #slide-indicator {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-muted);
+            background-color: var(--space-card);
+            border: 1px solid var(--space-border);
+            padding: 6px 16px;
+            border-radius: 20px;
+        }
+
+        /* Interactive Highlight boxes */
+        .highlight-alert {
+            background-color: rgba(239, 68, 68, 0.08);
+            border: 1px solid rgba(239, 68, 68, 0.2);
+            border-left: 4px solid #ef4444;
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin-top: 15px;
+        }
+
+        .highlight-alert h4 {
+            color: #f87171;
+            font-size: 15px;
+            font-weight: 700;
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .highlight-alert p {
+            font-size: 13px;
+            color: #fca5a5;
+            margin: 0;
+            line-height: 1.4;
+        }
+
+        /* =======================================================
+           EMBEDDED SOLAR MAP & VECTOR SIMULATOR CSS STYLES
+           ======================================================= */
+        
+        /* Slide 6 Map Layout - Increased Height and Spacious Structure */
+        .solar-map-panel {
+            background-color: var(--space-dark);
+            border: 2px solid var(--space-border);
+            border-radius: 12px;
+            height: 440px; /* Increased height for premium scale mapping */
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            box-shadow: inset 0 0 30px rgba(56, 189, 248, 0.04);
+        }
+
+        .map-sun {
+            position: absolute;
+            width: 140px; /* Reduced to avoid overlapping inner worlds */
+            height: 140px;
+            background: radial-gradient(circle, #fffbeb 5%, #f59e0b 55%, #ea580c 100%);
+            border-radius: 50%;
+            box-shadow: 0 0 40px rgba(245, 158, 11, 0.6);
+            left: -90px; /* Positioned centered at x=-20px, edge is at x=50px */
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 5;
+        }
+
+        /* Simplified, Centered Orbit Arc Positioning Engine */
+        .map-orbit-arc {
+            position: absolute;
+            border: 1.5px dashed rgba(56, 189, 248, 0.12);
+            border-radius: 50%;
+            left: -20px; /* Sun core center coordinate */
+            top: 50%;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+        }
+
+        /* Concentric Orbits perfectly passing through nodes */
+        .orb-mercury { width: 190px; height: 190px; }
+        .orb-venus { width: 270px; height: 270px; }
+        .orb-earth { width: 370px; height: 370px; }
+        .orb-mars { width: 470px; height: 470px; }
+        .orb-belt { width: 590px; height: 590px; border-style: dotted; border-color: rgba(148, 163, 184, 0.25); border-width: 4px; }
+        .orb-jupiter { width: 760px; height: 760px; }
+        .orb-saturn { width: 910px; height: 910px; }
+        .orb-uranus { width: 1040px; height: 1040px; }
+        .orb-neptune { width: 1150px; height: 1150px; }
+
+        /* Planet Interactive Click Targets - Made LARGER and HIGHLIGHTED */
+        .map-node {
+            position: absolute;
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 2px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.03);
+        }
+
+        /* Click Target Outer Glowing Ring */
+        .map-node::before {
+            content: '';
+            position: absolute;
+            width: 145%;
+            height: 145%;
+            border-radius: 50%;
+            border: 1px dashed rgba(56, 189, 248, 0.3);
+            opacity: 0.3;
+            transition: all 0.2s ease;
+        }
+
+        .map-node:hover {
+            transform: translate(-50%, -50%) scale(1.15);
+            border-color: #ffffff;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+        }
+
+        .map-node:hover::before {
+            opacity: 1;
+            transform: scale(1.1);
+        }
+
+        .map-node.active-body {
+            border-color: var(--accent-blue) !important;
+            box-shadow: 0 0 20px rgba(56, 189, 248, 0.4) !important;
+            transform: translate(-50%, -50%) scale(1.1);
+        }
+
+        .map-node.active-body::before {
+            opacity: 1;
+            border-color: var(--accent-blue);
+            animation: pulse-ring 2s infinite linear;
+        }
+
+        @keyframes pulse-ring {
+            0% { transform: scale(1) rotate(0deg); }
+            100% { transform: scale(1.2) rotate(360deg); }
+        }
+
+        /* Explicitly distributed coordinates to avoid cluster and give comfortable viewing */
+        .node-mercury { left: 75px; width: 18px; height: 18px; background: #94a3b8; }
+        .node-venus { left: 115px; width: 26px; height: 26px; background: #fdba74; }
+        .node-earth { left: 165px; width: 28px; height: 28px; background: #0ea5e9; }
+        .node-mars { left: 215px; width: 22px; height: 22px; background: #f87171; }
+        
+        .node-belt { 
+            left: 275px; 
+            width: 55px; 
+            height: 100%; 
+            border-radius: 0; 
+            background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.02) 50%, rgba(255,255,255,0) 100%); 
+            display: flex; 
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            font-size: 9px;
+            letter-spacing: 1.5px;
+            text-align: center;
+            overflow: hidden;
+            border: none;
+            border-left: 1px dotted rgba(255,255,255,0.08);
+            border-right: 1px dotted rgba(255,255,255,0.08);
+            box-shadow: none;
+        }
+        .node-belt span { writing-mode: vertical-rl; transform: rotate(180deg); opacity: 0.5; font-size: 9px; font-weight: 700; text-transform: uppercase;}
+        
+        .node-jupiter { left: 360px; width: 46px; height: 46px; background: #f59e0b; }
+        .node-saturn { left: 435px; width: 38px; height: 38px; background: #fde047; }
+        .node-saturn::after {
+            content: ''; position: absolute; width: 54px; height: 10px; border: 2.5px solid #ca8a04; border-radius: 50%; transform: rotate(-15deg);
+        }
+        .node-uranus { left: 500px; width: 32px; height: 32px; background: #22d3ee; }
+        .node-neptune { left: 555px; width: 30px; height: 30px; background: #6366f1; }
+
+        /* Scanning HUD overlay text on map */
+        .hud-overlay {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-family: monospace;
+            font-size: 11px;
+            color: rgba(56, 189, 248, 0.4);
+            pointer-events: none;
+            text-align: right;
+            line-height: 1.5;
+        }
+
+        /* Terminal styling on Slide 6 Right side - Decluttered and Compacted */
+        .solar-terminal {
+            background-color: #111827; /* Rich slate-900 background */
+            border: 1px solid var(--space-border);
+            border-radius: 12px;
+            height: 440px; /* Matched to map height */
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .terminal-tabs {
+            display: flex;
+            background-color: rgba(15, 23, 42, 0.6);
+            border-bottom: 1px solid var(--space-border);
+        }
+
+        .term-tab-btn {
+            flex: 1;
+            padding: 14px 4px;
+            background: none;
+            border: none;
+            border-bottom: 2px solid transparent;
+            color: var(--text-muted);
+            font-family: var(--font-body);
+            font-size: 11px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-align: center;
+            letter-spacing: 0.5px;
+        }
+
+        .term-tab-btn:hover {
+            color: var(--text-main);
+            background-color: rgba(255,255,255,0.02);
+        }
+
+        .term-tab-btn.active-tab {
+            color: var(--accent-blue);
+            border-bottom-color: var(--accent-blue);
+            background-color: rgba(56, 189, 248, 0.05);
+        }
+
+        .terminal-body {
+            flex-grow: 1;
+            padding: 22px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            overflow-y: auto;
+        }
+
+        /* New 2-Column Telemetry Grid for decluttered spacing */
+        .telemetry-header {
+            font-family: var(--font-display);
+            font-size: 22px;
+            color: #ffffff;
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .telemetry-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin: 12px 0;
+        }
+
+        .telemetry-item {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--space-border);
+            border-radius: 8px;
+            padding: 8px 12px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .telemetry-item .label {
+            font-size: 10px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 2px;
+            font-weight: 600;
+        }
+
+        .telemetry-item .value {
+            font-size: 13px;
+            color: #ffffff;
+            font-weight: 700;
+        }
+
+        .telemetry-fact-pane {
+            background: rgba(255, 255, 255, 0.01);
+            border-left: 3px solid var(--accent-blue);
+            padding: 10px 14px;
+            border-radius: 0 8px 8px 0;
+            font-size: 13px;
+            line-height: 1.45;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+        }
+
+        .interactive-feedback {
+            background-color: rgba(16, 185, 129, 0.08);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+            border-radius: 6px;
+            padding: 10px 12px;
+            font-size: 13px;
+            color: var(--accent-green);
+            display: none;
+            margin-top: 10px;
+            line-height: 1.4;
+        }
+
+        .interactive-feedback.incorrect {
+            background-color: rgba(239, 68, 68, 0.08);
+            border-color: rgba(239, 68, 68, 0.2);
+            color: #f87171;
+        }
+
+        /* Multi-choice action buttons stacked with more space */
+        .option-button-stack {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-top: 5px;
+        }
+
+        .term-action-btn {
+            background-color: rgba(56, 189, 248, 0.03);
+            border: 1px solid var(--space-border);
+            color: var(--text-main);
+            padding: 12px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 13px;
+            text-align: left;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            font-family: var(--font-body);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .term-action-btn:hover {
+            border-color: var(--accent-blue);
+            background-color: rgba(56, 189, 248, 0.1);
+            transform: translateX(4px);
+        }
+
+        /* Large Matter Sorter Container chambers */
+        .sorter-bucket-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-top: 10px;
+        }
+
+        .sorter-bucket {
+            background-color: rgba(255,255,255,0.01);
+            border: 1px dashed var(--space-border);
+            border-radius: 10px;
+            padding: 15px;
+            min-height: 135px; /* Increased height */
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            transition: border-color 0.2s;
+        }
+
+        .sorter-bucket h4 {
+            font-size: 12px;
+            color: var(--accent-blue);
+            text-align: center;
+            border-bottom: 1px solid var(--space-border);
+            padding-bottom: 8px;
+            margin-bottom: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .sorted-item-badge {
+            background-color: var(--space-border);
+            color: #ffffff;
+            font-size: 11px;
+            padding: 5px 10px;
+            border-radius: 6px;
+            text-align: center;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        /* Slide 9 Gravity Canvas Setup */
+        .canvas-container {
+            position: relative;
+            width: 100%;
+            height: 350px;
+            background-color: var(--space-dark);
+            border: 2px solid var(--space-border);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .canvas-controls-panel {
+            background-color: rgba(255,255,255,0.02);
+            border: 1px solid var(--space-border);
+            border-radius: 8px;
+            padding: 18px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            height: 100%;
+            justify-content: center;
+        }
+
+        .physics-toggle {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 14px;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .physics-toggle input {
+            cursor: pointer;
+            accent-color: var(--accent-blue);
+            width: 16px;
+            height: 16px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- PRESENTATION DECK VIEWPORT -->
+    <div id="presentation-wrapper">
+
+        <!-- SLIDE 1: Title Screen -->
+        <div class="slide active" id="slide-1">
+            <div class="slide-header" style="opacity: 0;"></div> <!-- Keeps space layout clean -->
+            <div class="slide-content">
+                <div class="hero-layout">
+                    <p style="color: var(--accent-blue); font-weight: 700; text-transform: uppercase; letter-spacing: 2px; font-size: 14px;">Year 6 Earth & Space Sciences</p>
+                    <h1>When Planets Move</h1>
+                    <div class="hero-divider"></div>
+                    <h3 style="color: #ffffff; font-family: var(--font-body); font-weight: 500; font-size: 22px; margin-bottom: 8px;">Lesson 1: The Cosmic Tether</h3>
+                    <p style="color: var(--text-muted); font-size: 16px;">Exploring early models of the universe and testing structural orbital forces.</p>
+                </div>
+            </div>
+            <div class="teacher-notes-panel">
+                <i class="fa-solid fa-lightbulb"></i>
+                <p>Welcome your Year 6 classes. Explain that over this term we will challenge standard diagrams of space and investigate real mechanical physics.</p>
+            </div>
+        </div>
+
+        <!-- SLIDE 2: Visible Thinking Routine (See Think Wonder) -->
+        <div class="slide" id="slide-2">
+            <div class="slide-header">
+                <div class="slide-title-group">
+                    <h2>See, Think, Wonder</h2>
+                    <p>Hook & Prior Knowledge Scan</p>
+                </div>
+                <div class="ejss-badge">TAKE OFF</div>
+            </div>
+            <div class="slide-content">
+                <div class="two-col">
+                    <div class="media-frame">
+                        <!-- Custom vector illustration of Voyager's Pale Blue Dot -->
+                        <svg viewBox="0 0 400 300" width="100%" height="100%" style="background-color: #020617; border-radius: 8px;">
+                            <circle cx="50" cy="80" r="1" fill="#94a3b8" opacity="0.5"/>
+                            <circle cx="320" cy="220" r="1.5" fill="#e2e8f0" opacity="0.6"/>
+                            <circle cx="180" cy="40" r="1" fill="#94a3b8" opacity="0.4"/>
+                            <circle cx="280" cy="120" r="1" fill="#94a3b8" opacity="0.3"/>
+                            <circle cx="80" cy="250" r="1.5" fill="#e2e8f0" opacity="0.5"/>
+                            
+                            <!-- Sunbeams / Optical scattered bands of light -->
+                            <polygon points="100,0 140,0 260,300 220,300" fill="rgba(245, 158, 11, 0.08)" />
+                            <polygon points="200,0 230,0 330,300 300,300" fill="rgba(56, 189, 248, 0.05)" />
+                            <polygon points="40,0 80,0 180,300 140,300" fill="rgba(16, 185, 129, 0.04)" />
+                            
+                            <line x1="0" y1="150" x2="400" y2="150" stroke="rgba(255,255,255,0.05)" stroke-dasharray="4,4" />
+                            
+                            <!-- The Pale Blue Dot (Earth) -->
+                            <circle cx="230" cy="180" r="3.5" fill="#38bdf8" />
+                            <circle cx="230" cy="180" r="8" stroke="#38bdf8" stroke-width="1" fill="none" opacity="0.5">
+                                <animate attributeName="r" values="3.5;10;3.5" dur="4s" repeatCount="indefinite" />
+                                <animate attributeName="opacity" values="0.8;0;0.8" dur="4s" repeatCount="indefinite" />
+                            </circle>
+                            
+                            <!-- Pointer lines and callout tag -->
+                            <path d="M 230,180 L 195,135 L 140,135" stroke="#38bdf8" stroke-width="1" fill="none" opacity="0.7" />
+                            <text x="135" y="131" font-family="'Plus Jakarta Sans', sans-serif" font-size="10" fill="#38bdf8" text-anchor="end" font-weight="700">EARTH</text>
+                            <text x="135" y="144" font-family="'Plus Jakarta Sans', sans-serif" font-size="8" fill="#94a3b8" text-anchor="end">0.12 pixels in size</text>
+                        </svg>
+                        <div class="media-caption">NASA Voyager 1 • The "Pale Blue Dot" from 6 Billion Kilometers away.</div>
+                    </div>
+                    <div>
+                        <ul class="custom-bullets" style="gap: 15px;">
+                            <li style="color: #ffffff;"><strong>👀 SEE:</strong> What do you visually observe about that tiny point of light caught within the frame?</li>
+                            <li style="color: #ffffff;"><strong>🧠 THINK:</strong> Why does Earth look so incredibly small? What does this imply about the real distances out in space?</li>
+                            <li style="color: #ffffff;"><strong>❓ WONDER:</strong> How do all the components out here stay linked together without falling apart or colliding?</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="teacher-notes-panel">
+                <i class="fa-solid fa-lightbulb"></i>
+                <p>Prompt student pairs. This is Earth. Guide them to see that empty space makes up almost 99.9% of the universe.</p>
+            </div>
+        </div>
+
+        <!-- SLIDE 3: Vocab Matrix 1 (Interactive) -->
+        <div class="slide" id="slide-3">
+            <div class="slide-header">
+                <div class="slide-title-group">
+                    <h2>Core Space Terms</h2>
+                    <p>Tier 3 Language Calibration</p>
+                </div>
+                <div class="ejss-badge">Vocabulary Mastery</div>
+            </div>
+            <div class="slide-content">
+                <p style="margin-bottom: 20px; color: var(--text-muted);">Click each card to expand our scientific meanings and visual memory triggers:</p>
+                <div class="vocab-grid">
+                    <div class="vocab-card" onclick="toggleVocab(this)">
+                        <div class="vocab-word">Solar System</div>
+                        <div class="vocab-def">A structural configuration consisting of a central star bound together by massive gravity alongside all celestial objects that rotate and revolve around it.</div>
+                    </div>
+                    <div class="vocab-card" onclick="toggleVocab(this)">
+                        <div class="vocab-word">Celestial Object</div>
+                        <div class="vocab-def">Any natural, structured body located outside the boundary layers of Earth's atmosphere (e.g., planets, comets, asteroids, moons).</div>
+                    </div>
+                </div>
+            </div>
+            <div class="teacher-notes-panel">
+                <i class="fa-solid fa-lightbulb"></i>
+                <p>Encourage students to physically perform a rotation at their desks to grasp moving frames of reference early on.</p>
+            </div>
+        </div>
+
+        <!-- SLIDE 4: Vocab Matrix 2 (Interactive - Upgraded with Astronomical Unit AU Definition) -->
+        <div class="slide" id="slide-4">
+            <div class="slide-header">
+                <div class="slide-title-group">
+                    <h2>Core Space Terms</h2>
+                    <p>Tier 3 Language Calibration</p>
+                </div>
+                <div class="ejss-badge">Vocabulary Mastery</div>
+            </div>
+            <div class="slide-content">
+                <p style="margin-bottom: 20px; color: var(--text-muted);">Click each card to expand our scientific meanings and visual memory triggers:</p>
+                <div class="vocab-grid">
+                    <div class="vocab-card" onclick="toggleVocab(this)">
+                        <div class="vocab-word">Orbit</div>
+                        <div class="vocab-def">The continuous, repeating mathematical curved path followed by a spacecraft or celestial body around a central source of gravity.</div>
+                    </div>
+                    <div class="vocab-card" onclick="toggleVocab(this)">
+                        <div class="vocab-word">Astronomical Unit (AU)</div>
+                        <div class="vocab-def">A standard scientific unit of measurement equal to the average distance from the Earth to the Sun (about 150 million km). Earth is exactly 1.0 AU!</div>
+                    </div>
+                    <div class="vocab-card" onclick="toggleVocab(this)">
+                        <div class="vocab-word">Geocentric Model</div>
+                        <div class="vocab-def">An outdated cosmological arrangement placing a static Earth at the absolute center of the universe, with stars and planets moving around it.</div>
+                    </div>
+                </div>
+            </div>
+            <div class="teacher-notes-panel">
+                <i class="fa-solid fa-lightbulb"></i>
+                <p>Connect "Geo" (Earth) to geography, and "centric" to center. Introduce AU as a spatial scaling benchmark: Earth = 1 AU. This serves as the target classification threshold on Slide 6.</p>
+            </div>
+        </div>
+
+        <!-- SLIDE 5: The Geocentric Illusion -->
+        <div class="slide" id="slide-5">
+            <div class="slide-header">
+                <div class="slide-title-group">
+                    <h2>The Geocentric Illusion</h2>
+                    <p>Why Early Models Failed</p>
+                </div>
+                <div class="ejss-badge">EXPLICIT TEACHING</div>
+            </div>
+            <div class="slide-content">
+                <div class="two-col">
+                    <div>
+                        <h3 style="color: var(--accent-orange); margin-bottom: 12px;">What Our Eyes Register</h3>
+                        <p style="margin-bottom: 15px;">Every single morning, we see the Sun rise in the east and set in the west. To an observer standing on the ground, the Earth feels solid, stationary, and quiet.</p>
+                        <p><strong>The Fallacy:</strong> Because of this personal viewpoint, early astronomers naturally concluded that the Earth was motionless and everything in the heavens circled us.</p>
+                    </div>
+                    <div style="background-color: rgba(255,255,255,0.02); border: 1px solid var(--space-border); padding: 25px; border-radius: 12px;">
+                        <h4 style="color: var(--accent-blue); font-size: 16px; margin-bottom: 10px; display: flex; align-items: center; gap: 8px;">
+                            <i class="fa-solid fa-train"></i> Frame of Reference:
+                        </h4>
+                        <p style="font-size: 14px; color: var(--text-muted); line-height: 1.5;">If you are sitting on a stationary train and the carriage next to you starts moving backward, it feels like *your* train is moving forward.</p>
+                        <p style="font-size: 14px; color: var(--accent-orange); margin-top: 10px; font-weight: 600;">How does this illusion relate to watching sunset on Earth?</p>
+                    </div>
+                </div>
+            </div>
+            <div class="teacher-notes-panel">
+                <i class="fa-solid fa-lightbulb"></i>
+                <p>Use the train analogy. Highlight that we don't feel Earth's spin because we are moving with it at a constant, unshifting velocity.</p>
+            </div>
+        </div>
+
+        <!-- SLIDE 6: INTERACTIVE SOLAR SYSTEM MAP (ENHANCED SCALE & SPACE) -->
+        <div class="slide" id="slide-6">
+            <div class="slide-header">
+                <div class="slide-title-group">
+                    <h2>Interactive Planetary Terminal</h2>
+                    <p>Active Solar Mapping & Core Classifications</p>
+                </div>
+                <div class="ejss-badge">SPREAD YOUR WINGS</div>
+            </div>
+            <div class="slide-content">
+                <div class="two-col">
+                    
+                    <!-- Left Column: Interactive Visual Map -->
+                    <div class="solar-map-panel">
+                        <div class="map-sun"></div>
+                        <div class="hud-overlay">
+                            RADAR SCANNER V.1.1<br>
+                            TARGETS STABILIZED<br>
+                            CLICK NODES TO SCAN
+                        </div>
+                        
+                        <!-- Concentric Orbit Visual Guides -->
+                        <div class="map-orbit-arc orb-mercury"></div>
+                        <div class="map-orbit-arc orb-venus"></div>
+                        <div class="map-orbit-arc orb-earth"></div>
+                        <div class="map-orbit-arc orb-mars"></div>
+                        <div class="map-orbit-arc orb-belt"></div>
+                        <div class="map-orbit-arc orb-jupiter"></div>
+                        <div class="map-orbit-arc orb-saturn"></div>
+                        <div class="map-orbit-arc orb-uranus"></div>
+                        <div class="map-orbit-arc orb-neptune"></div>
+                        
+                        <!-- Interactive Planet Targets -->
+                        <div class="map-node node-mercury active-body" data-id="mercury" onclick="selectCelestialBody('mercury')"></div>
+                        <div class="map-node node-venus" data-id="venus" onclick="selectCelestialBody('venus')"></div>
+                        <div class="map-node node-earth" data-id="earth" onclick="selectCelestialBody('earth')"></div>
+                        <div class="map-node node-mars" data-id="mars" onclick="selectCelestialBody('mars')"></div>
+                        <div class="map-node node-belt" data-id="asteroids" onclick="selectCelestialBody('asteroids')">
+                            <span>Asteroid Belt</span>
+                        </div>
+                        <div class="map-node node-jupiter" data-id="jupiter" onclick="selectCelestialBody('jupiter')"></div>
+                        <div class="map-node node-saturn" data-id="saturn" onclick="selectCelestialBody('saturn')"></div>
+                        <div class="map-node node-uranus" data-id="uranus" onclick="selectCelestialBody('uranus')"></div>
+                        <div class="map-node node-neptune" data-id="neptune" onclick="selectCelestialBody('neptune')"></div>
+                    </div>
+
+                    <!-- Right Column: Interactive Terminal Tabs & Actions -->
+                    <div class="solar-terminal">
+                        <div class="terminal-tabs">
+                            <button class="term-tab-btn active-tab" id="tab-a-trigger" onclick="switchTerminalTab('A')">TASK A: ORBITS</button>
+                            <button class="term-tab-btn" id="tab-b-trigger" onclick="switchTerminalTab('B')">TASK B: DEBRIS BELT</button>
+                            <button class="term-tab-btn" id="tab-c-trigger" onclick="switchTerminalTab('C')">TASK C: MATTER SORTER</button>
+                        </div>
+                        <div class="terminal-body">
+                            <!-- Selected Body Telemetry (Always shows up-to-date inspection metadata) -->
+                            <div id="telemetry-display-pane">
+                                <div class="telemetry-header">
+                                    <i class="fa-solid fa-satellite-dish" style="color: var(--accent-blue); font-size: 18px;"></i> 
+                                    <span id="inspect-name" style="font-weight: 700;">Mercury</span>
+                                </div>
+                                
+                                <div class="telemetry-grid">
+                                    <div class="telemetry-item">
+                                        <span class="label">Classification:</span>
+                                        <span class="value" id="inspect-zone">Terrestrial (Inner)</span>
+                                    </div>
+                                    <div class="telemetry-item">
+                                        <span class="label">Distance to Sun:</span>
+                                        <span class="value" id="inspect-dist">0.39 AU</span>
+                                    </div>
+                                    <div class="telemetry-item" style="grid-column: span 2;">
+                                        <span class="label">Core Composition:</span>
+                                        <span class="value" id="inspect-comp">Rocky / Metal Core</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="telemetry-fact-pane" id="inspect-fact">
+                                    Closest planet to the Sun. Extreme heat makes liquid water impossible.
+                                </div>
+                            </div>
+
+                            <!-- TASK A WORKSPACE -->
+                            <div class="tab-content-pane" id="pane-task-a">
+                                <p style="font-size: 12px; color: var(--accent-blue); margin-bottom: 8px;"><strong>Inquiry Target A:</strong> Verify whether this body sits in the Inner or Outer Solar System:</p>
+                                <div class="option-button-stack">
+                                    <button class="term-action-btn" onclick="verifyTaskA(true)"><i class="fa-solid fa-compress"></i> Classify as INNER System (&lt; 2.0 AU)</button>
+                                    <button class="term-action-btn" onclick="verifyTaskA(false)"><i class="fa-solid fa-expand"></i> Classify as OUTER System (&gt; 2.0 AU)</button>
+                                </div>
+                                <div class="interactive-feedback" id="feedback-task-a"></div>
+                            </div>
+
+                            <!-- TASK B WORKSPACE -->
+                            <div class="tab-content-pane" id="pane-task-b" style="display: none;">
+                                <div id="belt-active-challenge">
+                                    <p style="font-size: 12px; color: var(--accent-orange); margin-bottom: 8px;"><strong>Inquiry Target B:</strong> Why does the Debris Belt sit exactly here between Mars (1.5 AU) and Jupiter (5.2 AU)?</p>
+                                    <div class="option-button-stack">
+                                        <button class="term-action-btn" onclick="verifyTaskB(1)"><i class="fa-solid fa-circle-dot"></i> 1. Mars' gravity repelled these rocky leftovers.</button>
+                                        <button class="term-action-btn" onclick="verifyTaskB(2)"><i class="fa-solid fa-circle-nodes"></i> 2. Jupiter's massive gravity disrupted planet formation.</button>
+                                        <button class="term-action-btn" onclick="verifyTaskB(3)"><i class="fa-solid fa-wind"></i> 3. Solar winds accumulated all heavy space dust here.</button>
+                                    </div>
+                                </div>
+                                <div class="interactive-feedback" id="feedback-task-b"></div>
+                            </div>
+
+                            <!-- TASK C WORKSPACE -->
+                            <div class="tab-content-pane" id="pane-task-c" style="display: none;">
+                                <p style="font-size: 11px; color: var(--accent-green); margin-bottom: 6px;"><strong>Inquiry Target C:</strong> Sort this planet into the correct composition category:</p>
+                                <div class="sorter-bucket-row">
+                                    <button class="term-action-btn" style="justify-content:center; padding:10px; font-weight:700; border-color:rgba(56,189,248,0.3);" onclick="sortMatter(true)">
+                                        <i class="fa-solid fa-mountain" style="color:var(--accent-blue);"></i> Terrestrial (Rocky)
+                                    </button>
+                                    <button class="term-action-btn" style="justify-content:center; padding:10px; font-weight:700; border-color:rgba(16,185,129,0.3);" onclick="sortMatter(false)">
+                                        <i class="fa-solid fa-cloud" style="color:var(--accent-green);"></i> Gas / Ice Giant
+                                    </button>
+                                </div>
+                                <div class="interactive-feedback" id="feedback-task-c"></div>
+                                <div class="sorter-bucket-row" style="margin-top: 10px;">
+                                    <div class="sorter-bucket">
+                                        <h4>Rocky Planets</h4>
+                                        <div id="rocky-bucket-items" style="display:flex; flex-wrap:wrap; gap:4px;"></div>
+                                    </div>
+                                    <div class="sorter-bucket">
+                                        <h4>Gas Giants</h4>
+                                        <div id="gas-bucket-items" style="display:flex; flex-wrap:wrap; gap:4px;"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="teacher-notes-panel">
+                <i class="fa-solid fa-lightbulb"></i>
+                <p>Direct students to inspect planets on Slide 6. Have them complete the tabs to understand that Jupiter’s gravity halted a 5th rocky planet from forming.</p>
+            </div>
+        </div>
+
+        <!-- SLIDE 7: System Anatomy -->
+        <div class="slide" id="slide-7">
+            <div class="slide-header">
+                <div class="slide-title-group">
+                    <h2>Anatomy of the Solar System</h2>
+                    <p>Physical Conditions & Boundaries</p>
+                </div>
+                <div class="ejss-badge">EXPLICIT TEACHING</div>
+            </div>
+            <div class="slide-content">
+                <div class="card-grid">
+                    <div class="concept-card" style="border-top: 4px solid var(--accent-blue);">
+                        <h3>Terrestrial Planets</h3>
+                        <p style="margin-bottom: 8px;">Mercury, Venus, Earth, Mars.</p>
+                        <p style="font-size: 13px;">Composed of heavy metals and silicate rocks. They have few or no natural moons, solid surfaces, and are placed closely together.</p>
+                    </div>
+                    <div class="concept-card" style="border-top: 4px solid var(--accent-orange);">
+                        <h3>Asteroid Belt</h3>
+                        <p style="margin-bottom: 8px;">The Middle Buffer Ring</p>
+                        <p style="font-size: 13px;">A ring filled with irregular rocky debris and dust leftover from the system's early formation, separating inner and outer worlds.</p>
+                    </div>
+                    <div class="concept-card" style="border-top: 4px solid var(--accent-green);">
+                        <h3>Jovian Giants</h3>
+                        <p style="margin-bottom: 8px;">Jupiter, Saturn, Uranus, Neptune.</p>
+                        <p style="font-size: 13px;">Huge gaseous atmospheres (hydrogen/helium) surrounding small cores. They have dozens of moons and complex ring systems.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="teacher-notes-panel">
+                <i class="fa-solid fa-lightbulb"></i>
+                <p>Explain that heat from the young Sun blew light gases out to the cold outer regions, forming Gas Giants.</p>
+            </div>
+        </div>
+
+        <!-- SLIDE 8: Totem Tennis Analogy -->
+        <div class="slide" id="slide-8">
+            <div class="slide-header">
+                <div class="slide-title-group">
+                    <h2>The Totem Tennis Analogy</h2>
+                    <p>Modeling Invisible Physics</p>
+                </div>
+                <div class="ejss-badge">Analogy Mapping</div>
+            </div>
+            <div class="slide-content">
+                <div class="two-col">
+                    <div>
+                        <p style="margin-bottom: 15px; color: #ffffff;">Inquisitive introduces the **Totem Tennis / Tetherball Model** to demonstrate orbital physics:</p>
+                        <ol class="custom-numbers" style="gap: 12px;">
+                            <li data-num="1"><strong>The Center Pole:</strong> Acts as the massive central Sun.</li>
+                            <li data-num="2"><strong>The Tennis Ball:</strong> Behaves as Earth moving in its curved track.</li>
+                            <li data-num="3"><strong>The Connecting String:</strong> Acts as the invisible vector force of **Gravity**.</li>
+                        </ol>
+                    </div>
+                    <div class="media-frame">
+                        <!-- Custom vector illustration of Totem Tennis system -->
+                        <svg viewBox="0 0 400 300" width="100%" height="100%" style="background-color: #0f172a; border-radius: 8px;">
+                            <rect x="0" y="240" width="400" height="60" fill="#064e3b" />
+                            <path d="M 0,240 Q 100,230 200,240 T 400,240 L 400,300 L 0,300 Z" fill="#065f46" />
+                            <line x1="200" y1="60" x2="200" y2="250" stroke="#94a3b8" stroke-width="6" stroke-linecap="round" />
+                            <polygon points="185,250 215,250 200,240" fill="#475569" />
+                            <circle cx="200" cy="60" r="6" fill="#f59e0b" />
+                            <ellipse cx="200" cy="140" rx="120" ry="40" stroke="rgba(56, 189, 248, 0.25)" stroke-width="2" stroke-dasharray="6,4" fill="none" />
+                            <path d="M 200,90 Q 240,110 290,125" stroke="#e2e8f0" stroke-width="2" fill="none" />
+                            <path d="M 310,110 Q 330,120 315,135" stroke="#38bdf8" stroke-width="2" fill="none" />
+                            <path d="M 90,170 Q 70,160 85,145" stroke="#38bdf8" stroke-width="2" fill="none" />
+                            <circle cx="290" cy="125" r="12" fill="#a3e635" />
+                            <path d="M 282,118 Q 290,125 282,132" stroke="#ffffff" stroke-width="1.5" fill="none" />
+                            <path d="M 298,118 Q 290,125 298,132" stroke="#ffffff" stroke-width="1.5" fill="none" />
+                            <text x="200" y="30" font-family="'Plus Jakarta Sans', sans-serif" font-size="12" fill="#ffffff" text-anchor="middle" font-weight="700">SUN (Stationary Center Pole)</text>
+                            <text x="290" y="102" font-family="'Plus Jakarta Sans', sans-serif" font-size="11" fill="#a3e635" text-anchor="middle" font-weight="700">PLANET</text>
+                            <text x="245" y="85" font-family="'Plus Jakarta Sans', sans-serif" font-size="11" fill="#e2e8f0" text-anchor="middle" font-weight="700">GRAVITY (String)</text>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+            <div class="teacher-notes-panel">
+                <i class="fa-solid fa-lightbulb"></i>
+                <p>Have students stand up and mimic a swinging tennis ball with their arms. Emphasize how tension in the string pulls the ball inward.</p>
+            </div>
+        </div>
+
+        <!-- SLIDE 9: GRAVITY & VECTOR SIMULATION RADAR -->
+        <div class="slide" id="slide-9">
+            <div class="slide-header">
+                <div class="slide-title-group">
+                    <h2>Vector Lab: Gravity Simulator</h2>
+                    <p>Manipulating Orbit Vectors Interactively</p>
+                </div>
+                <div class="ejss-badge">SPREAD YOUR WINGS</div>
+            </div>
+            <div class="slide-content">
+                <div class="two-col">
+                    <!-- Left: Interactive Vector Canvas -->
+                    <div class="canvas-container">
+                        <canvas id="vector-canvas" width="600" height="350"></canvas>
+                    </div>
+
+                    <!-- Right: Force Vector Dashboard Panel -->
+                    <div class="canvas-controls-panel">
+                        <h3 style="color:#ffffff; margin-bottom: 5px;"><i class="fa-solid fa-sliders"></i> Vector Controls</h3>
+                        
+                        <label class="physics-toggle">
+                            <input type="checkbox" id="check-gravity-arrow" checked onchange="toggleVectorDisplay()">
+                            <span>Show Gravity Pull (<span style="color:var(--accent-red); font-weight:700;">Red Arrow</span>)</span>
+                        </label>
+                        
+                        <label class="physics-toggle">
+                            <input type="checkbox" id="check-velocity-arrow" checked onchange="toggleVectorDisplay()">
+                            <span>Show Forward Inertia (<span style="color:var(--accent-blue); font-weight:700;">Cyan Arrow</span>)</span>
+                        </label>
+
+                        <hr style="border: 0; border-top: 1px solid var(--space-border); margin: 5px 0;">
+
+                        <button class="term-action-btn" id="btn-cut-gravity" style="border-color: var(--accent-red); color: #f87171; font-weight: 700; text-align: center; background-color: rgba(239, 68, 68, 0.05); justify-content: center;" onclick="triggerGravityCut()">
+                            <i class="fa-solid fa-scissors"></i> CUT GRAVITY TETHER!
+                        </button>
+
+                        <button class="term-action-btn" id="btn-reset-physics" style="border-color: var(--accent-blue); color: #38bdf8; font-weight: 700; text-align: center; display: none; justify-content: center;" onclick="resetPhysicsOrbit()">
+                            <i class="fa-solid fa-rotate-left"></i> RESET ORBIT VECTOR
+                        </button>
+
+                        <div style="font-size: 12px; color: var(--text-muted); line-height: 1.4;">
+                            Observe how the circular orbit is a constant battle between forward inertia and inward gravitational attraction.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="teacher-notes-panel">
+                <i class="fa-solid fa-lightbulb"></i>
+                <p>Toggle vectors on. Show that the planet moves tangent to the orbit. Cut gravity so students see the planet fly in a straight path.</p>
+            </div>
+        </div>
+
+        <!-- SLIDE 10: Model Limits -->
+        <div class="slide" id="slide-10">
+            <div class="slide-header">
+                <div class="slide-title-group">
+                    <h2>Evaluating Scientific Models</h2>
+                    <p>Critique & Spatial Realities</p>
+                </div>
+                <div class="ejss-badge">CRITICAL EVALUATION</div>
+            </div>
+            <div class="slide-content">
+                <div class="two-col-equal">
+                    <div style="background-color: rgba(16, 185, 129, 0.04); border: 1px solid rgba(16, 185, 129, 0.2); padding: 25px; border-radius: 12px;">
+                        <h3 style="color: var(--accent-green);"><i class="fa-solid fa-circle-check"></i> Model Strengths</h3>
+                        <ul class="custom-bullets">
+                            <li>Explains order and rotation paths clearly.</li>
+                            <li>Condenses astronomical scales into a view that fits on a desk or screen.</li>
+                            <li>Helps visualize the invisible vector of gravity.</li>
+                        </ul>
+                    </div>
+                    <div style="background-color: rgba(239, 68, 68, 0.04); border: 1px solid rgba(239, 68, 68, 0.2); padding: 25px; border-radius: 12px;">
+                        <h3 style="color: #ef4444;"><i class="fa-solid fa-triangle-exclamation"></i> Model Limitations</h3>
+                        <ul class="custom-bullets" style="--accent-blue: #ef4444;">
+                            <li>Completely distorts the real scale size of planets relative to the vast distances between them.</li>
+                            <li>Gives a false impression that the solar system is tightly packed.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="teacher-notes-panel">
+                <i class="fa-solid fa-lightbulb"></i>
+                <p>Emphasize that showing accurate sizes alongside accurate distances on a flat screen or piece of paper is impossible.</p>
+            </div>
+        </div>
+
+        <!-- SLIDE 11: Soar (What-if Scenario) -->
+        <div class="slide" id="slide-11">
+            <div class="slide-header">
+                <div class="slide-title-group">
+                    <h2>The "What-If" Physics Challenge</h2>
+                    <p>Inertia vs gravity</p>
+                </div>
+                <div class="ejss-badge">SOAR & TRANSFER</div>
+            </div>
+            <div class="slide-content">
+                <div class="two-col">
+                    <div>
+                        <h3 style="color: var(--accent-orange); margin-bottom: 12px;">The String is Cut!</h3>
+                        <p style="margin-bottom: 15px;">Imagine playing totem tennis and cutting the string mid-swing. The ball doesn't keep circling—it flies off in a straight line.</p>
+                        <p style="color: var(--text-main); font-weight: 600;">If the Sun instantly vanished, what would happen to Earth's orbital path?</p>
+                        <p style="margin-top: 10px; font-size: 15px;">Without the Sun's central gravitational pull, Earth's forward momentum would carry it out into deep space in a straight line.</p>
+                    </div>
+                    <div class="media-frame">
+                        <!-- Custom vector illustration of Voyager 1 probe moving along a straight-line vector -->
+                        <svg viewBox="0 0 400 300" width="100%" height="100%" style="background-color: #020617; border-radius: 8px;">
+                            <circle cx="30" cy="50" r="1" fill="#fff" opacity="0.3"/>
+                            <circle cx="120" cy="250" r="1.5" fill="#fff" opacity="0.5"/>
+                            <circle cx="340" cy="80" r="1" fill="#fff" opacity="0.4"/>
+                            <circle cx="220" cy="200" r="2" fill="#38bdf8" opacity="0.3"/>
+                            <circle cx="280" cy="40" r="1.5" fill="#fdba74" opacity="0.6"/>
+                            <circle cx="70" cy="160" r="1" fill="#fff" opacity="0.2"/>
+                            
+                            <line x1="50" y1="230" x2="350" y2="70" stroke="#ef4444" stroke-width="2" stroke-dasharray="6,4" opacity="0.6" />
+                            <polygon points="345,65 352,78 338,72" fill="#ef4444" opacity="0.8" />
+                            
+                            <g transform="translate(140, 150) rotate(-28)">
+                                <line x1="0" y1="0" x2="-80" y2="40" stroke="#94a3b8" stroke-width="2" />
+                                <line x1="0" y1="0" x2="30" y2="-50" stroke="#475569" stroke-width="3" />
+                                <rect x="25" y="-60" width="15" height="20" fill="#1e293b" rx="2" stroke="#94a3b8" stroke-width="1" />
+                                <polygon points="-15,10 15,10 20,-10 -20,-10" fill="#334155" stroke="#64748b" stroke-width="2" />
+                                <path d="M -40,-15 C -25,-40 25,-40 40,-15" fill="none" stroke="#f1f5f9" stroke-width="4" />
+                                <path d="M -40,-15 C -25,-40 25,-40 40,-15 L 40,-18 C 25,-43 -25,-43 -40,-18 Z" fill="#e2e8f0" />
+                                <line x1="0" y1="-30" x2="0" y2="-50" stroke="#cbd5e1" stroke-width="2" />
+                                <circle cx="0" cy="-50" r="3" fill="#cbd5e1" />
+                                <circle cx="-5" cy="5" r="8" fill="#eab308" stroke="#ca8a04" stroke-width="1.5" />
+                                <circle cx="-5" cy="5" r="2" fill="#713f12" />
+                            </g>
+                            
+                            <text x="310" y="100" font-family="'Plus Jakarta Sans', sans-serif" font-size="11" fill="#ef4444" font-weight="700">Straight Path</text>
+                            <text x="310" y="115" font-family="'Plus Jakarta Sans', sans-serif" font-size="9" fill="#94a3b8">Constant Inertia Vector</text>
+                            
+                            <text x="50" y="270" font-family="'Plus Jakarta Sans', sans-serif" font-size="11" fill="#38bdf8" font-weight="700">Voyager 1 Space Probe</text>
+                            <text x="50" y="282" font-family="'Plus Jakarta Sans', sans-serif" font-size="9" fill="#94a3b8">Interstellar flight trajectory</text>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+            <div class="teacher-notes-panel">
+                <i class="fa-solid fa-lightbulb"></i>
+                <p>Review the responses. Correct any misconceptions about the Earth floating or circling aimlessly; it travels in a straight line.</p>
+            </div>
+        </div>
+
+        <!-- SLIDE 12: Data Analysis Matrix -->
+        <div class="slide" id="slide-12">
+            <div class="slide-header">
+                <div class="slide-title-group">
+                    <h2>Scientific Data Matrix</h2>
+                    <p>Evaluating Gravity & Speed Relationships</p>
+                </div>
+                <div class="ejss-badge">SOAR & TRANSFER</div>
+            </div>
+            <div class="slide-content">
+                <p style="margin-bottom: 15px; color: var(--text-muted);">Analyze the planetary data below to uncover orbital trends:</p>
+                <table class="matrix-table">
+                    <thead>
+                        <tr>
+                            <th>Celestial Body</th>
+                            <th>Distance from the Sun (Mean)</th>
+                            <th>Average Orbital Velocity</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="font-weight: 700; color: #ffffff;">Mercury</td>
+                            <td>57.9 Million Kilometers</td>
+                            <td style="color: var(--accent-green); font-weight: 600;">47.4 km/s</td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight: 700; color: #ffffff;">Earth</td>
+                            <td>149.6 Million Kilometers</td>
+                            <td style="color: var(--accent-blue); font-weight: 600;">29.8 km/s</td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight: 700; color: #ffffff;">Neptune</td>
+                            <td>4,495.1 Million Kilometers</td>
+                            <td style="color: #ef4444; font-weight: 600;">5.4 km/s</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p style="margin-top: 15px; font-size: 15px; color: var(--accent-orange); font-weight: 600;">
+                    <i class="fa-solid fa-lightbulb"></i> Analysis Question: How does a planet's distance from the Sun's gravitational mass affect its orbital speed?
+                </p>
+            </div>
+            <div class="teacher-notes-panel">
+                <i class="fa-solid fa-lightbulb"></i>
+                <p>Guide students to see the core trend: gravity weakens with distance, meaning outer planets need less speed to stay in orbit.</p>
+            </div>
+        </div>
+
+        <!-- SLIDE 13: EJSS Self-Assessment Rubric -->
+        <div class="slide" id="slide-13">
+            <div class="slide-header">
+                <div class="slide-title-group">
+                    <h2>Self-Assessment</h2>
+                    <p>Track Your Progress</p>
+                </div>
+                <div class="ejss-badge">EJSS Standards</div>
+            </div>
+            <div class="slide-content">
+                <div class="card-grid">
+                    <div class="concept-card" style="border-top: 4px solid var(--text-muted);">
+                        <h3 style="color: var(--text-muted);"><i class="fa-solid fa-star"></i> Level 1</h3>
+                        <p>I can name the planets in order from the Sun and identify the center of the solar system.</p>
+                    </div>
+                    <div class="concept-card" style="border-top: 4px solid var(--accent-blue);">
+                        <h3><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i> Level 2</h3>
+                        <p>I can explain how the Sun’s gravity acts like an invisible tether to hold Earth in its orbit.</p>
+                    </div>
+                    <div class="concept-card" style="border-top: 4px solid var(--accent-orange);">
+                        <h3 style="color: var(--accent-orange);"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i> Level 3</h3>
+                        <p>I can critique the spatial limitations of 2D space diagrams by comparing scale sizes against real distances.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="teacher-notes-panel">
+                <i class="fa-solid fa-lightbulb"></i>
+                <p>Have students show their level using a discrete hand gesture against their chest (1, 2, or 3 fingers) as a quick check.</p>
+            </div>
+        </div>
+
+        <!-- SLIDE 14: Diagnostic Exit Card -->
+        <div class="slide" id="slide-14">
+            <div class="slide-header">
+                <div class="slide-title-group">
+                    <h2>Exit Card Challenge</h2>
+                    <p>Consolidating Your Understanding</p>
+                </div>
+                <div class="ejss-badge">DIAGNOSTIC CHECK</div>
+            </div>
+            <div class="slide-content">
+                <div style="background-color: var(--space-dark); border: 1px solid var(--space-border); padding: 30px; border-radius: 12px;">
+                    <h3 style="color: var(--accent-orange); margin-bottom: 15px;"><i class="fa-solid fa-ticket-simple"></i> Answer in your Science Journal:</h3>
+                    <ol class="custom-numbers" style="gap: 15px;">
+                        <li data-num="1">Define the term <strong>Orbit</strong> in your own words.</li>
+                        <li data-num="2">Identify two major limitations of representing the solar system inside a flat, two-dimensional model.</li>
+                        <li data-num="3">What invisible force keeps Earth from sailing out into space?</li>
+                    </ol>
+                </div>
+            </div>
+            <div class="teacher-notes-panel">
+                <i class="fa-solid fa-lightbulb"></i>
+                <p>Collect journals or exit slips at the door to assess student grasp of orbit mechanics before starting Lesson 2 next week.</p>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- PRESENTATION DECK CONTROLS -->
+    <div id="deck-controls">
+        <div class="control-btn-group">
+            <button class="toggle-btn" id="teacher-toggle-btn" onclick="toggleTeacherNotes()">
+                <i class="fa-solid fa-chalkboard-user"></i> Teacher Notes
+            </button>
+        </div>
+        
+        <div class="control-btn-group">
+            <button class="control-btn" id="prev-btn" onclick="navigateSlide(-1)" disabled>
+                <i class="fa-solid fa-chevron-left"></i>
+            </button>
+            <div id="slide-indicator">1 / 14</div>
+            <button class="control-btn" id="next-btn" onclick="navigateSlide(1)">
+                <i class="fa-solid fa-chevron-right"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- PRESENTEATION ENGINE JAVASCRIPT -->
+    <script>
+        let currentSlide = 1;
+        const totalSlides = 14;
+
+        // Slide Navigation Engine
+        function navigateSlide(direction) {
+            // Remove active status from current slide
+            const activeSlide = document.getElementById(`slide-${currentSlide}`);
+            activeSlide.classList.remove('active');
+
+            // Calculate target slide index
+            currentSlide += direction;
+            if (currentSlide < 1) currentSlide = 1;
+            if (currentSlide > totalSlides) currentSlide = totalSlides;
+
+            // Activate target slide
+            const targetSlide = document.getElementById(`slide-${currentSlide}`);
+            targetSlide.classList.add('active');
+
+            // Update UI State
+            document.getElementById('slide-indicator').textContent = `${currentSlide} / ${totalSlides}`;
+            document.getElementById('prev-btn').disabled = (currentSlide === 1);
+            document.getElementById('next-btn').disabled = (currentSlide === totalSlides);
+
+            // Handle simulation start/stop based on active slide
+            if (currentSlide === 9) {
+                startSimulation();
+            } else {
+                stopSimulation();
+            }
+        }
+
+        // Keyboard navigation listener (Left, Right, Spacebar)
+        document.addEventListener('keydown', function(event) {
+            if (event.key === "ArrowRight" || event.key === "Spacebar" || event.key === " ") {
+                if (currentSlide < totalSlides) {
+                    event.preventDefault();
+                    navigateSlide(1);
+                }
+            } else if (event.key === "ArrowLeft") {
+                if (currentSlide > 1) {
+                    event.preventDefault();
+                    navigateSlide(-1);
+                }
+            }
+        });
+
+        // Interactive Vocabulary Expansion Engine
+        function toggleVocab(cardElement) {
+            cardElement.classList.toggle('revealed');
+        }
+
+        // Teacher Notes Toggle
+        function toggleTeacherNotes() {
+            const toggleButton = document.getElementById('teacher-toggle-btn');
+            const notePanels = document.querySelectorAll('.teacher-notes-panel');
+            
+            toggleButton.classList.toggle('active');
+            
+            notePanels.forEach(panel => {
+                panel.classList.toggle('visible');
+            });
+        }
+
+        // Swipe Gestures for Touch Screens
+        let touchStartX = 0;
+        let touchEndX = 0;
+        
+        const gestureZone = document.getElementById('presentation-wrapper');
+        
+        gestureZone.addEventListener('touchstart', function(event) {
+            touchStartX = event.changedTouches[0].screenX;
+        }, false);
+        
+        gestureZone.addEventListener('touchend', function(event) {
+            touchEndX = event.changedTouches[0].screenX;
+            handleSwipe();
+        }, false);
+        
+        function handleSwipe() {
+            if (touchEndX < touchStartX - 50) {
+                // Swiped Left -> Next Slide
+                if (currentSlide < totalSlides) navigateSlide(1);
+            }
+            if (touchEndX > touchStartX + 50) {
+                // Swiped Right -> Previous Slide
+                if (currentSlide > 1) navigateSlide(-1);
+            }
+        }
+
+        /* =======================================================
+           EMBEDDED INTERACTIVE SOLAR MAP LOGIC (SLIDE 6)
+           ======================================================= */
+        const solarData = {
+            mercury: { name: "Mercury", zone: "Terrestrial (Inner)", comp: "Rocky / Metal Core", dist: "0.39 AU", temp: "167°C", fact: "The closest planet to the Sun. It lacks an atmosphere, making temperatures swing from roasting day to freezing space nights.", inner: true, rocky: true },
+            venus: { name: "Venus", zone: "Terrestrial (Inner)", comp: "Rocky Crust, Volcanic Mantle", dist: "0.72 AU", temp: "464°C", fact: "Hottest planet in our solar system because its super-thick atmosphere traps heat like a runaway greenhouse.", inner: true, rocky: true },
+            earth: { name: "Earth", zone: "Terrestrial (Inner)", comp: "Silicate Crust, Nickel Core", dist: "1.00 AU", temp: "15°C", fact: "Our liquid surface oceans, active magnetic field, and atmospheric pressure shield and support rich diverse life.", inner: true, rocky: true },
+            mars: { name: "Mars", zone: "Terrestrial (Inner)", comp: "Iron-Rich Basalt Crust", dist: "1.52 AU", temp: "-65°C", fact: "Commonly named the Red Planet because iron-oxide dust (rust) completely covers its geological surface.", inner: true, rocky: true },
+            asteroids: { name: "Asteroid Belt", zone: "Orbital Boundary Gap", comp: "Irregular Silicate Rocks", dist: "2.2 to 3.2 AU", temp: "-73°C", fact: "Jupiter's colossal gravity continuously scrambled this zone, preventing these rocky debris pieces from forming into a planet.", inner: null, rocky: null },
+            jupiter: { name: "Jupiter", zone: "Jovian Giant (Outer)", comp: "Liquid Metallic Hydrogen", dist: "5.20 AU", temp: "-110°C", fact: "The absolute largest planetary system. Its Great Red Spot is a powerful cyclone storm wider than planet Earth itself.", inner: false, rocky: false },
+            saturn: { name: "Saturn", zone: "Jovian Giant (Outer)", comp: "Compressed Gas Envelope", dist: "9.58 AU", temp: "-140°C", fact: "An immense gas world famous for its highly visible ring tracks made of billions of spinning ice rocks and dust sheets.", inner: false, rocky: false },
+            uranus: { name: "Uranus", zone: "Ice Giant (Outer)", comp: "Methane, Ice and Water Mantle", dist: "19.20 AU", temp: "-195°C", fact: "An ice giant that spins completely tilted on its side, rolling around its orbit loop like a bowling ball.", inner: false, rocky: false },
+            neptune: { name: "Neptune", zone: "Ice Giant (Outer)", comp: "Water, Methane Gas Envelope", dist: "30.05 AU", temp: "-200°C", fact: "Our windiest world. Deep atmospheric methane gas absorbs red light wavelengths, producing its blue appearance.", inner: false, rocky: false }
+        };
+
+        let activeBodyKey = "mercury";
+        let activeTab = "A";
+        const sortedBodies = {
+            rocky: [],
+            gas: []
+        };
+
+        function selectCelestialBody(key) {
+            // Update selected nodes on UI
+            document.querySelectorAll('.map-node').forEach(node => {
+                node.classList.remove('active-body');
+            });
+            const node = document.querySelector(`.node-${key === 'asteroids' ? 'belt' : key}`);
+            if (node) node.classList.add('active-body');
+
+            activeBodyKey = key;
+            const data = solarData[key];
+
+            // Render telemetry pane
+            document.getElementById('inspect-name').textContent = data.name;
+            document.getElementById('inspect-zone').textContent = data.zone;
+            document.getElementById('inspect-comp').textContent = data.comp;
+            document.getElementById('inspect-dist').textContent = data.dist;
+            document.getElementById('inspect-fact').textContent = data.fact;
+
+            // Clear interactive feedback fields
+            document.getElementById('feedback-task-a').style.display = "none";
+            document.getElementById('feedback-task-b').style.display = "none";
+            document.getElementById('feedback-task-c').style.display = "none";
+
+            // Contextual Auto Tab Redirect for Asteroids
+            if (key === "asteroids") {
+                switchTerminalTab("B");
+            } else if (activeTab === "B") {
+                switchTerminalTab("A");
+            }
+        }
+
+        function switchTerminalTab(tab) {
+            activeTab = tab;
+            document.querySelectorAll('.term-tab-btn').forEach(btn => btn.classList.remove('active-tab'));
+            document.querySelectorAll('.tab-content-pane').forEach(pane => pane.style.display = 'none');
+
+            if (tab === "A") {
+                document.getElementById('tab-a-trigger').classList.add('active-tab');
+                document.getElementById('pane-task-a').style.display = 'flex';
+            } else if (tab === "B") {
+                document.getElementById('tab-b-trigger').classList.add('active-tab');
+                document.getElementById('pane-task-b').style.display = 'flex';
+            } else if (tab === "C") {
+                document.getElementById('tab-c-trigger').classList.add('active-tab');
+                document.getElementById('pane-task-c').style.display = 'flex';
+            }
+        }
+
+        function verifyTaskA(isInnerPrediction) {
+            const current = solarData[activeBodyKey];
+            const feedback = document.getElementById('feedback-task-a');
+            feedback.style.display = "block";
+
+            if (current.inner === null) {
+                feedback.className = "interactive-feedback incorrect";
+                feedback.innerHTML = `<i class="fa-solid fa-triangle-exclamation"></i> The Asteroid Belt acts as the central boundary gap between the Inner and Outer regions!`;
+                return;
+            }
+
+            if (current.inner === isInnerPrediction) {
+                feedback.className = "interactive-feedback";
+                feedback.innerHTML = `<i class="fa-solid fa-circle-check"></i> <strong>Correct!</strong> ${current.name} orbits at ${current.dist} from the Sun, sitting cleanly in the ${current.inner ? 'Inner (Rocky)' : 'Outer (Gaseous)'} zone.`;
+            } else {
+                feedback.className = "interactive-feedback incorrect";
+                feedback.innerHTML = `<i class="fa-solid fa-circle-xmark"></i> <strong>Incorrect!</strong> Compare orbital telemetry: ${current.name} orbits at ${current.dist}. Inner planets must sit below 2.0 AU.`;
+            }
+        }
+
+        function verifyTaskB(optionIndex) {
+            const feedback = document.getElementById('feedback-task-b');
+            feedback.style.display = "block";
+
+            if (optionIndex === 2) {
+                feedback.className = "interactive-feedback";
+                feedback.innerHTML = `<i class="fa-solid fa-circle-check"></i> <strong>Incredibly Accurate!</strong> Jupiter's colossal gravitational mass continuously disrupted the orbital accretion orbits. It prevented these rocky dust leftovers from colliding and merging into a single planet.`;
+            } else {
+                feedback.className = "interactive-feedback incorrect";
+                feedback.innerHTML = `<i class="fa-solid fa-circle-xmark"></i> <strong>Incorrect:</strong> Reflect on Jupiter's mass. How would its enormous gravitational pull disrupt surrounding small bodies trying to stick together?`;
+            }
+        }
+
+        function sortMatter(assignToRocky) {
+            const current = solarData[activeBodyKey];
+            const feedback = document.getElementById('feedback-task-c');
+            feedback.style.display = "block";
+
+            if (current.rocky === null) {
+                feedback.className = "interactive-feedback incorrect";
+                feedback.innerHTML = `<i class="fa-solid fa-triangle-exclamation"></i> The Asteroid Belt is composed of small fragments, not a unified planet!`;
+                return;
+            }
+
+            const targetArray = assignToRocky ? sortedBodies.rocky : sortedBodies.gas;
+
+            if (current.rocky === assignToRocky) {
+                feedback.className = "interactive-feedback";
+                feedback.innerHTML = `<i class="fa-solid fa-circle-check"></i> <strong>Excellent!</strong> ${current.name} is classified as a ${current.rocky ? 'Terrestrial Rocky planet' : 'Jovian Gas Giant'}.`;
+
+                if (!targetArray.includes(current.name)) {
+                    targetArray.push(current.name);
+                    updateSortingHUD();
+                }
+            } else {
+                feedback.className = "interactive-feedback incorrect";
+                feedback.innerHTML = `<i class="fa-solid fa-circle-xmark"></i> <strong>Not Quite!</strong> ${current.name} has a density profile indicating it is composed mostly of ${current.rocky ? 'dense metals/rocks' : 'light gases/ices'}.`;
+            }
+        }
+
+        function updateSortingHUD() {
+            const rockyBucket = document.getElementById('rocky-bucket-items');
+            const gasBucket = document.getElementById('gas-bucket-items');
+
+            rockyBucket.innerHTML = sortedBodies.rocky.map(name => 
+                `<div class="sorted-item-badge"><i class="fa-solid fa-mountain"></i> ${name}</div>`
+            ).join('');
+
+            gasBucket.innerHTML = sortedBodies.gas.map(name => 
+                `<div class="sorted-item-badge" style="background-color:#1e3a1e; color:var(--accent-green);"><i class="fa-solid fa-cloud"></i> ${name}</div>`
+            ).join('');
+        }
+
+
+        /* =======================================================
+           EMBEDDED PHYSICS SIMULATOR FOR GRAVITY (SLIDE 9)
+           ======================================================= */
+        let canvas, ctx;
+        let animationFrameId;
+        let simRunning = false;
+
+        // Interactive Simulation Physics State
+        const physicsState = {
+            sunX: 300,
+            sunY: 175,
+            planetX: 300,
+            planetY: 75,
+            vx: 4.8,    // Velocities
+            vy: 0,
+            gravityForce: 0.23,
+            showGravityArrow: true,
+            showVelocityArrow: true,
+            gravityIsCut: false,
+            orbitAngle: 0,
+            radius: 100
+        };
+
+        function startSimulation() {
+            canvas = document.getElementById('vector-canvas');
+            if (!canvas) return;
+            ctx = canvas.getContext('2d');
+            
+            simRunning = true;
+            resetPhysicsOrbit();
+            physicsLoop();
+        }
+
+        function stopSimulation() {
+            simRunning = false;
+            if (animationFrameId) {
+                cancelAnimationFrame(animationFrameId);
+            }
+        }
+
+        function resetPhysicsOrbit() {
+            physicsState.planetX = 300 + physicsState.radius;
+            physicsState.planetY = 175;
+            physicsState.vx = 0;
+            physicsState.vy = 3.8; // tangent velocity
+            physicsState.gravityIsCut = false;
+
+            document.getElementById('btn-cut-gravity').style.display = 'block';
+            document.getElementById('btn-reset-physics').style.display = 'none';
+        }
+
+        function triggerGravityCut() {
+            physicsState.gravityIsCut = true;
+            document.getElementById('btn-cut-gravity').style.display = 'none';
+            document.getElementById('btn-reset-physics').style.display = 'block';
+        }
+
+        function toggleVectorDisplay() {
+            physicsState.showGravityArrow = document.getElementById('check-gravity-arrow').checked;
+            physicsState.showVelocityArrow = document.getElementById('check-velocity-arrow').checked;
+        }
+
+        function drawArrow(xFrom, yFrom, xTo, yTo, color) {
+            const headlen = 10; // length of head in pixels
+            const dx = xTo - xFrom;
+            const dy = yTo - yFrom;
+            const angle = Math.atan2(dy, dx);
+            
+            ctx.strokeStyle = color;
+            ctx.fillStyle = color;
+            ctx.lineWidth = 3;
+            
+            ctx.beginPath();
+            ctx.moveTo(xFrom, yFrom);
+            ctx.lineTo(xTo, yTo);
+            ctx.stroke();
+            
+            ctx.beginPath();
+            ctx.moveTo(xTo, yTo);
+            ctx.lineTo(xTo - headlen * Math.cos(angle - Math.PI / 6), yTo - headlen * Math.sin(angle - Math.PI / 6));
+            ctx.lineTo(xTo - headlen * Math.cos(angle + Math.PI / 6), yTo - headlen * Math.sin(angle + Math.PI / 6));
+            ctx.fill();
+        }
+
+        function physicsLoop() {
+            if (!simRunning) return;
+
+            // Clear Screen
+            ctx.fillStyle = "#090d16";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            // Draw Background Stars subtly
+            ctx.fillStyle = "rgba(255,255,255,0.1)";
+            ctx.fillRect(50, 40, 2, 2);
+            ctx.fillRect(550, 300, 2, 2);
+            ctx.fillRect(120, 280, 1, 1);
+            ctx.fillRect(400, 60, 2, 2);
+
+            // Draw Central Sun
+            ctx.shadowBlur = 20;
+            ctx.shadowColor = "#f59e0b";
+            ctx.beginPath();
+            ctx.arc(physicsState.sunX, physicsState.sunY, 25, 0, Math.PI * 2);
+            ctx.fillStyle = "#ea580c";
+            ctx.fill();
+            ctx.beginPath();
+            ctx.arc(physicsState.sunX, physicsState.sunY, 20, 0, Math.PI * 2);
+            ctx.fillStyle = "#fde047";
+            ctx.fill();
+            
+            ctx.shadowBlur = 0; // Reset shadow effects
+
+            // Physics Calculations
+            if (!physicsState.gravityIsCut) {
+                // Radial vectors towards Sun
+                const dx = physicsState.sunX - physicsState.planetX;
+                const dy = physicsState.sunY - physicsState.planetY;
+                const dist = Math.sqrt(dx * dx + dy * dy);
+                
+                // Normalised gravity force vector
+                const fx = (dx / dist) * physicsState.gravityForce;
+                const fy = (dy / dist) * physicsState.gravityForce;
+
+                physicsState.vx += fx;
+                physicsState.vy += fy;
+
+                // Draw stable orbit ring guide
+                ctx.strokeStyle = "rgba(56, 189, 248, 0.08)";
+                ctx.lineWidth = 1;
+                ctx.beginPath();
+                ctx.arc(physicsState.sunX, physicsState.sunY, physicsState.radius, 0, Math.PI * 2);
+                ctx.stroke();
+            }
+
+            // Update Planet Position coordinates
+            physicsState.planetX += physicsState.vx;
+            physicsState.planetY += physicsState.vy;
+
+            // Render Velocity Vector Arrow
+            if (physicsState.showVelocityArrow) {
+                const arrowLength = 15;
+                drawArrow(
+                    physicsState.planetX, 
+                    physicsState.planetY, 
+                    physicsState.planetX + physicsState.vx * arrowLength, 
+                    physicsState.planetY + physicsState.vy * arrowLength, 
+                    "#38bdf8"
+                );
+            }
+
+            // Render Gravitational Inward Pull Vector Arrow
+            if (physicsState.showGravityArrow && !physicsState.gravityIsCut) {
+                drawArrow(
+                    physicsState.planetX, 
+                    physicsState.planetY, 
+                    physicsState.planetX + (physicsState.sunX - physicsState.planetX) * 0.4, 
+                    physicsState.planetY + (physicsState.sunY - physicsState.planetY) * 0.4, 
+                    "#ef4444"
+                );
+            }
+
+            // Draw Planet Node
+            ctx.beginPath();
+            ctx.arc(physicsState.planetX, physicsState.planetY, 10, 0, Math.PI * 2);
+            ctx.fillStyle = "#0284c7";
+            ctx.strokeStyle = "#38bdf8";
+            ctx.lineWidth = 2;
+            ctx.fill();
+            ctx.stroke();
+
+            // Loop Frame update
+            animationFrameId = requestAnimationFrame(physicsLoop);
+        }
+    </script>
+</body>
+</html>
