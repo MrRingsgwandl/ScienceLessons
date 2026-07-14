@@ -3,255 +3,505 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Year 6 Science Portal: Earth & Space</title>
+    <title>Year 6 Science: When Planets Move</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;1,300&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        space: {
-                            dark: '#090d16',
-                            card: '#131a2b',
-                            border: '#222f4d',
-                            accentBlue: '#38bdf8',
-                            accentOrange: '#f59e0b',
-                            accentGreen: '#10b981',
-                        }
-                    },
-                    fontFamily: {
-                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
-                        serif: ['"Merriweather"', 'serif'],
-                    }
-                }
-            }
-        }
-    </script>
+    
     <style>
-        body {
-            background-color: #090d16;
-            background-image: 
-                radial-gradient(circle at 20% 30%, rgba(56, 189, 248, 0.05) 0%, transparent 40%),
-                radial-gradient(circle at 80% 70%, rgba(245, 158, 11, 0.05) 0%, transparent 45%);
+        :root {
+            --space-dark: #090d16;
+            --space-card: #131a2b;
+            --space-border: #222f4d;
+            --accent-blue: #38bdf8;
+            --accent-purple: #c084fc;
+            --accent-orange: #f59e0b;
+            --accent-green: #10b981;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --font-display: 'Merriweather', serif;
+            --font-body: 'Plus Jakarta Sans', sans-serif;
         }
-        .glow-hover:hover {
-            box-shadow: 0 0 25px rgba(56, 189, 248, 0.25);
-            border-color: #38bdf8;
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--space-dark);
+            color: var(--text-main);
+            font-family: var(--font-body);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background-image: radial-gradient(circle at top right, rgba(56, 189, 248, 0.05), transparent 40%),
+                              radial-gradient(circle at bottom left, rgba(192, 132, 252, 0.05), transparent 40%);
+        }
+
+        /* Top Navigation Header */
+        header {
+            background-color: rgba(19, 26, 43, 0.8);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--space-border);
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
+
+        .header-title {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .header-title i {
+            font-size: 24px;
+            color: var(--accent-blue);
+        }
+
+        .header-title h1 {
+            font-family: var(--font-display);
+            font-size: 22px;
+            font-weight: 700;
+        }
+
+        .header-title span {
+            font-size: 12px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: block;
+        }
+
+        .search-container {
+            position: relative;
+        }
+
+        .search-container i {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+        }
+
+        .search-input {
+            background-color: var(--space-dark);
+            border: 1px solid var(--space-border);
+            color: var(--text-main);
+            padding: 10px 15px 10px 40px;
+            border-radius: 30px;
+            font-family: var(--font-body);
+            font-size: 14px;
+            width: 250px;
+            transition: border-color 0.2s;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--accent-blue);
+        }
+
+        /* Main Content Container */
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            flex-grow: 1;
+            width: 100%;
+        }
+
+        .dashboard-intro {
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .dashboard-intro h2 {
+            font-family: var(--font-display);
+            font-size: 36px;
+            color: #ffffff;
+            margin-bottom: 10px;
+        }
+
+        .dashboard-intro p {
+            color: var(--text-muted);
+            font-size: 16px;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        /* Lesson Grid */
+        .lesson-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 30px;
+        }
+
+        /* Individual Card Styling */
+        .lesson-card {
+            background-color: var(--space-card);
+            border: 1px solid var(--space-border);
+            border-radius: 16px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+        }
+
+        .lesson-card:hover.active-card {
+            transform: translateY(-5px);
+            border-color: var(--accent-blue);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5), 0 0 15px rgba(56, 189, 248, 0.1);
+        }
+
+        .lesson-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--space-border);
+            transition: background 0.3s;
+        }
+
+        .lesson-card.active-card::before {
+            background: linear-gradient(90deg, var(--accent-blue), var(--accent-purple));
+        }
+
+        .card-header {
+            padding: 18px 22px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255,255,255,0.03);
+        }
+
+        .week-badge {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+            background-color: rgba(255,255,255,0.03);
+            padding: 4px 10px;
+            border-radius: 6px;
+        }
+
+        .status-badge {
+            font-size: 11px;
+            font-weight: 700;
+            padding: 5px 12px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .status-ready {
+            color: var(--accent-green);
+            background-color: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+        }
+
+        .status-locked {
+            color: #64748b;
+            background-color: rgba(100, 116, 139, 0.1);
+            border: 1px dashed rgba(100, 116, 139, 0.3);
+        }
+
+        .card-body {
+            padding: 25px 22px;
+            flex-grow: 1;
+        }
+
+        .card-title {
+            font-family: var(--font-display);
+            font-size: 20px;
+            color: #ffffff;
+            margin-bottom: 10px;
+            line-height: 1.3;
+        }
+        
+        .lesson-card.locked-card .card-title {
+            color: #94a3b8;
+        }
+
+        .card-desc {
+            font-size: 14px;
+            color: var(--text-muted);
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .topic-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .tag {
+            font-size: 10px;
+            font-weight: 600;
+            color: var(--accent-blue);
+            background-color: rgba(56, 189, 248, 0.05);
+            padding: 4px 8px;
+            border-radius: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .lesson-card.locked-card .tag {
+            color: #64748b;
+            background-color: rgba(255,255,255,0.02);
+        }
+
+        .card-footer {
+            padding: 20px 22px;
+            background-color: rgba(0,0,0,0.15);
+            border-top: 1px solid var(--space-border);
+        }
+
+        .launch-btn {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 700;
+            transition: all 0.2s ease;
+        }
+
+        .launch-btn.btn-active {
+            background-color: rgba(56, 189, 248, 0.1);
+            color: var(--accent-blue);
+            border: 1px solid rgba(56, 189, 248, 0.3);
+        }
+
+        .launch-btn.btn-active:hover {
+            background-color: rgba(56, 189, 248, 0.2);
+            transform: scale(1.02);
+        }
+
+        .launch-btn.btn-locked {
+            background-color: transparent;
+            color: #475569;
+            border: 1px dashed #334155;
+            cursor: not-allowed;
+            pointer-events: none;
+        }
+        
+        /* Empty State for Search */
+        .no-results {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 60px 20px;
+            background: var(--space-card);
+            border-radius: 12px;
+            border: 1px dashed var(--space-border);
+            color: var(--text-muted);
+            display: none;
         }
     </style>
 </head>
-<body class="font-sans text-slate-200 min-h-screen flex flex-col justify-between">
+<body>
 
-    <!-- MAIN PORTAL CONTAINER -->
-    <main class="max-w-6xl w-full mx-auto px-6 py-12 flex-grow">
-        
-        <!-- Header / Hero Section -->
-        <header class="text-center mb-16 relative">
-            <div class="absolute -top-10 left-1/2 -translate-x-1/2 w-40 h-40 bg-space-accentBlue/10 rounded-full filter blur-3xl pointer-events-none"></div>
-            
-            <p class="text-space-accentBlue font-bold tracking-widest text-sm uppercase mb-3">Interactive Curriculum Portal</p>
-            <h1 class="font-serif font-bold text-4xl md:text-5xl lg:text-6xl text-white leading-tight mb-4">
-                Earth & Space Sciences
-            </h1>
-            <div class="h-1 w-24 bg-gradient-to-r from-space-accentBlue via-space-accentOrange to-space-accentGreen mx-auto rounded-full mb-6"></div>
-            <p class="text-slate-400 text-lg max-w-2xl mx-auto">
-                Year 6 Core Curriculum Decks, Interactive Simulators, and Diagnostic Checkpoints. Designed to follow Australian Science Curriculum Standards.
-            </p>
-        </header>
-
-        <!-- Search and Filter Bar -->
-        <div class="mb-10 flex flex-col md:flex-row gap-4 items-center justify-between bg-space-card/50 border border-space-border/60 p-4 rounded-2xl backdrop-blur-sm">
-            <div class="relative w-full md:w-80">
-                <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-slate-500"></i>
-                <input type="text" id="search-input" onkeyup="filterLessons()" placeholder="Search lessons..." class="w-full bg-space-dark border border-space-border text-white rounded-xl py-2.5 pl-11 pr-4 text-sm focus:outline-none focus:ring-2 focus:ring-space-accentBlue transition">
-            </div>
-            <div class="flex gap-2 w-full md:w-auto overflow-x-auto pb-1 md:pb-0">
-                <button onclick="filterType('all')" class="type-filter-btn px-4 py-2 text-xs font-semibold rounded-full bg-space-accentBlue text-space-dark hover:opacity-90 transition whitespace-nowrap" data-filter="all">All Modules</button>
-                <button onclick="filterType('active')" class="type-filter-btn px-4 py-2 text-xs font-semibold rounded-full bg-space-card border border-space-border text-slate-300 hover:border-space-accentBlue hover:text-white transition whitespace-nowrap" data-filter="active">Active Decks</button>
-                <button onclick="filterType('coming')" class="type-filter-btn px-4 py-2 text-xs font-semibold rounded-full bg-space-card border border-space-border text-slate-300 hover:border-space-accentBlue hover:text-white transition whitespace-nowrap" data-filter="coming">Upcoming</button>
+    <header>
+        <div class="header-title">
+            <i class="fa-solid fa-meteor"></i>
+            <div>
+                <span>Eagle Junction State School</span>
+                <h1>Year 6 Science Portal</h1>
             </div>
         </div>
+        <div class="search-container">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" id="lessonSearch" class="search-input" placeholder="Search lessons..." onkeyup="filterLessons()">
+        </div>
+    </header>
 
-        <!-- Lessons Grid -->
-        <div id="lessons-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+    <main>
+        <div class="dashboard-intro">
+            <h2>When Planets Move</h2>
+            <p>Interactive simulations, explicit teaching modules, and diagnostic checks exploring Earth and Space Sciences. Select an active lesson to launch the presentation deck.</p>
+        </div>
+
+        <div class="lesson-grid" id="lessonGrid">
             
-            <!-- LESSON 1: The Cosmic Tether (Active) -->
-            <article class="lesson-card group bg-space-card border border-space-border/80 rounded-2xl overflow-hidden flex flex-col justify-between transition-all duration-300 transform hover:-translate-y-1.5 glow-hover" data-status="active">
-                <div class="p-6">
-                    <div class="flex items-center justify-between mb-4">
-                        <span class="px-3 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider bg-space-accentBlue/10 border border-space-accentBlue/30 text-space-accentBlue">Week 1</span>
-                        <span class="text-xs font-semibold text-space-accentGreen flex items-center gap-1.5"><i class="fa-solid fa-circle-check"></i> Ready to Teach</span>
-                    </div>
-                    <div class="mb-5 p-4 bg-space-dark rounded-xl border border-space-border/50 flex items-center justify-center text-space-accentBlue group-hover:scale-105 transition-transform duration-300">
-                        <i class="fa-solid fa-satellite-dish text-4xl"></i>
-                    </div>
-                    <h3 class="font-serif font-bold text-xl text-white group-hover:text-space-accentBlue transition duration-200 mb-2">Lesson 1: The Cosmic Tether</h3>
-                    <p class="text-slate-400 text-sm leading-relaxed mb-4">Explore early cosmological views, map AU coordinates, and experiment with real orbital physics vector models.</p>
-                    <div class="flex flex-wrap gap-1.5">
-                        <span class="text-[10px] px-2 py-0.5 bg-space-dark text-slate-400 border border-space-border rounded">Orbit Physics</span>
-                        <span class="text-[10px] px-2 py-0.5 bg-space-dark text-slate-400 border border-space-border rounded">AU Scale</span>
-                        <span class="text-[10px] px-2 py-0.5 bg-space-dark text-slate-400 border border-space-border rounded">Interactive Sim</span>
+            <!-- LESSON 1 CARD -->
+            <div class="lesson-card active-card" data-title="the cosmic tether gravity">
+                <div class="card-header">
+                    <span class="week-badge">Lesson 1</span>
+                    <span class="status-badge status-ready"><i class="fa-solid fa-check-circle"></i> Ready</span>
+                </div>
+                <div class="card-body">
+                    <h3 class="card-title">The Cosmic Tether</h3>
+                    <p class="card-desc">Exploring early geocentric models of the universe and testing structural orbital forces and gravity.</p>
+                    <div class="topic-tags">
+                        <span class="tag">Gravity Vectors</span>
+                        <span class="tag">Solar System Map</span>
                     </div>
                 </div>
-                <div class="p-6 pt-0 border-t border-space-border/40 mt-auto">
-                    <a href="./week1_cosmic_tether.html" class="w-full inline-flex items-center justify-center gap-2 bg-gradient-to-r from-space-accentBlue to-sky-600 text-space-dark font-bold text-sm py-3 px-4 rounded-xl hover:opacity-95 active:scale-98 transition">
-                        Launch Lesson Deck <i class="fa-solid fa-circle-play text-sm"></i>
+                <div class="card-footer">
+                    <a href="./week1_cosmic_tether.html" class="launch-btn btn-active">
+                        Launch Deck <i class="fa-solid fa-arrow-right"></i>
                     </a>
                 </div>
-            </article>
-
-            <!-- LESSON 2: Gravity & The Mass Curve (Placeholder - Coming Soon) -->
-            <article class="lesson-card group bg-space-card/60 border border-space-border/40 rounded-2xl overflow-hidden flex flex-col justify-between transition-all duration-300 opacity-75 hover:opacity-90" data-status="coming">
-                <div class="p-6">
-                    <div class="flex items-center justify-between mb-4">
-                        <span class="px-3 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider bg-slate-800 border border-slate-700 text-slate-400">Week 2</span>
-                        <span class="text-xs font-semibold text-space-accentOrange flex items-center gap-1.5"><i class="fa-solid fa-hourglass-half"></i> Coming Soon</span>
-                    </div>
-                    <div class="mb-5 p-4 bg-space-dark/40 rounded-xl border border-space-border/20 flex items-center justify-center text-space-accentOrange">
-                        <i class="fa-solid fa-weight-hanging text-4xl opacity-50"></i>
-                    </div>
-                    <h3 class="font-serif font-bold text-xl text-slate-300 mb-2">Lesson 2: Elliptical Curvature</h3>
-                    <p class="text-slate-400 text-sm leading-relaxed mb-4">Unpack Kepler's laws, model oval paths on grid scales, and chart real orbital speed data patterns.</p>
-                    <div class="flex flex-wrap gap-1.5">
-                        <span class="text-[10px] px-2 py-0.5 bg-space-dark/40 text-slate-500 border border-space-border/20 rounded">Kepler's Law</span>
-                        <span class="text-[10px] px-2 py-0.5 bg-space-dark/40 text-slate-500 border border-space-border/20 rounded">Gravity Wells</span>
-                    </div>
-                </div>
-                <div class="p-6 pt-0 border-t border-space-border/20 mt-auto">
-                    <button disabled class="w-full inline-flex items-center justify-center gap-2 bg-slate-800 text-slate-500 font-bold text-sm py-3 px-4 rounded-xl cursor-not-allowed">
-                        <i class="fa-solid fa-lock text-xs"></i> Locked (In Development)
-                    </button>
-                </div>
-            </article>
-
-            <!-- LESSON 3: Planetary Spin & Atmosphere (Placeholder - Coming Soon) -->
-            <article class="lesson-card group bg-space-card/60 border border-space-border/40 rounded-2xl overflow-hidden flex flex-col justify-between transition-all duration-300 opacity-75 hover:opacity-90" data-status="coming">
-                <div class="p-6">
-                    <div class="flex items-center justify-between mb-4">
-                        <span class="px-3 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider bg-slate-800 border border-slate-700 text-slate-400">Week 3</span>
-                        <span class="text-xs font-semibold text-space-accentOrange flex items-center gap-1.5"><i class="fa-solid fa-hourglass-half"></i> Coming Soon</span>
-                    </div>
-                    <div class="mb-5 p-4 bg-space-dark/40 rounded-xl border border-space-border/20 flex items-center justify-center text-space-accentGreen">
-                        <i class="fa-solid fa-wind text-4xl opacity-50"></i>
-                    </div>
-                    <h3 class="font-serif font-bold text-xl text-slate-300 mb-2">Lesson 3: Atmospheric Barriers</h3>
-                    <p class="text-slate-400 text-sm leading-relaxed mb-4">Compare pressure structures, examine volatile gas properties, and analyze greenhouse mechanics.</p>
-                    <div class="flex flex-wrap gap-1.5">
-                        <span class="text-[10px] px-2 py-0.5 bg-space-dark/40 text-slate-500 border border-space-border/20 rounded">Atmosphere</span>
-                        <span class="text-[10px] px-2 py-0.5 bg-space-dark/40 text-slate-500 border border-space-border/20 rounded">Gas Giants</span>
-                    </div>
-                </div>
-                <div class="p-6 pt-0 border-t border-space-border/20 mt-auto">
-                    <button disabled class="w-full inline-flex items-center justify-center gap-2 bg-slate-800 text-slate-500 font-bold text-sm py-3 px-4 rounded-xl cursor-not-allowed">
-                        <i class="fa-solid fa-lock text-xs"></i> Locked (In Development)
-                    </button>
-                </div>
-            </article>
-
-        </div>
-
-        <!-- Teacher Tip Box -->
-        <div class="mt-16 bg-space-card border border-space-border rounded-2xl p-6 relative overflow-hidden">
-            <div class="absolute top-0 right-0 p-4 opacity-10 text-space-accentBlue pointer-events-none">
-                <i class="fa-solid fa-laptop-code text-7xl"></i>
             </div>
-            <div class="flex items-start gap-4">
-                <div class="p-3 bg-space-accentBlue/10 text-space-accentBlue rounded-xl shrink-0 mt-1">
-                    <i class="fa-solid fa-circle-info"></i>
+
+            <!-- LESSON 2 CARD (UNLOCKED) -->
+            <div class="lesson-card active-card" data-title="elliptical curvature orbits speed">
+                <div class="card-header">
+                    <span class="week-badge">Lesson 2</span>
+                    <span class="status-badge status-ready"><i class="fa-solid fa-check-circle"></i> Ready</span>
                 </div>
-                <div>
-                    <h4 class="font-serif font-bold text-lg text-white mb-2">Teacher & Host Tip: Creating More Lessons</h4>
-                    <p class="text-slate-400 text-sm leading-relaxed mb-4">
-                        To add your next lesson, simply build/rename a new HTML file (e.g., <code class="text-space-accentBlue font-mono">week2_elliptical.html</code>), place it in the same repository, and duplicate the Card block in this index code to link to it!
-                    </p>
-                    <button onclick="toggleTeacherInstructions()" class="text-xs font-bold text-space-accentBlue hover:underline flex items-center gap-1.5">
-                        <i class="fa-solid fa-chevron-down" id="inst-arrow"></i> Toggle GitHub Pages Guide
-                    </button>
-                    
-                    <div id="instructions-panel" class="hidden mt-4 pt-4 border-t border-space-border/60 text-xs text-slate-400 space-y-2">
-                        <p class="font-bold text-slate-200">GitHub Pages Setup Flow:</p>
-                        <ol class="list-decimal list-inside space-y-1.5 ml-1">
-                            <li>Ensure this directory structure exists in your GitHub repository:</li>
-                            <li class="font-mono text-space-accentBlue list-none pl-4 py-1 bg-space-dark/80 rounded my-1">
-                                ├── index.html<br>
-                                └── week1_cosmic_tether.html
-                            </li>
-                            <li>Go to your GitHub Repository Settings → <strong class="text-slate-300">Pages</strong> tab.</li>
-                            <li>Choose <strong class="text-slate-300">Deploy from a branch</strong>, select your main branch, and click <strong class="text-slate-300">Save</strong>.</li>
-                            <li>Your lessons will now be live on your custom web address!</li>
-                        </ol>
+                <div class="card-body">
+                    <h3 class="card-title">Elliptical Curvature</h3>
+                    <p class="card-desc">Investigating Kepler's laws, oval orbits, and how planets change speed as they approach the Sun.</p>
+                    <div class="topic-tags">
+                        <span class="tag">Kepler Mechanics</span>
+                        <span class="tag">Area Sweeping</span>
                     </div>
+                </div>
+                <div class="card-footer">
+                    <a href="./week2_elliptical.html" class="launch-btn btn-active">
+                        Launch Deck <i class="fa-solid fa-arrow-right"></i>
+                    </a>
                 </div>
             </div>
-        </div>
 
+            <!-- LESSON 3 CARD (UNLOCKED) -->
+            <div class="lesson-card active-card" data-title="rotating revolving day night spin orbit">
+                <div class="card-header">
+                    <span class="week-badge">Lesson 3</span>
+                    <span class="status-badge status-ready"><i class="fa-solid fa-check-circle"></i> Ready</span>
+                </div>
+                <div class="card-body">
+                    <h3 class="card-title">Rotating and Revolving</h3>
+                    <p class="card-desc">Unpacking the mechanics of day and night (spin) versus the journey of a solar year (orbit).</p>
+                    <div class="topic-tags">
+                        <span class="tag">Terminator Line</span>
+                        <span class="tag">Dual Physics</span>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <a href="./week3_rotation_revolution.html" class="launch-btn btn-active">
+                        Launch Deck <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- LESSON 4 CARD (LOCKED) -->
+            <div class="lesson-card locked-card" data-title="earths tilt seasons">
+                <div class="card-header">
+                    <span class="week-badge">Lesson 4</span>
+                    <span class="status-badge status-locked"><i class="fa-solid fa-lock"></i> Locked</span>
+                </div>
+                <div class="card-body">
+                    <h3 class="card-title">Earth's Tilt</h3>
+                    <p class="card-desc">Discovering how the 23.5-degree axial tilt distributes sunlight and drives the cycle of the seasons.</p>
+                    <div class="topic-tags">
+                        <span class="tag">Seasons</span>
+                        <span class="tag">Hemispheres</span>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <a href="#" class="launch-btn btn-locked">
+                        Module In Development
+                    </a>
+                </div>
+            </div>
+
+            <!-- LESSON 5 CARD (LOCKED) -->
+            <div class="lesson-card locked-card" data-title="timekeeping night sky constellations">
+                <div class="card-header">
+                    <span class="week-badge">Lesson 5</span>
+                    <span class="status-badge status-locked"><i class="fa-solid fa-lock"></i> Locked</span>
+                </div>
+                <div class="card-body">
+                    <h3 class="card-title">Timekeeping & The Night Sky</h3>
+                    <p class="card-desc">Tracing cultural constellations and understanding how ancient societies mapped the stars to tell time.</p>
+                    <div class="topic-tags">
+                        <span class="tag">Constellations</span>
+                        <span class="tag">Astronomy</span>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <a href="#" class="launch-btn btn-locked">
+                        Module In Development
+                    </a>
+                </div>
+            </div>
+
+            <!-- LESSON 6 CARD (LOCKED) -->
+            <div class="lesson-card locked-card" data-title="exploring space technology">
+                <div class="card-header">
+                    <span class="week-badge">Lesson 6</span>
+                    <span class="status-badge status-locked"><i class="fa-solid fa-lock"></i> Locked</span>
+                </div>
+                <div class="card-body">
+                    <h3 class="card-title">Exploring Space</h3>
+                    <p class="card-desc">A deep dive into the technology, probes, and history of humanity's journey beyond our atmosphere.</p>
+                    <div class="topic-tags">
+                        <span class="tag">Space Tech</span>
+                        <span class="tag">Exploration</span>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <a href="#" class="launch-btn btn-locked">
+                        Module In Development
+                    </a>
+                </div>
+            </div>
+
+            <!-- Empty State for Search -->
+            <div class="no-results" id="noResultsMsg">
+                <i class="fa-solid fa-satellite" style="font-size: 32px; color: #475569; margin-bottom: 15px;"></i>
+                <h3 style="color: var(--text-main); margin-bottom: 5px;">No lessons found</h3>
+                <p>Try adjusting your search terms.</p>
+            </div>
+
+        </div>
     </main>
 
-    <!-- FOOTER -->
-    <footer class="w-full bg-space-card/20 border-t border-space-border py-6 text-center text-xs text-slate-500 mt-12 z-10">
-        <div class="max-w-6xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4">
-            <p>&copy; 2026 Space Curriculum Portal. All science modules are calibrated to primary Year 6 requirements.</p>
-            <div class="flex gap-4">
-                <a href="https://github.com" target="_blank" class="hover:text-space-accentBlue transition"><i class="fa-brands fa-github text-base"></i></a>
-            </div>
-        </div>
-    </footer>
-
-    <!-- INTERACTION SCRIPTS -->
     <script>
+        // Simple search filter function for the dashboard
         function filterLessons() {
-            const query = document.getElementById('search-input').value.toLowerCase();
+            const searchInput = document.getElementById('lessonSearch').value.toLowerCase();
             const cards = document.querySelectorAll('.lesson-card');
-            
+            let visibleCount = 0;
+
             cards.forEach(card => {
-                const title = card.querySelector('h3').textContent.toLowerCase();
-                const description = card.querySelector('p').textContent.toLowerCase();
-                if (title.includes(query) || description.includes(query)) {
+                // Check against the hidden data-title attribute which contains keywords
+                const searchKeywords = card.getAttribute('data-title').toLowerCase();
+                
+                if (searchKeywords.includes(searchInput)) {
                     card.style.display = 'flex';
+                    visibleCount++;
                 } else {
                     card.style.display = 'none';
                 }
             });
-        }
 
-        function filterType(status) {
-            // Update filter buttons appearance
-            const buttons = document.querySelectorAll('.type-filter-btn');
-            buttons.forEach(btn => {
-                if (btn.getAttribute('data-filter') === status) {
-                    btn.className = "type-filter-btn px-4 py-2 text-xs font-semibold rounded-full bg-space-accentBlue text-space-dark hover:opacity-90 transition whitespace-nowrap";
-                } else {
-                    btn.className = "type-filter-btn px-4 py-2 text-xs font-semibold rounded-full bg-space-card border border-space-border text-slate-300 hover:border-space-accentBlue hover:text-white transition whitespace-nowrap";
-                }
-            });
-
-            // Filter cards on viewport
-            const cards = document.querySelectorAll('.lesson-card');
-            cards.forEach(card => {
-                const cardStatus = card.getAttribute('data-status');
-                if (status === 'all' || cardStatus === status) {
-                    card.style.display = 'flex';
-                } else {
-                    card.style.display = 'none';
-                }
-            });
-        }
-
-        function toggleTeacherInstructions() {
-            const panel = document.getElementById('instructions-panel');
-            const arrow = document.getElementById('inst-arrow');
-            const isHidden = panel.classList.contains('hidden');
-            
-            if (isHidden) {
-                panel.classList.remove('hidden');
-                arrow.className = "fa-solid fa-chevron-up";
+            // Handle empty state display
+            const noResults = document.getElementById('noResultsMsg');
+            if (visibleCount === 0) {
+                noResults.style.display = 'block';
             } else {
-                panel.classList.add('hidden');
-                arrow.className = "fa-solid fa-chevron-down";
+                noResults.style.display = 'none';
             }
         }
     </script>
