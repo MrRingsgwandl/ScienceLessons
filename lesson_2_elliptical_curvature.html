@@ -1,0 +1,1714 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Year 6 Science: When Planets Move - Lesson 2</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;1,300&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <style>
+        :root {
+            --space-dark: #090d16;
+            --space-card: #131a2b;
+            --space-border: #222f4d;
+            --accent-blue: #38bdf8;
+            --accent-blue-hover: #0ea5e9;
+            --accent-orange: #f59e0b;
+            --accent-green: #10b981;
+            --accent-red: #ef4444;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --font-display: 'Merriweather', serif;
+            --font-body: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: var(--space-dark);
+            color: var(--text-main);
+            font-family: var(--font-body);
+            height: 100vh;
+            width: 100vw;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        #presentation-wrapper {
+            flex-grow: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            padding: 20px;
+            overflow: hidden;
+        }
+
+        .slide {
+            display: none;
+            width: 100%;
+            max-width: 1200px;
+            height: 100%;
+            max-height: 675px; 
+            background-color: var(--space-card);
+            border: 1px solid var(--space-border);
+            border-radius: 16px;
+            padding: 40px 60px;
+            position: relative;
+            flex-direction: column;
+            justify-content: space-between;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            opacity: 0;
+            transform: scale(0.98);
+        }
+
+        .slide.active {
+            display: flex;
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .slide::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 8px;
+            background: linear-gradient(90deg, var(--accent-orange), var(--accent-blue), var(--accent-green));
+            border-top-left-radius: 16px;
+            border-top-right-radius: 16px;
+        }
+
+        .slide-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            border-left: 5px solid var(--accent-orange);
+            padding-left: 18px;
+            margin-bottom: 20px;
+            height: 65px;
+        }
+
+        .slide-title-group h2 {
+            font-family: var(--font-display);
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--text-main);
+            line-height: 1.2;
+        }
+
+        .slide-title-group p {
+            color: var(--text-muted);
+            font-size: 14px;
+            margin-top: 4px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .ejss-badge {
+            background: rgba(245, 158, 11, 0.1);
+            border: 1px solid rgba(245, 158, 11, 0.3);
+            color: var(--accent-orange);
+            padding: 6px 14px;
+            border-radius: 30px;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            white-space: nowrap;
+        }
+
+        .slide-content {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            width: 100%;
+            overflow: hidden;
+            padding-right: 8px;
+        }
+
+        .two-col {
+            display: grid;
+            grid-template-columns: 1.15fr 0.85fr;
+            gap: 35px;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+        }
+
+        .two-col-equal {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            align-items: start;
+            width: 100%;
+        }
+
+        .media-frame {
+            background-color: var(--space-dark);
+            border: 2px solid var(--space-border);
+            border-radius: 12px;
+            overflow: hidden;
+            height: 340px;
+            width: 100%;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .media-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(9, 13, 22, 0.85);
+            padding: 10px 15px;
+            font-size: 13px;
+            color: var(--text-muted);
+            border-top: 1px solid var(--space-border);
+            text-align: center;
+        }
+
+        .hero-layout {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero-layout h1 {
+            font-family: var(--font-display);
+            font-size: 54px;
+            font-weight: 700;
+            color: #ffffff;
+            line-height: 1.15;
+            margin-bottom: 15px;
+            text-shadow: 0 4px 12px rgba(0,0,0,0.5);
+        }
+
+        .hero-divider {
+            height: 4px;
+            width: 100px;
+            background: linear-gradient(90deg, var(--accent-orange), var(--accent-blue));
+            margin: 20px auto;
+            border-radius: 2px;
+        }
+
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            width: 100%;
+        }
+
+        .concept-card {
+            background-color: var(--space-dark);
+            border: 1px solid var(--space-border);
+            border-radius: 12px;
+            padding: 20px;
+            transition: all 0.2s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .concept-card:hover {
+            border-color: var(--accent-orange);
+            transform: translateY(-3px);
+        }
+
+        .concept-card h3 {
+            font-family: var(--font-display);
+            font-size: 18px;
+            color: var(--accent-orange);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .concept-card p {
+            font-size: 14px;
+            line-height: 1.5;
+            color: var(--text-muted);
+        }
+
+        .vocab-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            width: 100%;
+        }
+
+        .vocab-card {
+            background-color: var(--space-dark);
+            border: 1px solid var(--space-border);
+            border-radius: 12px;
+            padding: 25px;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            min-height: 140px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .vocab-card::after {
+            content: 'Click Card to Reveal Explanation';
+            position: absolute;
+            bottom: 12px;
+            right: 15px;
+            font-size: 11px;
+            color: var(--accent-orange);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 600;
+            opacity: 0.7;
+            transition: opacity 0.2s ease;
+        }
+
+        .vocab-card.revealed::after {
+            content: 'Click to Hide Definition';
+            color: var(--accent-blue);
+        }
+
+        .vocab-word {
+            font-family: var(--font-display);
+            font-size: 22px;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 5px;
+            transition: color 0.3s ease;
+        }
+
+        .vocab-card.revealed .vocab-word {
+            color: var(--accent-orange);
+        }
+
+        .vocab-def {
+            font-size: 14px;
+            line-height: 1.6;
+            color: var(--text-muted);
+            margin-top: 10px;
+            display: none;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .vocab-card.revealed .vocab-def {
+            display: block;
+            opacity: 1;
+        }
+
+        ul.custom-bullets, ol.custom-numbers {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        ul.custom-bullets li {
+            position: relative;
+            padding-left: 28px;
+            font-size: 16px;
+            line-height: 1.5;
+            color: var(--text-muted);
+        }
+
+        ul.custom-bullets li::before {
+            content: "\f058";
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            position: absolute;
+            left: 0;
+            top: 2px;
+            color: var(--accent-orange);
+            font-size: 16px;
+        }
+
+        ol.custom-numbers li {
+            position: relative;
+            padding-left: 36px;
+            font-size: 16px;
+            line-height: 1.5;
+            color: var(--text-muted);
+        }
+
+        ol.custom-numbers li::before {
+            content: attr(data-num);
+            position: absolute;
+            left: 0;
+            top: 1px;
+            background-color: var(--space-border);
+            color: var(--accent-orange);
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .matrix-table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: var(--space-dark);
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid var(--space-border);
+        }
+
+        .matrix-table th {
+            background-color: rgba(255,255,255,0.02);
+            color: var(--accent-orange);
+            font-family: var(--font-display);
+            font-size: 16px;
+            font-weight: 700;
+            padding: 14px 20px;
+            text-align: left;
+            border-bottom: 2px solid var(--space-border);
+        }
+
+        .matrix-table td {
+            padding: 14px 20px;
+            border-bottom: 1px solid var(--space-border);
+            font-size: 15px;
+            color: var(--text-muted);
+        }
+
+        .teacher-notes-panel {
+            background-color: rgba(245, 158, 11, 0.05);
+            border-top: 1px solid rgba(245, 158, 11, 0.2);
+            padding: 15px 60px;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            z-index: 10;
+            transition: transform 0.3s ease;
+            transform: translateY(100%);
+            height: 70px;
+        }
+
+        .teacher-notes-panel.visible {
+            transform: translateY(0);
+        }
+
+        .teacher-notes-panel i {
+            color: var(--accent-orange);
+            font-size: 20px;
+        }
+
+        .teacher-notes-panel p {
+            font-size: 13px;
+            color: #fcd34d;
+            font-style: italic;
+            line-height: 1.4;
+        }
+
+        #deck-controls {
+            background-color: #0b0f19;
+            border-top: 1px solid var(--space-border);
+            padding: 15px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 20;
+        }
+
+        .control-btn-group {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .control-btn {
+            background-color: var(--space-card);
+            border: 1px solid var(--space-border);
+            color: var(--text-main);
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .control-btn:hover:not(:disabled) {
+            border-color: var(--accent-orange);
+            color: var(--accent-orange);
+            background-color: rgba(245, 158, 11, 0.05);
+        }
+
+        .control-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        .toggle-btn {
+            background-color: var(--space-card);
+            border: 1px solid var(--space-border);
+            color: var(--text-muted);
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s ease;
+        }
+
+        .toggle-btn.active {
+            border-color: var(--accent-orange);
+            color: var(--accent-orange);
+            background-color: rgba(245, 158, 11, 0.08);
+        }
+
+        #slide-indicator {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-muted);
+            background-color: var(--space-card);
+            border: 1px solid var(--space-border);
+            padding: 6px 16px;
+            border-radius: 20px;
+        }
+
+        .ellipse-sim-panel {
+            background-color: var(--space-dark);
+            border: 2px solid var(--space-border);
+            border-radius: 12px;
+            height: 440px;
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            box-shadow: inset 0 0 30px rgba(245, 158, 11, 0.04);
+        }
+
+        .ellipse-canvas {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+
+        .physics-terminal {
+            background-color: #111827;
+            border: 1px solid var(--space-border);
+            border-radius: 12px;
+            height: 440px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .terminal-tabs {
+            display: flex;
+            background-color: rgba(15, 23, 42, 0.6);
+            border-bottom: 1px solid var(--space-border);
+        }
+
+        .term-tab-btn {
+            flex: 1;
+            padding: 14px 4px;
+            background: none;
+            border: none;
+            border-bottom: 2px solid transparent;
+            color: var(--text-muted);
+            font-family: var(--font-body);
+            font-size: 11px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-align: center;
+            letter-spacing: 0.5px;
+        }
+
+        .term-tab-btn.active-tab {
+            color: var(--accent-orange);
+            border-bottom-color: var(--accent-orange);
+            background-color: rgba(245, 158, 11, 0.05);
+        }
+
+        .terminal-body {
+            flex-grow: 1;
+            padding: 22px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            overflow-y: auto;
+        }
+
+        .telemetry-header {
+            font-family: var(--font-display);
+            font-size: 22px;
+            color: #ffffff;
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .telemetry-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin: 12px 0;
+        }
+
+        .telemetry-item {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--space-border);
+            border-radius: 8px;
+            padding: 8px 12px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .telemetry-item .label {
+            font-size: 10px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 2px;
+            font-weight: 600;
+        }
+
+        .telemetry-item .value {
+            font-size: 13px;
+            color: #ffffff;
+            font-weight: 700;
+        }
+
+        .slider-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            background: rgba(255,255,255,0.01);
+            border: 1px solid var(--space-border);
+            border-radius: 8px;
+            padding: 12px;
+            margin-top: 10px;
+        }
+
+        .slider-label-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--text-muted);
+            text-transform: uppercase;
+        }
+
+        .eccentricity-slider {
+            width: 100%;
+            accent-color: var(--accent-orange);
+            cursor: pointer;
+        }
+
+        .term-action-btn {
+            background-color: rgba(245, 158, 11, 0.03);
+            border: 1px solid var(--space-border);
+            color: var(--text-main);
+            padding: 12px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 13px;
+            text-align: left;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            font-family: var(--font-body);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .term-action-btn:hover {
+            border-color: var(--accent-orange);
+            background-color: rgba(245, 158, 11, 0.1);
+            transform: translateX(4px);
+        }
+
+        .interactive-feedback {
+            background-color: rgba(16, 185, 129, 0.08);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+            border-radius: 6px;
+            padding: 10px 12px;
+            font-size: 13px;
+            color: var(--accent-green);
+            display: none;
+            margin-top: 10px;
+            line-height: 1.4;
+        }
+
+        .interactive-feedback.incorrect {
+            background-color: rgba(239, 68, 68, 0.08);
+            border-color: rgba(239, 68, 68, 0.2);
+            color: #f87171;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="presentation-wrapper">
+
+        <!-- SLIDE 1: Title Screen -->
+        <div class="slide active" id="slide-1">
+            <div class="slide-header" style="opacity: 0;"></div>
+            <div class="slide-content">
+                <div class="hero-layout">
+                    <p style="color: var(--accent-orange); font-weight: 700; text-transform: uppercase; letter-spacing: 2px; font-size: 14px;">Year 6 Earth & Space Sciences</p>
+                    <h1>Elliptical Curvature</h1>
+                    <div class="hero-divider"></div>
+                    <h3 style="color: #ffffff; font-family: var(--font-body); font-weight: 500; font-size: 22px; margin-bottom: 8px;">Lesson 2: Mapping Planetary Curvature</h3>
+                    <p style="color: var(--text-muted); font-size: 16px;">Unpacking Kepler's laws of orbital shapes and exploring the varying speeds of cosmic paths.</p>
+                </div>
+            </div>
+            <div class="teacher-notes-panel">
+                <i class="fa-solid fa-lightbulb"></i>
+                <p>Introduce Lesson 2. In Lesson 1 we looked at gravity. Now we will study the actual geometric path that gravity constructs—the ellipse.</p>
+            </div>
+        </div>
+
+        <!-- SLIDE 2: See, Think, Wonder -->
+        <div class="slide" id="slide-2">
+            <div class="slide-header">
+                <div class="slide-title-group">
+                    <h2>See, Think, Wonder</h2>
+                    <p>Comparing Circular vs. Elliptical Paths</p>
+                </div>
+                <div class="ejss-badge">TAKE OFF</div>
+            </div>
+            <div class="slide-content">
+                <div class="two-col">
+                    <div class="media-frame">
+                        <svg viewBox="0 0 400 300" width="100%" height="100%" style="background-color: #020617; border-radius: 8px;">
+                            <circle cx="200" cy="150" r="1" fill="#fff" opacity="0.4"/>
+                            <circle cx="80" cy="60" r="1.5" fill="#fff" opacity="0.5"/>
+                            <circle cx="310" cy="240" r="1" fill="#fff" opacity="0.3"/>
+                            
+                            <!-- Sun in center -->
+                            <circle cx="200" cy="150" r="16" fill="#f59e0b" />
+                            <circle cx="200" cy="150" r="24" stroke="#f59e0b" stroke-width="1" fill="none" opacity="0.3"/>
+
+                            <!-- Path A: Circle -->
+                            <ellipse cx="200" cy="150" rx="60" ry="60" stroke="#38bdf8" stroke-width="1.5" stroke-dasharray="4,4" fill="none" />
+                            <circle cx="260" cy="150" r="6" fill="#38bdf8" />
+                            <text x="260" y="135" font-family="'Plus Jakarta Sans', sans-serif" font-size="9" fill="#38bdf8" text-anchor="middle">Perfect Circle</text>
+
+                            <!-- Path B: Exaggerated Ellipse -->
+                            <ellipse cx="200" cy="150" rx="110" ry="50" stroke="#f59e0b" stroke-width="1.5" fill="none" />
+                            <circle cx="290" cy="118" r="6" fill="#f59e0b" />
+                            <text x="290" y="103" font-family="'Plus Jakarta Sans', sans-serif" font-size="9" fill="#f59e0b" text-anchor="middle">Oval Ellipse</text>
+                        </svg>
+                        <div class="media-caption">Standard textbook circle drawings versus real exaggerated planetary paths.</div>
+                    </div>
+                    <div>
+                        <ul class="custom-bullets" style="gap: 15px;">
+                            <li style="color: #ffffff;"><strong>👀 SEE:</strong> What differences do you observe between the blue circular orbit and the orange oval pathway?</li>
+                            <li style="color: #ffffff;"><strong>🧠 THINK:</strong> If a planet orbits on the orange oval, will its distance to the central Sun remain constant or vary?</li>
+                            <li style="color: #ffffff;"><strong>❓ WONDER:</strong> How does changing this distance affect the strength of gravity and the speed of the planet?</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="teacher-notes-panel">
+                <i class="fa-solid fa-lightbulb"></i>
+                <p>Prompt students to observe that most standard space posters depict orbits as perfect circular tracks, which is incorrect.</p>
+            </div>
+        </div>
+
+        <!-- SLIDE 3: Vocab Matrix 1 -->
+        <div class="slide" id="slide-3">
+            <div class="slide-header">
+                <div class="slide-title-group">
+                    <h2>Core Orbit Geometry</h2>
+                    <p>Defining Oval Pathways</p>
+                </div>
+                <div class="ejss-badge">Vocabulary Mastery</div>
+            </div>
+            <div class="slide-content">
+                <p style="margin-bottom: 20px; color: var(--text-muted);">Click each card to expand our scientific meanings and oval geometry terms:</p>
+                <div class="vocab-grid">
+                    <div class="vocab-card" onclick="toggleVocab(this)">
+                        <div class="vocab-word">Ellipse</div>
+                        <div class="vocab-def">A closed geometric curved shape resembling an oval. Unlike a circle which has one center point, an ellipse is generated around two internal anchor points called foci.</div>
+                    </div>
+                    <div class="vocab-card" onclick="toggleVocab(this)">
+                        <div class="vocab-word">Foci (Focus points)</div>
+                        <div class="vocab-def">Two specialized points inside an ellipse. In any orbital path, the massive central star sits precisely at one focus point, while the second focus remains completely empty.</div>
+                    </div>
+                </div>
+            </div>
+            <div class="teacher-notes-panel">
+                <i class="fa-solid fa-lightbulb"></i>
+                <p>Have students understand that a circle is actually just a perfect ellipse where the two foci merge into a single central point.</p>
+            </div>
+        </div>
+
+        <!-- SLIDE 4: Vocab Matrix 2 -->
+        <div class="slide" id="slide-4">
+            <div class="slide-header">
+                <div class="slide-title-group">
+                    <h2>Core Orbit Velocity</h2>
+                    <p>Defining Dynamic Space Speeds</p>
+                </div>
+                <div class="ejss-badge">Vocabulary Mastery</div>
+            </div>
+            <div class="slide-content">
+                <p style="margin-bottom: 20px; color: var(--text-muted);">Click each card to expand terms describing speed variation in space:</p>
+                <div class="vocab-grid">
+                    <div class="vocab-card" onclick="toggleVocab(this)">
+                        <div class="vocab-word">Perihelion</div>
+                        <div class="vocab-def">The exact point along an orbital path where a planet is closest to the Sun. At perihelion, the pull of gravity is strongest, and the planet moves at its maximum speed.</div>
+                    </div>
+                    <div class="vocab-card" onclick="toggleVocab(this)">
+                        <div class="vocab-word">Aphelion</div>
+                        <div class="vocab-def">The exact point along an orbital path where a planet is furthest from the Sun. At aphelion, gravity is at its weakest, and the planet moves at its slowest speed.</div>
+                    </div>
+                    <div class="vocab-card" onclick="toggleVocab(this)">
+                        <div class="vocab-word">Eccentricity</div>
+                        <div class="vocab-def">A scientific scale from 0 to 1 measuring how stretched out an ellipse is. 0.0 is a perfect circle, while values closer to 1.0 represent heavily flattened ovals.</div>
+                    </div>
+                </div>
+            </div>
+            <div class="teacher-notes-panel">
+                <i class="fa-solid fa-lightbulb"></i>
+                <p>Introduce the Greek roots: 'Peri' (near), 'Ap' (away), and 'Helios' (Sun) to help students easily remember these terms.</p>
+            </div>
+        </div>
+
+        <!-- SLIDE 5: Explicit Teaching (Kepler's First Law) -->
+        <div class="slide" id="slide-5">
+            <div class="slide-header">
+                <div class="slide-title-group">
+                    <h2>Kepler's First Law</h2>
+                    <p>The Discovery of Ellipses</p>
+                </div>
+                <div class="ejss-badge">EXPLICIT TEACHING</div>
+            </div>
+            <div class="slide-content">
+                <div class="two-col">
+                    <div>
+                        <h3 style="color: var(--accent-orange); margin-bottom: 12px;">Breaking the Circle</h3>
+                        <p style="margin-bottom: 15px;">For over a thousand years, scientists believed planets moved in perfect circles. However, in 1609, astronomer Johannes Kepler proved that orbits are actually ellipses.</p>
+                        <p><strong>The First Law:</strong> All planets move in ellipses, with the Sun sitting at one of the two focus points, rather than in the exact center.</p>
+                    </div>
+                    <div style="background-color: rgba(255,255,255,0.02); border: 1px solid var(--space-border); padding: 25px; border-radius: 12px;">
+                        <h4 style="color: var(--accent-blue); font-size: 16px; margin-bottom: 10px; display: flex; align-items: center; gap: 8px;">
+                            <i class="fa-solid fa-compass"></i> Mapping the Orbit:
+                        </h4>
+                        <p style="font-size: 14px; color: var(--text-muted); line-height: 1.5;">Think of drawing an ellipse with a piece of string and two pushpins. The pins represent the two focus points. The farther apart they are, the more stretched (eccentric) the orbit becomes.</p>
+                        <p style="font-size: 14px; color: var(--accent-orange); margin-top: 10px; font-weight: 600;">Does Earth have a high or low eccentricity?</p>
+                    </div>
+                </div>
+            </div>
+            <div class="teacher-notes-panel">
+                <i class="fa-solid fa-lightbulb"></i>
+                <p>Discuss how Mars has a noticeably eccentric orbit, which is what led Kepler to reject perfect circular systems.</p>
+            </div>
+        </div>
+
+        <!-- SLIDE 6: INTERACTIVE KEPLER SIMULATOR -->
+        <div class="slide" id="slide-6">
+            <div class="slide-header">
+                <div class="slide-title-group">
+                    <h2>Kepler Orbit Lab</h2>
+                    <p>Interactive Eccentricity Sandbox & Target Mission Tasks</p>
+                </div>
+                <div class="ejss-badge">SPREAD YOUR WINGS</div>
+            </div>
+            <div class="slide-content">
+                <div class="two-col">
+                    
+                    <!-- Left: Interactive Ellipse Orbit Canvas -->
+                    <div class="ellipse-sim-panel">
+                        <canvas id="ellipse-canvas" class="ellipse-canvas"></canvas>
+                        <div class="hud-overlay" style="color: rgba(245, 158, 11, 0.4);">
+                            KEPLER TRACKER V.1.2<br>
+                            ECCENTRICITY SYSTEM CALIBRATED<br>
+                            ADJUST SLIDER TO STRETCH PATH
+                        </div>
+                    </div>
+
+                    <!-- Right: Dynamic Terminal Workspace -->
+                    <div class="physics-terminal">
+                        <div class="terminal-tabs">
+                            <button class="term-tab-btn active-tab" id="tab-kepler-a" onclick="switchKeplerTab('A')">TASK A: SPEED TRIGGERS</button>
+                            <button class="term-tab-btn" id="tab-kepler-b" onclick="switchKeplerTab('B')">TASK B: ECCENTRICITY SLIDER</button>
+                        </div>
+                        <div class="terminal-body">
+                            
+                            <!-- Telemetry Display panel -->
+                            <div id="orbit-telemetry-pane">
+                                <div class="telemetry-header">
+                                    <i class="fa-solid fa-gauge" style="color: var(--accent-orange); font-size: 18px;"></i>
+                                    <span>Telemetry</span>
+                                </div>
+                                <div class="telemetry-grid">
+                                    <div class="telemetry-item">
+                                        <span class="label">Current Velocity:</span>
+                                        <span class="value" id="telemetry-velocity">0.00 km/s</span>
+                                    </div>
+                                    <div class="telemetry-item">
+                                        <span class="label">Gravity Level:</span>
+                                        <span class="value" id="telemetry-gravity">Strong</span>
+                                    </div>
+                                    <div class="telemetry-item" style="grid-column: span 2;">
+                                        <span class="label">Current Orbit Phase:</span>
+                                        <span class="value" id="telemetry-phase" style="color: var(--accent-orange);">Approaching Perihelion</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- TASK A WORKSPACE -->
+                            <div class="tab-content-pane" id="pane-kepler-a">
+                                <p style="font-size: 12px; color: var(--accent-orange); margin-bottom: 8px;"><strong>Inquiry Target A:</strong> At which location along the orbital ellipse is gravity strongest, driving the planet to its highest speed?</p>
+                                <div class="option-button-stack">
+                                    <button class="term-action-btn" onclick="verifyKeplerTaskA(1)"><i class="fa-solid fa-angles-right"></i> 1. Perihelion (closest to the Sun)</button>
+                                    <button class="term-action-btn" onclick="verifyKeplerTaskA(2)"><i class="fa-solid fa-angles-left"></i> 2. Aphelion (furthest from the Sun)</button>
+                                </div>
+                                <div class="interactive-feedback" id="feedback-kepler-a"></div>
+                            </div>
+
+                            <!-- TASK B WORKSPACE -->
+                            <div class="tab-content-pane" id="pane-kepler-b" style="display: none;">
+                                <p style="font-size: 12px; color: var(--accent-blue); margin-bottom: 6px;"><strong>Inquiry Target B:</strong> Adjust the slider to test extreme eccentricity values, and identify how it impacts the second empty focus point:</p>
+                                
+                                <div class="slider-group">
+                                    <div class="slider-label-row">
+                                        <span>Orbit Eccentricity:</span>
+                                        <span id="slider-val-display" style="color: var(--accent-orange);">0.15</span>
+                                    </div>
+                                    <input type="range" min="0" max="80" value="15" class="eccentricity-slider" id="ecc-slider-input" oninput="handleEccSlider(this.value)">
+                                </div>
+
+                                <div class="option-button-stack" style="margin-top: 10px;">
+                                    <button class="term-action-btn" onclick="verifyKeplerTaskB(1)"><i class="fa-solid fa-arrow-left-right"></i> 1. The focus points drift further apart.</button>
+                                    <button class="term-action-btn" onclick="verifyKeplerTaskB(2)"><i class="fa-solid fa-compress-arrows-to-box"></i> 2. The focus points merge into one center point.</button>
+                                </div>
+                                <div class="interactive-feedback" id="feedback-kepler-b"></div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="teacher-notes-panel">
+                <i class="fa-solid fa-lightbulb"></i>
+                <p>Encourage students to interact with the eccentricity slider. Observe that at eccentricity 0, the two foci overlap perfectly inside the Sun.</p>
+            </div>
+        </div>
+
+        <!-- SLIDE 7: Explicit Teaching (Kepler's Second Law) -->
+        <div class="slide" id="slide-7">
+            <div class="slide-header">
+                <div class="slide-title-group">
+                    <h2>Kepler's Second Law</h2>
+                    <p>Equal Areas in Equal Times</p>
+                </div>
+                <div class="ejss-badge">EXPLICIT TEACHING</div>
+            </div>
+            <div class="slide-content">
+                <div class="two-col">
+                    <div class="media-frame">
+                        <svg viewBox="0 0 400 300" width="100%" height="100%" style="background-color: #020617; border-radius: 8px;">
+                            <!-- Star focus -->
+                            <circle cx="150" cy="150" r="14" fill="#f59e0b" />
+                            <!-- Orbit track -->
+                            <ellipse cx="200" cy="150" rx="120" ry="70" stroke="rgba(255,255,255,0.15)" stroke-width="1.5" fill="none" />
+                            
+                            <!-- Sector A: Close and fast (wide angle) -->
+                            <path d="M 150,150 L 98,110 A 120,70 0 0,0 98,190 Z" fill="rgba(245,158,11,0.15)" stroke="var(--accent-orange)" stroke-width="1.5" />
+                            <text x="110" y="154" font-family="'Plus Jakarta Sans', sans-serif" font-size="10" fill="var(--accent-orange)" font-weight="700">Area 1</text>
+                            
+                            <!-- Sector B: Far and slow (narrow angle) -->
+                            <path d="M 150,150 L 290,132 A 120,70 0 0,0 290,168 Z" fill="rgba(56,189,248,0.15)" stroke="var(--accent-blue)" stroke-width="1.5" />
+                            <text x="250" y="154" font-family="'Plus Jakarta Sans', sans-serif" font-size="10" fill="var(--accent-blue)" font-weight="700">Area 2</text>
+
+                            <text x="200" y="270" font-family="'Plus Jakarta Sans', sans-serif" font-size="10" fill="#94a3b8" text-anchor="middle">Area 1 and Area 2 are exactly equal in size!</text>
+                        </svg>
+                        <div class="media-caption">Kepler's Equal Area sweep model. Short & wide wedge vs. long & narrow wedge.</div>
+                    </div>
+                    <div>
+                        <h3 style="color: var(--accent-orange); margin-bottom: 12px;">The Sweeping Area Law</h3>
+                        <p style="margin-bottom: 15px;">Kepler discovered that an imaginary line connecting a planet to the Sun sweeps out **equal areas of space in equal intervals of time**.</p>
+                        <ul class="custom-bullets">
+                            <li><strong>Close to Sun:</strong> The planet moves fast, drawing out a short but wide wedge.</li>
+                            <li><strong>Far from Sun:</strong> The planet moves slow, drawing out a long but narrow wedge.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="teacher-notes-panel">
+                <i class="fa-solid fa-lightbulb"></i>
+                <p>Explain that because the area of Area 1 equals Area 2, the planet must cover the outer perihelion curve much faster than the aphelion curve.</p>
+            </div>
+        </div>
+
+        <!-- SLIDE 8: Explicit Teaching (Gravity Well Model) -->
+        <div class="slide" id="slide-8">
+            <div class="slide-header">
+                <div class="slide-title-group">
+                    <h2>The Gravity Well Analogy</h2>
+                    <p>Why Orbits Speed Up</p>
+                </div>
+                <div class="ejss-badge">Analogy Mapping</div>
+            </div>
+            <div class="slide-content">
+                <div class="two-col">
+                    <div>
+                        <p style="margin-bottom: 15px; color: #ffffff;">Scientists often represent gravitational pull using a flexible **rubber sheet** to model space fabric warping:</p>
+                        <ol class="custom-numbers" style="gap: 12px;">
+                            <li data-num="1"><strong>Massive Sun:</strong> Forms a deep central dip in the warped sheet fabric.</li>
+                            <li data-num="2"><strong>Orbital Planet:</strong> Rolls around the slopes of this warped dip.</li>
+                            <li data-num="3"><strong>Speed Boost:</strong> As the rolling object dips deeper, it converts potential gravity energy into raw kinetic velocity.</li>
+                        </ol>
+                    </div>
+                    <div class="media-frame">
+                        <svg viewBox="0 0 400 300" width="100%" height="100%" style="background-color: #0f172a; border-radius: 8px;">
+                            <!-- Gravity mesh lines -->
+                            <path d="M 0,150 C 150,150 170,220 200,250 C 230,220 250,150 400,150" stroke="rgba(56, 189, 248, 0.2)" stroke-width="2" fill="none" />
+                            <path d="M 50,150 C 160,150 175,225 200,250 C 225,225 240,150 350,150" stroke="rgba(56, 189, 248, 0.15)" stroke-width="1.5" fill="none" />
+                            <path d="M 100,150 C 170,150 180,230 200,250 C 220,230 230,150 300,150" stroke="rgba(56, 189, 248, 0.1)" stroke-width="1" fill="none" />
+
+                            <!-- Concentric circles for depth mapping -->
+                            <ellipse cx="200" cy="220" rx="60" ry="15" stroke="rgba(56, 189, 248, 0.25)" stroke-width="1" fill="none" />
+                            <ellipse cx="200" cy="180" rx="120" ry="25" stroke="rgba(56, 189, 248, 0.15)" stroke-width="1" fill="none" />
+                            
+                            <!-- Sun weight -->
+                            <circle cx="200" cy="235" r="15" fill="#f59e0b" />
+                            
+                            <!-- Falling orb -->
+                            <circle cx="165" cy="195" r="7" fill="#0ea5e9" />
+                            <path d="M 155,185 Q 160,190 165,195" stroke="#38bdf8" stroke-width="2" fill="none" />
+
+                            <text x="200" y="40" font-family="'Plus Jakarta Sans', sans-serif" font-size="12" fill="#ffffff" text-anchor="middle" font-weight="700">Space Warping Model (Gravity Well)</text>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+            <div class="teacher-notes-panel">
+                <i class="fa-solid fa-lightbulb"></i>
+                <p>Have students visualize spinning coins down a spiral wishing well. Relate the extreme boost in speed at the bottom directly to perihelion.</p>
+            </div>
+        </div>
+
+        <!-- SLIDE 9: SWEEPING EQUAL AREA SIMULATOR -->
+        <div class="slide" id="slide-9">
+            <div class="slide-header">
+                <div class="slide-title-group">
+                    <h2>Kepler's Area Sweep Sandbox</h2>
+                    <p>Testing the Math Behind Kepler's Second Law</p>
+                </div>
+                <div class="ejss-badge">SPREAD YOUR WINGS</div>
+            </div>
+            <div class="slide-content">
+                <div class="two-col">
+                    <!-- Left: Kepler Area Sweep Canvas -->
+                    <div class="canvas-container">
+                        <canvas id="sweep-canvas" width="600" height="350"></canvas>
+                    </div>
+
+                    <!-- Right: Equal Sweep controls -->
+                    <div class="canvas-controls-panel">
+                        <h3 style="color:#ffffff; margin-bottom: 5px;"><i class="fa-solid fa-paint-roller"></i> Sweep Controls</h3>
+                        
+                        <label class="physics-toggle">
+                            <input type="checkbox" id="check-show-sectors" checked onchange="toggleSweepDisplay()">
+                            <span>Show Area Sectors (<span style="color:var(--accent-orange); font-weight:700;">Orange Wedges</span>)</span>
+                        </label>
+                        
+                        <label class="physics-toggle">
+                            <input type="checkbox" id="check-sweep-lines" checked onchange="toggleSweepDisplay()">
+                            <span>Show Radial Vector Line (<span style="color:var(--accent-blue); font-weight:700;">Cyan Beam</span>)</span>
+                        </label>
+
+                        <hr style="border: 0; border-top: 1px solid var(--space-border); margin: 5px 0;">
+
+                        <button class="term-action-btn" id="btn-trigger-sweep" style="border-color: var(--accent-orange); color: #fdba74; font-weight: 700; text-align: center; background-color: rgba(245, 158, 11, 0.05); justify-content: center;" onclick="triggerAreaSweep()">
+                            <i class="fa-solid fa-paint-brush"></i> SWEEP NEXT 30 DAYS!
+                        </button>
+
+                        <button class="term-action-btn" id="btn-clear-sweeps" style="border-color: var(--accent-red); color: #f87171; font-weight: 700; text-align: center; justify-content: center;" onclick="clearSweeps()">
+                            <i class="fa-solid fa-trash-can"></i> CLEAR HISTORIC SWEEPS
+                        </button>
+
+                        <div style="font-size: 12px; color: var(--text-muted); line-height: 1.4;">
+                            Notice how the swept area wedges look vastly different in shape, yet contain the exact same geometric area of space!
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="teacher-notes-panel">
+                <i class="fa-solid fa-lightbulb"></i>
+                <p>Click "Sweep Next 30 Days" when the planet is close to the Sun, and again when it is far. Compare the wide/short wedge to the narrow/long wedge.</p>
+            </div>
+        </div>
+
+        <!-- SLIDE 10: Model Limits -->
+        <div class="slide" id="slide-10">
+            <div class="slide-header">
+                <div class="slide-title-group">
+                    <h2>Evaluating Scientific Models</h2>
+                    <p>Critiquing Exaggerated Kepler Diagrams</p>
+                </div>
+                <div class="ejss-badge">CRITICAL EVALUATION</div>
+            </div>
+            <div class="slide-content">
+                <div class="two-col-equal">
+                    <div style="background-color: rgba(16, 185, 129, 0.04); border: 1px solid rgba(16, 185, 129, 0.2); padding: 25px; border-radius: 12px;">
+                        <h3 style="color: var(--accent-green);"><i class="fa-solid fa-circle-check"></i> Model Strengths</h3>
+                        <ul class="custom-bullets">
+                            <li>Clearly illustrates aphelion/perihelion points.</li>
+                            <li>Makes the geometric concept of foci easy to visualize on flat slides.</li>
+                            <li>Shows changes in planetary velocity in a clear, observable way.</li>
+                        </ul>
+                    </div>
+                    <div style="background-color: rgba(239, 68, 68, 0.04); border: 1px solid rgba(239, 68, 68, 0.2); padding: 25px; border-radius: 12px;">
+                        <h3 style="color: #ef4444;"><i class="fa-solid fa-triangle-exclamation"></i> Model Limitations</h3>
+                        <ul class="custom-bullets" style="--accent-blue: #ef4444;">
+                            <li>Orbits of actual planets are *almost* perfect circles (very low eccentricity).</li>
+                            <li>Exaggerated diagrams can make students think Earth's seasons are caused by moving closer to or further from the Sun (which is false!).</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="teacher-notes-panel">
+                <i class="fa-solid fa-lightbulb"></i>
+                <p>Crucial check: Remind students that Earth's distance from the Sun changes by only 3%, meaning our seasons are caused by axial tilt, not orbital eccentricity.</p>
+            </div>
+        </div>
+
+        <!-- SLIDE 11: Soar (What-if Scenario) -->
+        <div class="slide" id="slide-11">
+            <div class="slide-header">
+                <div class="slide-title-group">
+                    <h2>The "What-If" Orbit Challenge</h2>
+                    <p>What if Earth Orbit became highly eccentric?</p>
+                </div>
+                <div class="ejss-badge">SOAR & TRANSFER</div>
+            </div>
+            <div class="slide-content">
+                <div class="two-col">
+                    <div>
+                        <h3 style="color: var(--accent-orange); margin-bottom: 12px;">A Year of Fire & Ice</h3>
+                        <p style="margin-bottom: 15px;">Imagine if Earth's orbit mutated from a near-circle (0.017 eccentricity) into a highly stretched ellipse (0.60 eccentricity) like a comet:</p>
+                        <p style="color: var(--text-main); font-weight: 600;">How would our planetary climate alter?</p>
+                        <p style="margin-top: 10px; font-size: 15px;">Earth would suffer brief, blazing hot summers near the Sun, followed by long, freezing deep-space winters where oceans would lock up in ice.</p>
+                    </div>
+                    <div class="media-frame">
+                        <svg viewBox="0 0 400 300" width="100%" height="100%" style="background-color: #020617; border-radius: 8px;">
+                            <circle cx="80" cy="50" r="1.5" fill="#fff" opacity="0.3"/>
+                            <circle cx="340" cy="180" r="1" fill="#fff" opacity="0.5"/>
+                            <circle cx="150" cy="270" r="1.5" fill="#fff" opacity="0.4"/>
+                            
+                            <!-- Sun left focus -->
+                            <circle cx="120" cy="150" r="25" fill="#ea580c" opacity="0.3" />
+                            <circle cx="120" cy="150" r="15" fill="#fde047" />
+
+                            <!-- Eccentric orbit -->
+                            <ellipse cx="210" cy="150" rx="140" ry="60" stroke="#f59e0b" stroke-width="2" fill="none" />
+                            
+                            <!-- Planet near perihelion -->
+                            <circle cx="80" cy="115" r="7" fill="#ef4444" />
+                            <text x="80" y="95" font-family="'Plus Jakarta Sans', sans-serif" font-size="9" fill="#ef4444" font-weight="700">Perihelion (Fierce Heat)</text>
+                            
+                            <!-- Planet near aphelion -->
+                            <circle cx="350" cy="150" r="7" fill="#38bdf8" />
+                            <text x="350" y="135" font-family="'Plus Jakarta Sans', sans-serif" font-size="9" fill="#38bdf8" text-anchor="end" font-weight="700">Aphelion (Deep Freeze)</text>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+            <div class="teacher-notes-panel">
+                <i class="fa-solid fa-lightbulb"></i>
+                <p>Discuss how comets survive this exact lifecycle, remaining frozen ice blocks for years until they heat up and sprout tails near the Sun.</p>
+            </div>
+        </div>
+
+        <!-- SLIDE 12: Data Analysis Matrix -->
+        <div class="slide" id="slide-12">
+            <div class="slide-header">
+                <div class="slide-title-group">
+                    <h2>Planetary Eccentricity Grid</h2>
+                    <p>Evaluating Real Scientific Satellite Data</p>
+                </div>
+                <div class="ejss-badge">SOAR & TRANSFER</div>
+            </div>
+            <div class="slide-content">
+                <p style="margin-bottom: 15px; color: var(--text-muted);">Compare the orbital data profiles recorded by space agencies:</p>
+                <table class="matrix-table">
+                    <thead>
+                        <tr>
+                            <th>Celestial Body</th>
+                            <th>Orbital Eccentricity</th>
+                            <th>Description of Orbit Path</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="font-weight: 700; color: #ffffff;">Venus</td>
+                            <td style="color: var(--accent-green); font-weight: 600;">0.007</td>
+                            <td>Almost a perfect circle. Foci are overlapping.</td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight: 700; color: #ffffff;">Earth</td>
+                            <td style="color: var(--accent-green); font-weight: 600;">0.017</td>
+                            <td>Very low eccentricity. Only minor distance swings.</td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight: 700; color: #ffffff;">Mars</td>
+                            <td style="color: var(--accent-orange); font-weight: 600;">0.093</td>
+                            <td>Noticeable oval shape. First elliptical clue.</td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight: 700; color: #ffffff;">Mercury</td>
+                            <td style="color: #ef4444; font-weight: 600;">0.205</td>
+                            <td>Highly eccentric planet orbit. Massive speed changes.</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p style="margin-top: 15px; font-size: 15px; color: var(--accent-orange); font-weight: 600;">
+                    <i class="fa-solid fa-lightbulb"></i> Analysis Question: Which planet in our solar system deviates most from a perfect circle, experiencing the largest speed swings?
+                </p>
+            </div>
+            <div class="teacher-notes-panel">
+                <i class="fa-solid fa-lightbulb"></i>
+                <p>Have students compare Mercury to Venus. Explain that Venus behaves almost like a perfect compass circle.</p>
+            </div>
+        </div>
+
+        <!-- SLIDE 13: EJSS Self-Assessment Rubric -->
+        <div class="slide" id="slide-13">
+            <div class="slide-header">
+                <div class="slide-title-group">
+                    <h2>Self-Assessment</h2>
+                    <p>Kepler Standards Tracker</p>
+                </div>
+                <div class="ejss-badge">EJSS Standards</div>
+            </div>
+            <div class="slide-content">
+                <div class="card-grid">
+                    <div class="concept-card" style="border-top: 4px solid var(--text-muted);">
+                        <h3 style="color: var(--text-muted);"><i class="fa-solid fa-star"></i> Level 1</h3>
+                        <p>I can describe the differences between circles and ellipses and point out the Sun's position inside an orbit.</p>
+                    </div>
+                    <div class="concept-card" style="border-top: 4px solid var(--accent-orange);">
+                        <h3><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i> Level 2</h3>
+                        <p>I can explain what happens to gravity and planet speed at perihelion and aphelion points.</p>
+                    </div>
+                    <div class="concept-card" style="border-top: 4px solid var(--accent-blue);">
+                        <h3 style="color: var(--accent-blue);"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i> Level 3</h3>
+                        <p>I can evaluate how eccentricity values alter orbital paths and explain Kepler's Area Sweep law using models.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="teacher-notes-panel">
+                <i class="fa-solid fa-lightbulb"></i>
+                <p>Allow students to self-reflect and rate themselves against the targets in their notebooks.</p>
+            </div>
+        </div>
+
+        <!-- SLIDE 14: Diagnostic Exit Card -->
+        <div class="slide" id="slide-14">
+            <div class="slide-header">
+                <div class="slide-title-group">
+                    <h2>Exit Card Challenge</h2>
+                    <p>Consolidating Kepler Mechanics</p>
+                </div>
+                <div class="ejss-badge">DIAGNOSTIC CHECK</div>
+            </div>
+            <div class="slide-content">
+                <div style="background-color: var(--space-dark); border: 1px solid var(--space-border); padding: 30px; border-radius: 12px;">
+                    <h3 style="color: var(--accent-orange); margin-bottom: 15px;"><i class="fa-solid fa-ticket-simple"></i> Answer in your Science Journal:</h3>
+                    <ol class="custom-numbers" style="gap: 15px;">
+                        <li data-num="1">Define the orbital term <strong>Perihelion</strong>. What happens to speed here?</li>
+                        <li data-num="2">Why is it incorrect to say the Sun sits in the absolute geometric center of a planet's orbit?</li>
+                        <li data-num="3">What does an eccentricity value of <strong>0.0</strong> indicate about an orbital shape?</li>
+                    </ol>
+                </div>
+            </div>
+            <div class="teacher-notes-panel">
+                <i class="fa-solid fa-lightbulb"></i>
+                <p>Collect exit slips at the door to check that students understand that the Sun sits at a focus point, not the center.</p>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- PRESENTATION DECK CONTROLS -->
+    <div id="deck-controls">
+        <div class="control-btn-group">
+            <button class="toggle-btn" id="teacher-toggle-btn" onclick="toggleTeacherNotes()">
+                <i class="fa-solid fa-chalkboard-user"></i> Teacher Notes
+            </button>
+        </div>
+        
+        <div class="control-btn-group">
+            <button class="control-btn" id="prev-btn" onclick="navigateSlide(-1)" disabled>
+                <i class="fa-solid fa-chevron-left"></i>
+            </button>
+            <div id="slide-indicator">1 / 14</div>
+            <button class="control-btn" id="next-btn" onclick="navigateSlide(1)">
+                <i class="fa-solid fa-chevron-right"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- PRESENTEATION ENGINE JAVASCRIPT -->
+    <script>
+        let currentSlide = 1;
+        const totalSlides = 14;
+
+        function navigateSlide(direction) {
+            const activeSlide = document.getElementById(`slide-${currentSlide}`);
+            activeSlide.classList.remove('active');
+
+            currentSlide += direction;
+            if (currentSlide < 1) currentSlide = 1;
+            if (currentSlide > totalSlides) currentSlide = totalSlides;
+
+            const targetSlide = document.getElementById(`slide-${currentSlide}`);
+            targetSlide.classList.add('active');
+
+            document.getElementById('slide-indicator').textContent = `${currentSlide} / ${totalSlides}`;
+            document.getElementById('prev-btn').disabled = (currentSlide === 1);
+            document.getElementById('next-btn').disabled = (currentSlide === totalSlides);
+
+            // Handle Kepler Simulator
+            if (currentSlide === 6) {
+                startKeplerSim();
+            } else {
+                stopKeplerSim();
+            }
+
+            // Handle Equal Sweep Simulator
+            if (currentSlide === 9) {
+                startSweepSim();
+            } else {
+                stopSweepSim();
+            }
+        }
+
+        document.addEventListener('keydown', function(event) {
+            if (event.key === "ArrowRight" || event.key === "Spacebar" || event.key === " ") {
+                if (currentSlide < totalSlides) {
+                    event.preventDefault();
+                    navigateSlide(1);
+                }
+            } else if (event.key === "ArrowLeft") {
+                if (currentSlide > 1) {
+                    event.preventDefault();
+                    navigateSlide(-1);
+                }
+            }
+        });
+
+        function toggleVocab(cardElement) {
+            cardElement.classList.toggle('revealed');
+        }
+
+        function toggleTeacherNotes() {
+            const toggleButton = document.getElementById('teacher-toggle-btn');
+            const notePanels = document.querySelectorAll('.teacher-notes-panel');
+            
+            toggleButton.classList.toggle('active');
+            
+            notePanels.forEach(panel => {
+                panel.classList.toggle('visible');
+            });
+        }
+
+        let touchStartX = 0;
+        let touchEndX = 0;
+        const gestureZone = document.getElementById('presentation-wrapper');
+        
+        gestureZone.addEventListener('touchstart', function(event) {
+            touchStartX = event.changedTouches[0].screenX;
+        }, false);
+        
+        gestureZone.addEventListener('touchend', function(event) {
+            touchEndX = event.changedTouches[0].screenX;
+            handleSwipe();
+        }, false);
+        
+        function handleSwipe() {
+            if (touchEndX < touchStartX - 50) {
+                if (currentSlide < totalSlides) navigateSlide(1);
+            }
+            if (touchEndX > touchStartX + 50) {
+                if (currentSlide > 1) navigateSlide(-1);
+            }
+        }
+
+        /* =======================================================
+           STREAMING_CHUNK:Writing Simulator State for Slide 6...
+           ======================================================= */
+        let keplerCanvas, keplerCtx;
+        let keplerSimRunning = false;
+        let keplerFrameId;
+        
+        const orbitState = {
+            centerX: 250,
+            centerY: 220,
+            a: 140, // semi-major axis
+            e: 0.15, // initial eccentricity
+            angle: 0,
+            speedCoeff: 350 // Slowed down from 1500 for better telemetry readability
+        };
+
+        function startKeplerSim() {
+            keplerCanvas = document.getElementById('ellipse-canvas');
+            if (!keplerCanvas) return;
+            
+            // Adjust canvas to match display size
+            const bounds = keplerCanvas.getBoundingClientRect();
+            keplerCanvas.width = bounds.width;
+            keplerCanvas.height = bounds.height;
+            
+            keplerCtx = keplerCanvas.getContext('2d');
+            keplerSimRunning = true;
+            
+            // Re-center on loaded bounds
+            orbitState.centerX = keplerCanvas.width / 2;
+            orbitState.centerY = keplerCanvas.height / 2;
+            
+            keplerLoop();
+        }
+
+        function stopKeplerSim() {
+            keplerSimRunning = false;
+            if (keplerFrameId) cancelAnimationFrame(keplerFrameId);
+        }
+
+        function switchKeplerTab(tab) {
+            document.querySelectorAll('#pane-kepler-a, #pane-kepler-b').forEach(p => p.style.display = 'none');
+            document.querySelectorAll('#tab-kepler-a, #tab-kepler-b').forEach(btn => btn.classList.remove('active-tab'));
+            
+            if (tab === 'A') {
+                document.getElementById('tab-kepler-a').classList.add('active-tab');
+                document.getElementById('pane-kepler-a').style.display = 'block';
+            } else {
+                document.getElementById('tab-kepler-b').classList.add('active-tab');
+                document.getElementById('pane-kepler-b').style.display = 'block';
+            }
+            
+            document.getElementById('feedback-kepler-a').style.display = 'none';
+            document.getElementById('feedback-kepler-b').style.display = 'none';
+        }
+
+        function handleEccSlider(val) {
+            orbitState.e = val / 100;
+            document.getElementById('slider-val-display').textContent = orbitState.e.toFixed(2);
+        }
+
+        /* =======================================================
+           STREAMING_CHUNK:Writing Task Evaluation Logic...
+           ======================================================= */
+        function verifyKeplerTaskA(optionIndex) {
+            const feedback = document.getElementById('feedback-kepler-a');
+            feedback.style.display = "block";
+
+            if (optionIndex === 1) {
+                feedback.className = "interactive-feedback";
+                feedback.innerHTML = `<i class="fa-solid fa-circle-check"></i> <strong>Correct!</strong> At perihelion, the planet sits closest to the Sun. Gravity is strongest here, pulling the planet and boosting its speed to its absolute maximum.`;
+            } else {
+                feedback.className = "interactive-feedback incorrect";
+                feedback.innerHTML = `<i class="fa-solid fa-circle-xmark"></i> <strong>Incorrect!</strong> When the planet is far away (aphelion), the Sun's gravity is weakest. How would that affect its speed?`;
+            }
+        }
+
+        function verifyKeplerTaskB(optionIndex) {
+            const feedback = document.getElementById('feedback-kepler-b');
+            feedback.style.display = "block";
+
+            if (optionIndex === 1) {
+                feedback.className = "interactive-feedback";
+                feedback.innerHTML = `<i class="fa-solid fa-circle-check"></i> <strong>Incredibly Accurate!</strong> As the orbit stretches out (eccentricity increases), the two focus points drift farther apart, which physically pushes the Sun closer to the perihelion edge.`;
+            } else {
+                feedback.className = "interactive-feedback incorrect";
+                feedback.innerHTML = `<i class="fa-solid fa-circle-xmark"></i> <strong>Incorrect!</strong> Observe the empty focal point in the simulator while sliding the eccentricity up. Does it move closer to or further away from the Sun?`;
+            }
+        }
+
+        /* =======================================================
+           STREAMING_CHUNK:Structuring Kepler Math & Render loop...
+           ======================================================= */
+        function keplerLoop() {
+            if (!keplerSimRunning) return;
+
+            // Clear frame
+            keplerCtx.fillStyle = "#090d16";
+            keplerCtx.fillRect(0, 0, keplerCanvas.width, keplerCanvas.height);
+
+            // Compute geometric axes
+            const a = orbitState.a;
+            const b = a * Math.sqrt(1 - orbitState.e * orbitState.e);
+            const focusDistance = a * orbitState.e; // Distance from center to focus
+
+            const center = { x: keplerCanvas.width / 2, y: keplerCanvas.height / 2 };
+            const focusSun = { x: center.x - focusDistance, y: center.y };
+            const focusEmpty = { x: center.x + focusDistance, y: center.y };
+
+            // Draw focal anchor guides
+            // Empty focus
+            keplerCtx.strokeStyle = "rgba(56, 189, 248, 0.4)";
+            keplerCtx.lineWidth = 1;
+            keplerCtx.beginPath();
+            keplerCtx.arc(focusEmpty.x, focusEmpty.y, 4, 0, Math.PI * 2);
+            keplerCtx.stroke();
+            keplerCtx.fillStyle = "rgba(56, 189, 248, 0.2)";
+            keplerCtx.fill();
+            
+            keplerCtx.fillStyle = "rgba(56, 189, 248, 0.5)";
+            keplerCtx.font = "9px monospace";
+            keplerCtx.fillText("Empty Focus", focusEmpty.x - 30, focusEmpty.y + 16);
+
+            // Draw Orbit track
+            keplerCtx.strokeStyle = "rgba(255, 255, 255, 0.12)";
+            keplerCtx.lineWidth = 2;
+            keplerCtx.beginPath();
+            keplerCtx.ellipse(center.x, center.y, a, b, 0, 0, Math.PI * 2);
+            keplerCtx.stroke();
+
+            // Calculate current planet position (Parametric angle calculation)
+            const xPlanet = center.x + a * Math.cos(orbitState.angle);
+            const yPlanet = center.y + b * Math.sin(orbitState.angle);
+
+            // Calculate planet distance to Sun
+            const dx = xPlanet - focusSun.x;
+            const dy = yPlanet - focusSun.y;
+            const distance = Math.sqrt(dx * dx + dy * dy);
+
+            // Update planet speed based on distance (Keplerian velocity solver)
+            const speed = orbitState.speedCoeff / (distance * distance);
+            orbitState.angle += speed;
+
+            // Display live Telemetry HUD values (Decoupled to maintain realistic km/s readouts)
+            const physicalSpeed = 18000000 / (distance * distance);
+            const scaleSpeed = physicalSpeed.toFixed(2);
+            document.getElementById('telemetry-velocity').textContent = `${scaleSpeed} km/s`;
+            
+            if (distance < a) {
+                document.getElementById('telemetry-gravity').textContent = "Strong";
+                document.getElementById('telemetry-gravity').style.color = "var(--accent-red)";
+                document.getElementById('telemetry-phase').textContent = "At Perihelion (Fast)";
+                document.getElementById('telemetry-phase').style.color = "var(--accent-orange)";
+            } else {
+                document.getElementById('telemetry-gravity').textContent = "Weak";
+                document.getElementById('telemetry-gravity').style.color = "var(--accent-blue)";
+                document.getElementById('telemetry-phase').textContent = "At Aphelion (Slow)";
+                document.getElementById('telemetry-phase').style.color = "var(--accent-blue)";
+            }
+
+            // Draw vector connecting planet to the Sun
+            keplerCtx.strokeStyle = "rgba(245, 158, 11, 0.2)";
+            keplerCtx.lineWidth = 1;
+            keplerCtx.beginPath();
+            keplerCtx.moveTo(focusSun.x, focusSun.y);
+            keplerCtx.lineTo(xPlanet, yPlanet);
+            keplerCtx.stroke();
+
+            // Draw Sun weight
+            keplerCtx.shadowBlur = 15;
+            keplerCtx.shadowColor = "#f59e0b";
+            keplerCtx.beginPath();
+            keplerCtx.arc(focusSun.x, focusSun.y, 16, 0, Math.PI * 2);
+            keplerCtx.fillStyle = "#ea580c";
+            keplerCtx.fill();
+            keplerCtx.beginPath();
+            keplerCtx.arc(focusSun.x, focusSun.y, 12, 0, Math.PI * 2);
+            keplerCtx.fillStyle = "#fde047";
+            keplerCtx.fill();
+            keplerCtx.shadowBlur = 0;
+
+            // Draw Planet
+            keplerCtx.beginPath();
+            keplerCtx.arc(xPlanet, yPlanet, 8, 0, Math.PI * 2);
+            keplerCtx.fillStyle = "#0284c7";
+            keplerCtx.strokeStyle = "#38bdf8";
+            keplerCtx.lineWidth = 2;
+            keplerCtx.fill();
+            keplerCtx.stroke();
+
+            keplerFrameId = requestAnimationFrame(keplerLoop);
+        }
+
+        /* =======================================================
+           STREAMING_CHUNK:Writing Area Sweep Logic for Slide 9...
+           ======================================================= */
+        let sweepCanvas, sweepCtx;
+        let sweepSimRunning = false;
+        let sweepFrameId;
+
+        const sweepState = {
+            centerX: 300,
+            centerY: 175,
+            a: 150,
+            b: 105, // e = 0.70 (strongly eccentric)
+            e: 0.70,
+            angle: 0,
+            speedCoeff: 350, // Slowed down from 1300 for visual consistency
+            showSectors: true,
+            showBeam: true,
+            sectors: [] // Historical sweep slices {start, end}
+        };
+
+        function startSweepSim() {
+            sweepCanvas = document.getElementById('sweep-canvas');
+            if (!sweepCanvas) return;
+            sweepCtx = sweepCanvas.getContext('2d');
+            sweepSimRunning = true;
+            sweepLoop();
+        }
+
+        function stopSweepSim() {
+            sweepSimRunning = false;
+            if (sweepFrameId) cancelAnimationFrame(sweepFrameId);
+        }
+
+        function toggleSweepDisplay() {
+            sweepState.showSectors = document.getElementById('check-show-sectors').checked;
+            sweepState.showBeam = document.getElementById('check-sweep-lines').checked;
+        }
+
+        function triggerAreaSweep() {
+            // Sweep a constant chunk of eccentric anomaly or orbit phase
+            // Sweeps next 30 days starting at current angle position
+            const startAngle = sweepState.angle;
+            
+            // To simulate sweeping equal areas, the angular step swept must vary with distance.
+            // We can approximate a standard Kepler step (dt) by adding smaller steps proportional to the speed.
+            let currentAngle = startAngle;
+            const steps = 220; // Increased from 60 to maintain the same swept area despite slower animation speed
+            
+            // Target Sun focus
+            const focusDistance = sweepState.a * sweepState.e;
+            const sunX = sweepState.centerX - focusDistance;
+            const sunY = sweepState.centerY;
+
+            for (let i = 0; i < steps; i++) {
+                const xp = sweepState.centerX + sweepState.a * Math.cos(currentAngle);
+                const yp = sweepState.centerY + sweepState.b * Math.sin(currentAngle);
+                const dist = Math.sqrt((xp - sunX)*(xp - sunX) + (yp - sunY)*(yp - sunY));
+                
+                // Angle increment is inversely proportional to square distance
+                const stepVal = sweepState.speedCoeff / (dist * dist);
+                currentAngle += stepVal;
+            }
+
+            sweepState.sectors.push({
+                start: startAngle,
+                end: currentAngle
+            });
+
+            // Set current angle to match end of sweep to instantly advance the planet
+            sweepState.angle = currentAngle;
+        }
+
+        function clearSweeps() {
+            sweepState.sectors = [];
+        }
+
+        function sweepLoop() {
+            if (!sweepSimRunning) return;
+
+            // Clear Canvas
+            sweepCtx.fillStyle = "#090d16";
+            sweepCtx.fillRect(0, 0, sweepCanvas.width, sweepCanvas.height);
+
+            const sunX = sweepState.centerX - (sweepState.a * sweepState.e);
+            const sunY = sweepState.centerY;
+
+            // Draw orbit path
+            sweepCtx.strokeStyle = "rgba(255, 255, 255, 0.1)";
+            sweepCtx.lineWidth = 1.5;
+            sweepCtx.beginPath();
+            sweepCtx.ellipse(sweepState.centerX, sweepState.centerY, sweepState.a, sweepState.b, 0, 0, Math.PI * 2);
+            sweepCtx.stroke();
+
+            // Draw historically swept sectors
+            if (sweepState.showSectors) {
+                sweepCtx.fillStyle = "rgba(245, 158, 11, 0.25)";
+                sweepCtx.strokeStyle = "rgba(245, 158, 11, 0.6)";
+                sweepCtx.lineWidth = 1;
+
+                sweepState.sectors.forEach(sect => {
+                    sweepCtx.beginPath();
+                    sweepCtx.moveTo(sunX, sunY);
+                    
+                    // Draw smooth curve along track bounds
+                    const resolution = 30;
+                    for (let i = 0; i <= resolution; i++) {
+                        const alpha = sect.start + (sect.end - sect.start) * (i / resolution);
+                        const xp = sweepState.centerX + sweepState.a * Math.cos(alpha);
+                        const yp = sweepState.centerY + sweepState.b * Math.sin(alpha);
+                        sweepCtx.lineTo(xp, yp);
+                    }
+                    sweepCtx.lineTo(sunX, sunY);
+                    sweepCtx.fill();
+                    sweepCtx.stroke();
+                });
+            }
+
+            // Normal orbit movement
+            const xp = sweepState.centerX + sweepState.a * Math.cos(sweepState.angle);
+            const yp = sweepState.centerY + sweepState.b * Math.sin(sweepState.angle);
+            const dist = Math.sqrt((xp - sunX) * (xp - sunX) + (yp - sunY) * (yp - sunY));
+            const speed = sweepState.speedCoeff / (dist * dist);
+            sweepState.angle += speed;
+
+            // Draw live beam connector
+            if (sweepState.showBeam) {
+                sweepCtx.strokeStyle = "rgba(56, 189, 248, 0.5)";
+                sweepCtx.lineWidth = 1.5;
+                sweepCtx.beginPath();
+                sweepCtx.moveTo(sunX, sunY);
+                sweepCtx.lineTo(xp, yp);
+                sweepCtx.stroke();
+            }
+
+            // Render Sun focus
+            sweepCtx.beginPath();
+            sweepCtx.arc(sunX, sunY, 15, 0, Math.PI * 2);
+            sweepCtx.fillStyle = "#ea580c";
+            sweepCtx.fill();
+            sweepCtx.beginPath();
+            sweepCtx.arc(sunX, sunY, 11, 0, Math.PI * 2);
+            sweepCtx.fillStyle = "#f59e0b";
+            sweepCtx.fill();
+
+            // Render Planet
+            sweepCtx.beginPath();
+            sweepCtx.arc(xp, yp, 7, 0, Math.PI * 2);
+            sweepCtx.fillStyle = "#0ea5e9";
+            sweepCtx.stroke();
+
+            sweepFrameId = requestAnimationFrame(sweepLoop);
+        }
+    </script>
+</body>
+</html>

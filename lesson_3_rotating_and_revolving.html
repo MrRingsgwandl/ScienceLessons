@@ -1,0 +1,1522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Year 6 Science: When Planets Move - Lesson 3</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;1,300&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <style>
+        :root {
+            --space-dark: #090d16;
+            --space-card: #131a2b;
+            --space-border: #222f4d;
+            --accent-blue: #38bdf8;
+            --accent-blue-hover: #0ea5e9;
+            --accent-orange: #f59e0b;
+            --accent-green: #10b981;
+            --accent-red: #ef4444;
+            --accent-purple: #c084fc;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --font-display: 'Merriweather', serif;
+            --font-body: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: var(--space-dark);
+            color: var(--text-main);
+            font-family: var(--font-body);
+            height: 100vh;
+            width: 100vw;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        #presentation-wrapper {
+            flex-grow: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            padding: 20px;
+            overflow: hidden;
+        }
+
+        .slide {
+            display: none;
+            width: 100%;
+            max-width: 1200px;
+            height: 100%;
+            max-height: 675px; 
+            background-color: var(--space-card);
+            border: 1px solid var(--space-border);
+            border-radius: 16px;
+            padding: 40px 60px;
+            position: relative;
+            flex-direction: column;
+            justify-content: space-between;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            opacity: 0;
+            transform: scale(0.98);
+        }
+
+        .slide.active {
+            display: flex;
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .slide::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 8px;
+            background: linear-gradient(90deg, var(--accent-blue), var(--accent-purple), var(--accent-orange));
+            border-top-left-radius: 16px;
+            border-top-right-radius: 16px;
+        }
+
+        .slide-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            border-left: 5px solid var(--accent-purple);
+            padding-left: 18px;
+            margin-bottom: 20px;
+            height: 65px;
+        }
+
+        .slide-title-group h2 {
+            font-family: var(--font-display);
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--text-main);
+            line-height: 1.2;
+        }
+
+        .slide-title-group p {
+            color: var(--text-muted);
+            font-size: 14px;
+            margin-top: 4px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .ejss-badge {
+            background: rgba(192, 132, 252, 0.1);
+            border: 1px solid rgba(192, 132, 252, 0.3);
+            color: var(--accent-purple);
+            padding: 6px 14px;
+            border-radius: 30px;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            white-space: nowrap;
+        }
+
+        .slide-content {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            width: 100%;
+            overflow: hidden;
+            padding-right: 8px;
+        }
+
+        .two-col {
+            display: grid;
+            grid-template-columns: 1.15fr 0.85fr;
+            gap: 35px;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+        }
+
+        .two-col-equal {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            align-items: start;
+            width: 100%;
+        }
+
+        .media-frame {
+            background-color: var(--space-dark);
+            border: 2px solid var(--space-border);
+            border-radius: 12px;
+            overflow: hidden;
+            height: 340px;
+            width: 100%;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .media-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(9, 13, 22, 0.85);
+            padding: 10px 15px;
+            font-size: 13px;
+            color: var(--text-muted);
+            border-top: 1px solid var(--space-border);
+            text-align: center;
+        }
+
+        .hero-layout {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero-layout h1 {
+            font-family: var(--font-display);
+            font-size: 54px;
+            font-weight: 700;
+            color: #ffffff;
+            line-height: 1.15;
+            margin-bottom: 15px;
+            text-shadow: 0 4px 12px rgba(0,0,0,0.5);
+        }
+
+        .hero-divider {
+            height: 4px;
+            width: 100px;
+            background: linear-gradient(90deg, var(--accent-purple), var(--accent-blue));
+            margin: 20px auto;
+            border-radius: 2px;
+        }
+
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            width: 100%;
+        }
+
+        .concept-card {
+            background-color: var(--space-dark);
+            border: 1px solid var(--space-border);
+            border-radius: 12px;
+            padding: 20px;
+            transition: all 0.2s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .concept-card:hover {
+            border-color: var(--accent-purple);
+            transform: translateY(-3px);
+        }
+
+        .concept-card h3 {
+            font-family: var(--font-display);
+            font-size: 18px;
+            color: var(--accent-purple);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .concept-card p {
+            font-size: 14px;
+            line-height: 1.5;
+            color: var(--text-muted);
+        }
+
+        .vocab-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            width: 100%;
+        }
+
+        .vocab-card {
+            background-color: var(--space-dark);
+            border: 1px solid var(--space-border);
+            border-radius: 12px;
+            padding: 25px;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            min-height: 140px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .vocab-card::after {
+            content: 'Click Card to Reveal Explanation';
+            position: absolute;
+            bottom: 12px;
+            right: 15px;
+            font-size: 11px;
+            color: var(--accent-purple);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 600;
+            opacity: 0.7;
+            transition: opacity 0.2s ease;
+        }
+
+        .vocab-card.revealed::after {
+            content: 'Click to Hide Definition';
+            color: var(--accent-blue);
+        }
+
+        .vocab-word {
+            font-family: var(--font-display);
+            font-size: 22px;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 5px;
+            transition: color 0.3s ease;
+        }
+
+        .vocab-card.revealed .vocab-word {
+            color: var(--accent-purple);
+        }
+
+        .vocab-def {
+            font-size: 14px;
+            line-height: 1.6;
+            color: var(--text-muted);
+            margin-top: 10px;
+            display: none;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .vocab-card.revealed .vocab-def {
+            display: block;
+            opacity: 1;
+        }
+
+        ul.custom-bullets, ol.custom-numbers {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        ul.custom-bullets li {
+            position: relative;
+            padding-left: 28px;
+            font-size: 16px;
+            line-height: 1.5;
+            color: var(--text-muted);
+        }
+
+        ul.custom-bullets li::before {
+            content: "\f058";
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            position: absolute;
+            left: 0;
+            top: 2px;
+            color: var(--accent-purple);
+            font-size: 16px;
+        }
+
+        ol.custom-numbers li {
+            position: relative;
+            padding-left: 36px;
+            font-size: 16px;
+            line-height: 1.5;
+            color: var(--text-muted);
+        }
+
+        ol.custom-numbers li::before {
+            content: attr(data-num);
+            position: absolute;
+            left: 0;
+            top: 1px;
+            background-color: var(--space-border);
+            color: var(--accent-purple);
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .matrix-table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: var(--space-dark);
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid var(--space-border);
+        }
+
+        .matrix-table th {
+            background-color: rgba(255,255,255,0.02);
+            color: var(--accent-purple);
+            font-family: var(--font-display);
+            font-size: 16px;
+            font-weight: 700;
+            padding: 14px 20px;
+            text-align: left;
+            border-bottom: 2px solid var(--space-border);
+        }
+
+        .matrix-table td {
+            padding: 14px 20px;
+            border-bottom: 1px solid var(--space-border);
+            font-size: 15px;
+            color: var(--text-muted);
+        }
+
+        .teacher-notes-panel {
+            background-color: rgba(192, 132, 252, 0.05);
+            border-top: 1px solid rgba(192, 132, 252, 0.2);
+            padding: 15px 60px;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            z-index: 10;
+            transition: transform 0.3s ease;
+            transform: translateY(100%);
+            height: 70px;
+        }
+
+        .teacher-notes-panel.visible {
+            transform: translateY(0);
+        }
+
+        .teacher-notes-panel i {
+            color: var(--accent-purple);
+            font-size: 20px;
+        }
+
+        .teacher-notes-panel p {
+            font-size: 13px;
+            color: #d8b4fe;
+            font-style: italic;
+            line-height: 1.4;
+        }
+
+        #deck-controls {
+            background-color: #0b0f19;
+            border-top: 1px solid var(--space-border);
+            padding: 15px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 20;
+        }
+
+        .control-btn-group {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .control-btn {
+            background-color: var(--space-card);
+            border: 1px solid var(--space-border);
+            color: var(--text-main);
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .control-btn:hover:not(:disabled) {
+            border-color: var(--accent-purple);
+            color: var(--accent-purple);
+            background-color: rgba(192, 132, 252, 0.05);
+        }
+
+        .control-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        .toggle-btn {
+            background-color: var(--space-card);
+            border: 1px solid var(--space-border);
+            color: var(--text-muted);
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s ease;
+        }
+
+        .toggle-btn.active {
+            border-color: var(--accent-purple);
+            color: var(--accent-purple);
+            background-color: rgba(192, 132, 252, 0.08);
+        }
+
+        #slide-indicator {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-muted);
+            background-color: var(--space-card);
+            border: 1px solid var(--space-border);
+            padding: 6px 16px;
+            border-radius: 20px;
+        }
+
+        .interactive-sim-panel {
+            background-color: var(--space-dark);
+            border: 2px solid var(--space-border);
+            border-radius: 12px;
+            height: 440px;
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            box-shadow: inset 0 0 30px rgba(192, 132, 252, 0.04);
+        }
+
+        .sim-canvas {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+
+        .physics-terminal {
+            background-color: #111827;
+            border: 1px solid var(--space-border);
+            border-radius: 12px;
+            height: 440px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .terminal-tabs {
+            display: flex;
+            background-color: rgba(15, 23, 42, 0.6);
+            border-bottom: 1px solid var(--space-border);
+        }
+
+        .term-tab-btn {
+            flex: 1;
+            padding: 14px 4px;
+            background: none;
+            border: none;
+            border-bottom: 2px solid transparent;
+            color: var(--text-muted);
+            font-family: var(--font-body);
+            font-size: 11px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-align: center;
+            letter-spacing: 0.5px;
+        }
+
+        .term-tab-btn.active-tab {
+            color: var(--accent-purple);
+            border-bottom-color: var(--accent-purple);
+            background-color: rgba(192, 132, 252, 0.05);
+        }
+
+        .terminal-body {
+            flex-grow: 1;
+            padding: 22px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            overflow-y: auto;
+        }
+
+        .telemetry-header {
+            font-family: var(--font-display);
+            font-size: 22px;
+            color: #ffffff;
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .slider-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            background: rgba(255,255,255,0.01);
+            border: 1px solid var(--space-border);
+            border-radius: 8px;
+            padding: 12px;
+            margin-top: 10px;
+        }
+
+        .slider-label-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--text-muted);
+            text-transform: uppercase;
+        }
+
+        .custom-slider {
+            width: 100%;
+            accent-color: var(--accent-purple);
+            cursor: pointer;
+        }
+
+        .term-action-btn {
+            background-color: rgba(192, 132, 252, 0.03);
+            border: 1px solid var(--space-border);
+            color: var(--text-main);
+            padding: 12px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 13px;
+            text-align: left;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            font-family: var(--font-body);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .term-action-btn:hover {
+            border-color: var(--accent-purple);
+            background-color: rgba(192, 132, 252, 0.1);
+            transform: translateX(4px);
+        }
+
+        .interactive-feedback {
+            background-color: rgba(16, 185, 129, 0.08);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+            border-radius: 6px;
+            padding: 10px 12px;
+            font-size: 13px;
+            color: var(--accent-green);
+            display: none;
+            margin-top: 10px;
+            line-height: 1.4;
+        }
+
+        .interactive-feedback.incorrect {
+            background-color: rgba(239, 68, 68, 0.08);
+            border-color: rgba(239, 68, 68, 0.2);
+            color: #f87171;
+        }
+
+        .physics-toggle {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 14px;
+            cursor: pointer;
+            user-select: none;
+            padding: 10px;
+            border: 1px solid var(--space-border);
+            border-radius: 8px;
+            background: rgba(255,255,255,0.02);
+            transition: all 0.2s ease;
+        }
+        
+        .physics-toggle:hover {
+            background: rgba(255,255,255,0.05);
+        }
+
+        .physics-toggle input {
+            cursor: pointer;
+            accent-color: var(--accent-purple);
+            width: 16px;
+            height: 16px;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="presentation-wrapper">
+
+        <!-- SLIDE 1: Title Screen -->
+        <div class="slide active" id="slide-1">
+            <div class="slide-header" style="opacity: 0;"></div>
+            <div class="slide-content">
+                <div class="hero-layout">
+                    <p style="color: var(--accent-purple); font-weight: 700; text-transform: uppercase; letter-spacing: 2px; font-size: 14px;">Year 6 Earth & Space Sciences</p>
+                    <h1>Rotating and Revolving</h1>
+                    <div class="hero-divider"></div>
+                    <h3 style="color: #ffffff; font-family: var(--font-body); font-weight: 500; font-size: 22px; margin-bottom: 8px;">Lesson 3: The Dual Motions of Earth</h3>
+                    <p style="color: var(--text-muted); font-size: 16px;">Unpacking the mechanics of day and night versus the journey of a solar year.</p>
+                </div>
+            </div>
+            <div class="teacher-notes-panel">
+                <i class="fa-solid fa-lightbulb"></i>
+                <p>Welcome class! Today we decode the two distinct motions Earth makes simultaneously. This clears up a major misconception between what causes a day and what causes a year.</p>
+            </div>
+        </div>
+
+        <!-- SLIDE 2: See, Think, Wonder -->
+        <div class="slide" id="slide-2">
+            <div class="slide-header">
+                <div class="slide-title-group">
+                    <h2>See, Think, Wonder</h2>
+                    <p>Observing the Night Sky in Motion</p>
+                </div>
+                <div class="ejss-badge">TAKE OFF</div>
+            </div>
+            <div class="slide-content">
+                <div class="two-col">
+                    <div class="media-frame">
+                        <svg viewBox="0 0 400 300" width="100%" height="100%" style="background-color: #020617; border-radius: 8px;">
+                            <!-- Center pole star -->
+                            <circle cx="200" cy="120" r="3" fill="#ffffff" opacity="0.9" />
+                            
+                            <!-- Concentric star trail arcs -->
+                            <path d="M 180,120 A 20,20 0 0,1 214,106" stroke="rgba(255,255,255,0.6)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+                            <path d="M 160,120 A 40,40 0 0,1 238,103" stroke="rgba(255,255,255,0.4)" stroke-width="2" fill="none" stroke-linecap="round"/>
+                            <path d="M 140,120 A 60,60 0 0,1 254,94" stroke="rgba(192,132,252,0.5)" stroke-width="1" fill="none" stroke-linecap="round"/>
+                            <path d="M 110,120 A 90,90 0 0,1 275,70" stroke="rgba(255,255,255,0.3)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+                            <path d="M 70,120 A 130,130 0 0,1 306,44" stroke="rgba(56,189,248,0.4)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+                            <path d="M 30,120 A 170,170 0 0,1 332,13" stroke="rgba(255,255,255,0.2)" stroke-width="2" fill="none" stroke-linecap="round"/>
+                            
+                            <!-- Bottom tree silhouettes -->
+                            <rect x="0" y="250" width="400" height="50" fill="#0f172a" />
+                            <polygon points="40,250 60,180 80,250" fill="#0f172a" />
+                            <polygon points="120,250 145,160 170,250" fill="#0f172a" />
+                            <polygon points="250,250 280,140 310,250" fill="#0f172a" />
+                            <polygon points="340,250 355,190 370,250" fill="#0f172a" />
+                        </svg>
+                        <div class="media-caption">A time-lapse photograph showing "Star Trails" moving in circles over several hours.</div>
+                    </div>
+                    <div>
+                        <ul class="custom-bullets" style="gap: 15px;">
+                            <li style="color: #ffffff;"><strong>👀 SEE:</strong> What pattern are the stars drawing in the sky over the course of the night?</li>
+                            <li style="color: #ffffff;"><strong>🧠 THINK:</strong> Are the stars actually flying in circles around the Earth, or is something else moving?</li>
+                            <li style="color: #ffffff;"><strong>❓ WONDER:</strong> How fast does our planet have to be moving to make the sky look like this over 12 hours?</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="teacher-notes-panel">
+                <i class="fa-solid fa-lightbulb"></i>
+                <p>Prompt students to think back to Lesson 1's "Train Analogy". The stars aren't swirling; we are spinning beneath them like a carousel!</p>
+            </div>
+        </div>
+
+        <!-- SLIDE 3: Vocab Matrix 1 -->
+        <div class="slide" id="slide-3">
+            <div class="slide-header">
+                <div class="slide-title-group">
+                    <h2>Core Terminology</h2>
+                    <p>Defining Two Distinct Motions</p>
+                </div>
+                <div class="ejss-badge">Vocabulary Mastery</div>
+            </div>
+            <div class="slide-content">
+                <p style="margin-bottom: 20px; color: var(--text-muted);">Click each card to reveal the precise scientific difference between these commonly confused words:</p>
+                <div class="vocab-grid">
+                    <div class="vocab-card" onclick="toggleVocab(this)">
+                        <div class="vocab-word">Rotate (Rotation)</div>
+                        <div class="vocab-def">The act of spinning on an internal central line (like a basketball spinning on a finger). Earth's rotation takes 24 hours and causes our Day and Night.</div>
+                    </div>
+                    <div class="vocab-card" onclick="toggleVocab(this)">
+                        <div class="vocab-word">Revolve (Revolution)</div>
+                        <div class="vocab-def">The act of moving in an orbit around an external object (like a runner circling a track). Earth's revolution around the Sun takes 365.25 days and makes a Year.</div>
+                    </div>
+                    <div class="vocab-card" onclick="toggleVocab(this)">
+                        <div class="vocab-word">Axis</div>
+                        <div class="vocab-def">An invisible, imaginary straight line running directly through the center of a planet from its North Pole to its South Pole. The planet rotates around this line.</div>
+                    </div>
+                </div>
+            </div>
+            <div class="teacher-notes-panel">
+                <i class="fa-solid fa-lightbulb"></i>
+                <p>Have students physically stand up. Say "Rotate" and have them spin on the spot. Say "Revolve" and have them walk in a circle around their desk.</p>
+            </div>
+        </div>
+
+        <!-- SLIDE 4: Explicit Teaching -->
+        <div class="slide" id="slide-4">
+            <div class="slide-header">
+                <div class="slide-title-group">
+                    <h2>The Spinning Top vs The Runner</h2>
+                    <p>Analogy Mapping</p>
+                </div>
+                <div class="ejss-badge">EXPLICIT TEACHING</div>
+            </div>
+            <div class="slide-content">
+                <div class="two-col-equal">
+                    <div style="background-color: rgba(56, 189, 248, 0.04); border: 1px solid rgba(56, 189, 248, 0.2); padding: 25px; border-radius: 12px;">
+                        <h3 style="color: var(--accent-blue); margin-bottom: 15px;"><i class="fa-solid fa-arrows-rotate"></i> Rotation (The Spin)</h3>
+                        <p style="color: var(--text-muted); line-height: 1.5; margin-bottom: 10px;">Imagine a spinning top whirling on a table. It stays in one spot but turns rapidly.</p>
+                        <p style="color: #ffffff; font-weight: 600;">Earth rotates at 1,600 km/h at the equator.</p>
+                        <p style="color: var(--text-muted); font-size: 13px; margin-top: 10px;">This spins us to face the Sun (Morning), and spins us away into shadow (Night).</p>
+                    </div>
+                    <div style="background-color: rgba(192, 132, 252, 0.04); border: 1px solid rgba(192, 132, 252, 0.2); padding: 25px; border-radius: 12px;">
+                        <h3 style="color: var(--accent-purple); margin-bottom: 15px;"><i class="fa-solid fa-earth-americas"></i> Revolution (The Orbit)</h3>
+                        <p style="color: var(--text-muted); line-height: 1.5; margin-bottom: 10px;">Imagine an athlete running laps around a massive stadium track.</p>
+                        <p style="color: #ffffff; font-weight: 600;">Earth revolves around the Sun at 107,000 km/h.</p>
+                        <p style="color: var(--text-muted); font-size: 13px; margin-top: 10px;">It takes an entire year to complete one massive lap around our central star.</p>
+                    </div>
+                </div>
+                <div class="highlight-alert" style="background-color: rgba(245, 158, 11, 0.08); border-color: rgba(245, 158, 11, 0.3); border-left-color: var(--accent-orange); margin-top: 25px;">
+                    <h4 style="color: var(--accent-orange);"><i class="fa-solid fa-triangle-exclamation"></i> The Dual Motion Rule</h4>
+                    <p style="color: #fcd34d;">Earth does not do these one at a time. It is constantly spinning like a top <strong>WHILE</strong> it runs around the track. Every 1 orbit around the Sun contains 365 spins!</p>
+                </div>
+            </div>
+            <div class="teacher-notes-panel">
+                <i class="fa-solid fa-lightbulb"></i>
+                <p>This slide is the core of the lesson. Ensure students can articulate that 1 spin = 1 day, and 1 orbit = 1 year.</p>
+            </div>
+        </div>
+
+        <!-- SLIDE 5: DUAL MOTION SIMULATOR -->
+        <div class="slide" id="slide-5">
+            <div class="slide-header">
+                <div class="slide-title-group">
+                    <h2>Dual-Motion Sandbox</h2>
+                    <p>Testing Rotation and Revolution</p>
+                </div>
+                <div class="ejss-badge">SPREAD YOUR WINGS</div>
+            </div>
+            <div class="slide-content">
+                <div class="two-col">
+                    
+                    <!-- Left: Interactive Simulator -->
+                    <div class="interactive-sim-panel">
+                        <canvas id="dual-canvas" class="sim-canvas"></canvas>
+                        <div style="position: absolute; bottom: 15px; left: 15px; font-size: 10px; color: rgba(255,255,255,0.4);">
+                            Visual Scale Note: For visibility, this model runs at 1 Orbit = 12 Days (Spins).<br>Real Earth is 1 Orbit = 365 Days.
+                        </div>
+                    </div>
+
+                    <!-- Right: Dynamic Terminal Workspace -->
+                    <div class="physics-terminal">
+                        <div class="terminal-tabs">
+                            <button class="term-tab-btn active-tab" style="pointer-events: none;">MOTION CONTROLS</button>
+                        </div>
+                        <div class="terminal-body" style="justify-content: flex-start; gap: 20px;">
+                            
+                            <p style="font-size: 13px; color: var(--text-muted);">Toggle the physics engines below to isolate the two different planetary movements.</p>
+
+                            <div style="display: flex; flex-direction: column; gap: 15px;">
+                                <label class="physics-toggle" style="border-color: rgba(56, 189, 248, 0.3);">
+                                    <input type="checkbox" id="toggle-rotate" checked onchange="updateDualSim()">
+                                    <div>
+                                        <div style="color: var(--accent-blue); font-weight: 700;">Enable Rotation (Spin)</div>
+                                        <div style="font-size: 11px; color: var(--text-muted);">Planet spins on its own internal axis.</div>
+                                    </div>
+                                </label>
+
+                                <label class="physics-toggle" style="border-color: rgba(192, 132, 252, 0.3);">
+                                    <input type="checkbox" id="toggle-revolve" checked onchange="updateDualSim()">
+                                    <div>
+                                        <div style="color: var(--accent-purple); font-weight: 700;">Enable Revolution (Orbit)</div>
+                                        <div style="font-size: 11px; color: var(--text-muted);">Planet travels along an orbital path.</div>
+                                    </div>
+                                </label>
+                            </div>
+
+                            <div class="telemetry-item" style="margin-top: 10px; background: rgba(245, 158, 11, 0.05); border-color: rgba(245, 158, 11, 0.2);">
+                                <span class="label" style="color: var(--accent-orange);">Live Day Counter (Spins)</span>
+                                <span class="value" id="spin-counter" style="font-size: 24px; color: var(--accent-orange);">0</span>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="teacher-notes-panel">
+                <i class="fa-solid fa-lightbulb"></i>
+                <p>Toggle revolution OFF so students see just the spin (day). Then toggle rotation OFF so they see the orbit without spinning. Then turn both on.</p>
+            </div>
+        </div>
+
+        <!-- SLIDE 6: The Terminator Line -->
+        <div class="slide" id="slide-6">
+            <div class="slide-header">
+                <div class="slide-title-group">
+                    <h2>The Terminator Line</h2>
+                    <p>Creating Day and Night</p>
+                </div>
+                <div class="ejss-badge">EXPLICIT TEACHING</div>
+            </div>
+            <div class="slide-content">
+                <div class="two-col">
+                    <div class="media-frame">
+                        <svg viewBox="0 0 400 300" width="100%" height="100%" style="background-color: #020617; border-radius: 8px;">
+                            <!-- Sunlight rays coming from left -->
+                            <polygon points="0,50 200,50 200,250 0,250" fill="rgba(255,255,255,0.05)" />
+                            <path d="M 0,100 L 150,100 M 0,150 L 130,150 M 0,200 L 150,200" stroke="rgba(245, 158, 11, 0.4)" stroke-width="2" stroke-dasharray="8,4" />
+                            
+                            <!-- Earth Background -->
+                            <circle cx="200" cy="150" r="90" fill="#0284c7" />
+                            
+                            <!-- Earth Dark side (Night) overlay -->
+                            <path d="M 200,60 A 90,90 0 0,1 200,240 L 200,60 Z" fill="#090d16" opacity="0.85" />
+                            
+                            <!-- Terminator Line dividing them -->
+                            <line x1="200" y1="60" x2="200" y2="240" stroke="#38bdf8" stroke-width="2" />
+                            
+                            <!-- Axis line -->
+                            <line x1="200" y1="30" x2="200" y2="270" stroke="#ffffff" stroke-width="1.5" stroke-dasharray="4,2" />
+                            <circle cx="200" cy="30" r="3" fill="#ffffff" />
+                            
+                            <!-- Rotation Arrow -->
+                            <path d="M 170,40 Q 230,20 250,60" stroke="#f59e0b" stroke-width="2" fill="none" />
+                            <polygon points="250,60 255,50 242,50" fill="#f59e0b" />
+
+                            <text x="50" y="145" font-family="'Plus Jakarta Sans', sans-serif" font-size="12" fill="#fcd34d" font-weight="700">SUNLIGHT</text>
+                            <text x="200" y="290" font-family="'Plus Jakarta Sans', sans-serif" font-size="10" fill="#38bdf8" text-anchor="middle">The Terminator Line</text>
+                        </svg>
+                    </div>
+                    <div>
+                        <h3 style="color: var(--accent-orange); margin-bottom: 12px;">Half in Shadow</h3>
+                        <p style="margin-bottom: 15px;">Because Earth is a sphere, the Sun can only ever illuminate <strong>one half</strong> of it at a time. The other half is blocked by the Earth itself, casting a giant shadow into space.</p>
+                        <p style="color: var(--accent-blue); font-weight: 600;">The Terminator Line:</p>
+                        <p style="font-size: 14px; color: var(--text-muted); line-height: 1.5;">This is the dividing line between the light half (Day) and the dark half (Night). As Earth rotates on its axis, cities are constantly spinning through this line, experiencing sunrise and sunset.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="teacher-notes-panel">
+                <i class="fa-solid fa-lightbulb"></i>
+                <p>Use a flashlight and a globe (or a ball) in a darkened room to physically demonstrate the terminator line.</p>
+            </div>
+        </div>
+
+        <!-- SLIDE 7: TERMINATOR SIMULATOR -->
+        <div class="slide" id="slide-7">
+            <div class="slide-header">
+                <div class="slide-title-group">
+                    <h2>Day / Night Terminator Sandbox</h2>
+                    <p>Tracking time in Queensland</p>
+                </div>
+                <div class="ejss-badge">SPREAD YOUR WINGS</div>
+            </div>
+            <div class="slide-content">
+                <div class="two-col">
+                    
+                    <!-- Left: Interactive Simulator -->
+                    <div class="interactive-sim-panel" style="background-color: #040810;">
+                        <canvas id="terminator-canvas" class="sim-canvas"></canvas>
+                        <div style="position: absolute; top: 15px; right: 15px; font-family: monospace; font-size: 11px; color: rgba(245, 158, 11, 0.6); text-align: right;">
+                            VIEW: TOP-DOWN (NORTH POLE)<br>SUNLIGHT FROM LEFT SECTOR
+                        </div>
+                    </div>
+
+                    <!-- Right: Time Slider Controls -->
+                    <div class="physics-terminal">
+                        <div class="terminal-tabs">
+                            <button class="term-tab-btn active-tab" style="pointer-events: none;">TIME CONTROLS</button>
+                        </div>
+                        <div class="terminal-body">
+                            
+                            <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 15px;">Drag the slider to physically rotate the Earth and advance the time of day for the red tracker dot located at <strong>Brisbane, Queensland</strong>.</p>
+                            
+                            <div class="telemetry-item" style="background: rgba(56, 189, 248, 0.05); border-color: rgba(56, 189, 248, 0.2); align-items: center; padding: 15px;">
+                                <span class="label" style="color: var(--accent-blue);">Current Local Time (QLD)</span>
+                                <span class="value" id="clock-display" style="font-size: 32px; color: #ffffff; margin-top: 5px;">06:00 (Sunrise)</span>
+                            </div>
+
+                            <div class="slider-group" style="margin-top: 25px;">
+                                <div class="slider-label-row">
+                                    <span>Time of Day (Hours):</span>
+                                    <span id="slider-time-val" style="color: var(--accent-purple);">6</span>
+                                </div>
+                                <input type="range" min="0" max="24" step="0.1" value="6" class="custom-slider" id="time-slider-input" oninput="handleTimeSlider(this.value)">
+                            </div>
+                            
+                            <div style="display: flex; justify-content: space-between; font-size: 10px; color: var(--text-muted); margin-top: 5px; padding: 0 5px;">
+                                <span>Midnight</span>
+                                <span>Noon</span>
+                                <span>Midnight</span>
+                            </div>
+
+                            <div class="interactive-feedback" id="feedback-terminator" style="display: block; margin-top: 20px; background-color: rgba(245, 158, 11, 0.08); border-color: rgba(245, 158, 11, 0.2); color: var(--accent-orange);">
+                                <i class="fa-solid fa-sun"></i> Queensland is currently passing through the Terminator Line into the light. It is Sunrise!
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="teacher-notes-panel">
+                <i class="fa-solid fa-lightbulb"></i>
+                <p>Have a student come to the board and drag the slider. Note how the Earth itself moves, NOT the Sun, to create the changing times on the clock.</p>
+            </div>
+        </div>
+
+        <!-- SLIDE 8: System Anatomy (Other Planets) -->
+        <div class="slide" id="slide-8">
+            <div class="slide-header">
+                <div class="slide-title-group">
+                    <h2>Cosmic Oddities</h2>
+                    <p>Does every planet spin the same way?</p>
+                </div>
+                <div class="ejss-badge">EXPLICIT TEACHING</div>
+            </div>
+            <div class="slide-content">
+                <div class="card-grid">
+                    <div class="concept-card" style="border-top: 4px solid var(--accent-blue);">
+                        <h3>Jupiter (The Speedster)</h3>
+                        <p style="font-size: 13px;">Jupiter is the largest planet, yet it rotates incredibly fast. A full day on Jupiter lasts only <strong>10 Earth hours</strong>. Because it spins so rapidly, it bulges out in the middle!</p>
+                    </div>
+                    <div class="concept-card" style="border-top: 4px solid var(--accent-orange);">
+                        <h3>Venus (The Backward Crawler)</h3>
+                        <p style="font-size: 13px;">Venus has a heavily tilted axis and spins backwards compared to Earth. It rotates so slowly that <strong>a day on Venus is longer than its year!</strong></p>
+                    </div>
+                    <div class="concept-card" style="border-top: 4px solid var(--accent-purple);">
+                        <h3>Uranus (The Rolling Barrel)</h3>
+                        <p style="font-size: 13px;">Uranus was likely hit by a massive object long ago. Its axis is tilted at 98 degrees, meaning it rotates on its side, rolling around the Sun like a barrel.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="teacher-notes-panel">
+                <i class="fa-solid fa-lightbulb"></i>
+                <p>This is a great slide for engagement. A "Day" is defined strictly by rotation speed, which means a "Day" is completely different on every planet.</p>
+            </div>
+        </div>
+
+        <!-- SLIDE 9: Soar (What-if Scenario) - DIRECTLY FROM PDF -->
+        <div class="slide" id="slide-9">
+            <div class="slide-header">
+                <div class="slide-title-group">
+                    <h2>The "What-If" Physics Challenge</h2>
+                    <p>Testing Extreme Spin Speeds</p>
+                </div>
+                <div class="ejss-badge">SOAR & TRANSFER</div>
+            </div>
+            <div class="slide-content">
+                <div class="two-col">
+                    <div>
+                        <h3 style="color: var(--accent-orange); margin-bottom: 12px;">Hypothesis Generation</h3>
+                        <p style="margin-bottom: 15px;">We know Earth's current rotation speed gives us 24 hours of total day and night, adding up to 365 days a year.</p>
+                        <p style="color: var(--text-main); font-weight: 600; font-size: 18px;">What would happen if Earth took half the amount of time to rotate on its axis?</p>
+                        
+                        <!-- Hidden answer box to reveal -->
+                        <div style="background-color: rgba(16, 185, 129, 0.08); border: 1px dashed rgba(16, 185, 129, 0.4); padding: 15px; border-radius: 8px; margin-top: 20px; color: var(--accent-green); cursor: pointer;" onclick="this.innerHTML = '<strong>Scientific Outcome:</strong> There would be shorter days and nights as Earths rotation would be 12 hours instead of 24 hours. Because the speed of the orbit hasn\'t changed, this would mean there would be twice as many days (730) in a single year!'">
+                            <i class="fa-solid fa-eye"></i> Click to reveal the scientific outcome...
+                        </div>
+                    </div>
+                    <div class="media-frame">
+                        <svg viewBox="0 0 400 300" width="100%" height="100%" style="background-color: #020617; border-radius: 8px;">
+                            <circle cx="200" cy="150" r="100" fill="#0284c7" />
+                            <!-- Blur/motion lines for speed -->
+                            <path d="M 90,150 A 110,110 0 0,1 310,150" stroke="rgba(255,255,255,0.4)" stroke-width="2" fill="none" stroke-dasharray="10,15" opacity="0.8">
+                                <animateTransform attributeName="transform" type="rotate" from="0 200 150" to="360 200 150" dur="2s" repeatCount="indefinite"/>
+                            </path>
+                            <path d="M 80,150 A 120,120 0 0,1 320,150" stroke="rgba(56, 189, 248, 0.6)" stroke-width="3" fill="none" stroke-dasharray="20,30" opacity="0.6">
+                                <animateTransform attributeName="transform" type="rotate" from="0 200 150" to="360 200 150" dur="1.5s" repeatCount="indefinite"/>
+                            </path>
+                            
+                            <!-- Clocks flying off -->
+                            <circle cx="120" cy="80" r="15" fill="#1e293b" stroke="#94a3b8" stroke-width="2" />
+                            <line x1="120" y1="80" x2="120" y2="72" stroke="#fff" stroke-width="2" />
+                            <line x1="120" y1="80" x2="127" y2="80" stroke="#fff" stroke-width="2" />
+                            
+                            <circle cx="290" cy="230" r="15" fill="#1e293b" stroke="#94a3b8" stroke-width="2" />
+                            <line x1="290" y1="230" x2="283" y2="225" stroke="#fff" stroke-width="2" />
+                            <line x1="290" y1="230" x2="295" y2="235" stroke="#fff" stroke-width="2" />
+
+                            <text x="200" y="155" font-family="'Plus Jakarta Sans', sans-serif" font-size="24" fill="#ffffff" font-weight="700" text-anchor="middle">2X SPEED</text>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+            <div class="teacher-notes-panel">
+                <i class="fa-solid fa-lightbulb"></i>
+                <p>This directly tests their ability to separate rotation (day length) from revolution (year length). Spinning twice as fast doesn't make the year end faster!</p>
+            </div>
+        </div>
+
+        <!-- SLIDE 10: Data Analysis Matrix -->
+        <div class="slide" id="slide-10">
+            <div class="slide-header">
+                <div class="slide-title-group">
+                    <h2>Scientific Data Matrix</h2>
+                    <p>Comparing Day and Year Lengths</p>
+                </div>
+                <div class="ejss-badge">SOAR & TRANSFER</div>
+            </div>
+            <div class="slide-content">
+                <p style="margin-bottom: 15px; color: var(--text-muted);">Analyze the data table below showing rotation and revolution metrics for three planets:</p>
+                <table class="matrix-table">
+                    <thead>
+                        <tr>
+                            <th>Planet</th>
+                            <th>Time to Rotate (1 Day)</th>
+                            <th>Time to Revolve (1 Year)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="font-weight: 700; color: #ffffff;">Earth</td>
+                            <td>24 Hours</td>
+                            <td style="color: var(--accent-blue); font-weight: 600;">365 Days</td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight: 700; color: #ffffff;">Jupiter</td>
+                            <td style="color: var(--accent-orange); font-weight: 600;">10 Hours</td>
+                            <td>4,333 Earth Days (12 Earth Years)</td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight: 700; color: #ffffff;">Venus</td>
+                            <td style="color: var(--accent-purple); font-weight: 600;">5,832 Hours (243 Earth Days)</td>
+                            <td>225 Earth Days</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p style="margin-top: 15px; font-size: 15px; color: var(--accent-orange); font-weight: 600;">
+                    <i class="fa-solid fa-lightbulb"></i> Analysis Question: Looking at the data for Venus, what highly unusual statement can you make about its Day compared to its Year?
+                </p>
+            </div>
+            <div class="teacher-notes-panel">
+                <i class="fa-solid fa-lightbulb"></i>
+                <p>Guide students to the realization that on Venus, a single day (spin) takes longer to complete than an entire year (orbit)!</p>
+            </div>
+        </div>
+
+        <!-- SLIDE 11: EJSS Self-Assessment Rubric -->
+        <div class="slide" id="slide-11">
+            <div class="slide-header">
+                <div class="slide-title-group">
+                    <h2>Self-Assessment</h2>
+                    <p>Track Your Progress</p>
+                </div>
+                <div class="ejss-badge">EJSS Standards</div>
+            </div>
+            <div class="slide-content">
+                <div class="card-grid">
+                    <div class="concept-card" style="border-top: 4px solid var(--text-muted);">
+                        <h3 style="color: var(--text-muted);"><i class="fa-solid fa-star"></i> Level 1</h3>
+                        <p>I can define the words Rotation and Revolution, and know which one causes a Day and which one causes a Year.</p>
+                    </div>
+                    <div class="concept-card" style="border-top: 4px solid var(--accent-purple);">
+                        <h3><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i> Level 2</h3>
+                        <p>I can explain how the terminator line creates sunrise and sunset by putting half the Earth in shadow.</p>
+                    </div>
+                    <div class="concept-card" style="border-top: 4px solid var(--accent-orange);">
+                        <h3 style="color: var(--accent-orange);"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i> Level 3</h3>
+                        <p>I can calculate or hypothesize how changes to a planet's spin speed would alter the number of days inside a year.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="teacher-notes-panel">
+                <i class="fa-solid fa-lightbulb"></i>
+                <p>Have students show their level using a discrete hand gesture against their chest (1, 2, or 3 fingers).</p>
+            </div>
+        </div>
+
+        <!-- SLIDE 12: Diagnostic Exit Card -->
+        <div class="slide" id="slide-12">
+            <div class="slide-header">
+                <div class="slide-title-group">
+                    <h2>Exit Card Challenge</h2>
+                    <p>Consolidating Dual Motions</p>
+                </div>
+                <div class="ejss-badge">DIAGNOSTIC CHECK</div>
+            </div>
+            <div class="slide-content">
+                <div style="background-color: var(--space-dark); border: 1px solid var(--space-border); padding: 30px; border-radius: 12px;">
+                    <h3 style="color: var(--accent-orange); margin-bottom: 15px;"><i class="fa-solid fa-ticket-simple"></i> Answer in your Science Journal:</h3>
+                    <ol class="custom-numbers" style="gap: 15px;">
+                        <li data-num="1">Identify whether a spinning top is demonstrating Rotation or Revolution.</li>
+                        <li data-num="2">Explain why Australia experiences nighttime while other parts of the world experience daytime.</li>
+                        <li data-num="3">If a new planet was discovered that takes 50 hours to rotate and 100 hours to revolve, how many "days" would be in its year?</li>
+                    </ol>
+                </div>
+            </div>
+            <div class="teacher-notes-panel">
+                <i class="fa-solid fa-lightbulb"></i>
+                <p>Teacher Tip: When marking these journals, provide in-depth feedback praising correct physics vocabulary, and recommend re-reading Slide 4 if they confused rotation/revolution.</p>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- PRESENTATION DECK CONTROLS -->
+    <div id="deck-controls">
+        <div class="control-btn-group">
+            <button class="toggle-btn" id="teacher-toggle-btn" onclick="toggleTeacherNotes()">
+                <i class="fa-solid fa-chalkboard-user"></i> Teacher Notes
+            </button>
+        </div>
+        
+        <div class="control-btn-group">
+            <button class="control-btn" id="prev-btn" onclick="navigateSlide(-1)" disabled>
+                <i class="fa-solid fa-chevron-left"></i>
+            </button>
+            <div id="slide-indicator">1 / 12</div>
+            <button class="control-btn" id="next-btn" onclick="navigateSlide(1)">
+                <i class="fa-solid fa-chevron-right"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- PRESENTEATION ENGINE JAVASCRIPT -->
+    <script>
+        let currentSlide = 1;
+        const totalSlides = 12;
+
+        function navigateSlide(direction) {
+            const activeSlide = document.getElementById(`slide-${currentSlide}`);
+            activeSlide.classList.remove('active');
+
+            currentSlide += direction;
+            if (currentSlide < 1) currentSlide = 1;
+            if (currentSlide > totalSlides) currentSlide = totalSlides;
+
+            const targetSlide = document.getElementById(`slide-${currentSlide}`);
+            targetSlide.classList.add('active');
+
+            document.getElementById('slide-indicator').textContent = `${currentSlide} / ${totalSlides}`;
+            document.getElementById('prev-btn').disabled = (currentSlide === 1);
+            document.getElementById('next-btn').disabled = (currentSlide === totalSlides);
+
+            // Handle Simulators
+            if (currentSlide === 5) {
+                startDualSim();
+            } else {
+                stopDualSim();
+            }
+
+            if (currentSlide === 7) {
+                startTerminatorSim();
+            } else {
+                stopTerminatorSim();
+            }
+        }
+
+        document.addEventListener('keydown', function(event) {
+            if (event.key === "ArrowRight" || event.key === "Spacebar" || event.key === " ") {
+                if (currentSlide < totalSlides) {
+                    event.preventDefault();
+                    navigateSlide(1);
+                }
+            } else if (event.key === "ArrowLeft") {
+                if (currentSlide > 1) {
+                    event.preventDefault();
+                    navigateSlide(-1);
+                }
+            }
+        });
+
+        function toggleVocab(cardElement) {
+            cardElement.classList.toggle('revealed');
+        }
+
+        function toggleTeacherNotes() {
+            const toggleButton = document.getElementById('teacher-toggle-btn');
+            const notePanels = document.querySelectorAll('.teacher-notes-panel');
+            
+            toggleButton.classList.toggle('active');
+            
+            notePanels.forEach(panel => {
+                panel.classList.toggle('visible');
+            });
+        }
+
+        /* =======================================================
+           SIMULATOR 1: DUAL MOTION (SLIDE 5)
+           ======================================================= */
+        let dualCanvas, dualCtx, dualFrameId;
+        let dualRunning = false;
+        
+        const dualState = {
+            orbitAngle: 0,
+            spinAngle: 0,
+            enableRotate: true,
+            enableRevolve: true,
+            orbitSpeed: 0.005,
+            // 1 orbit (2PI) = 12 spins. Therefore spinSpeed = orbitSpeed * 12
+            spinSpeed: 0.005 * 12,
+            spinsCompleted: 0
+        };
+
+        function startDualSim() {
+            dualCanvas = document.getElementById('dual-canvas');
+            if (!dualCanvas) return;
+            const bounds = dualCanvas.getBoundingClientRect();
+            dualCanvas.width = bounds.width;
+            dualCanvas.height = bounds.height;
+            dualCtx = dualCanvas.getContext('2d');
+            dualRunning = true;
+            dualLoop();
+        }
+
+        function stopDualSim() {
+            dualRunning = false;
+            if (dualFrameId) cancelAnimationFrame(dualFrameId);
+        }
+
+        function updateDualSim() {
+            dualState.enableRotate = document.getElementById('toggle-rotate').checked;
+            dualState.enableRevolve = document.getElementById('toggle-revolve').checked;
+        }
+
+        function dualLoop() {
+            if (!dualRunning) return;
+            dualCtx.fillStyle = "#090d16";
+            dualCtx.fillRect(0, 0, dualCanvas.width, dualCanvas.height);
+
+            const cx = dualCanvas.width / 2;
+            const cy = dualCanvas.height / 2;
+            const orbitRadius = 140;
+
+            // Draw Orbit Track
+            dualCtx.strokeStyle = "rgba(255,255,255,0.1)";
+            dualCtx.lineWidth = 2;
+            dualCtx.beginPath();
+            dualCtx.arc(cx, cy, orbitRadius, 0, Math.PI * 2);
+            dualCtx.stroke();
+
+            // Draw Sun
+            dualCtx.beginPath();
+            dualCtx.arc(cx, cy, 25, 0, Math.PI * 2);
+            dualCtx.fillStyle = "#f59e0b";
+            dualCtx.fill();
+
+            // Physics Update
+            if (dualState.enableRevolve) {
+                dualState.orbitAngle += dualState.orbitSpeed;
+                if (dualState.orbitAngle >= Math.PI * 2) {
+                    dualState.orbitAngle -= Math.PI * 2;
+                }
+            }
+
+            if (dualState.enableRotate) {
+                let prevSpin = dualState.spinAngle;
+                dualState.spinAngle += dualState.spinSpeed;
+                
+                // Spin Counter logic
+                if (Math.floor(dualState.spinAngle / (Math.PI * 2)) > Math.floor(prevSpin / (Math.PI * 2))) {
+                    dualState.spinsCompleted++;
+                    document.getElementById('spin-counter').textContent = dualState.spinsCompleted;
+                }
+            }
+
+            // Calculate Earth Position
+            const ex = cx + orbitRadius * Math.cos(dualState.orbitAngle);
+            const ey = cy + orbitRadius * Math.sin(dualState.orbitAngle);
+
+            // Draw Earth Base
+            dualCtx.beginPath();
+            dualCtx.arc(ex, ey, 20, 0, Math.PI * 2);
+            dualCtx.fillStyle = "#0284c7";
+            dualCtx.fill();
+
+            // Draw Continents (Spinning layer)
+            dualCtx.save();
+            dualCtx.translate(ex, ey);
+            dualCtx.rotate(dualState.spinAngle);
+            
+            // Draw a marker to show spin clearly (like a continent)
+            dualCtx.fillStyle = "#10b981";
+            dualCtx.beginPath();
+            dualCtx.arc(10, 0, 6, 0, Math.PI * 2);
+            dualCtx.fill();
+            dualCtx.beginPath();
+            dualCtx.arc(-8, 8, 5, 0, Math.PI * 2);
+            dualCtx.fill();
+
+            // Draw axis line through the spinning earth
+            dualCtx.strokeStyle = "rgba(255,255,255,0.6)";
+            dualCtx.lineWidth = 1;
+            dualCtx.setLineDash([3, 3]);
+            dualCtx.beginPath();
+            dualCtx.moveTo(0, -28);
+            dualCtx.lineTo(0, 28);
+            dualCtx.stroke();
+            dualCtx.setLineDash([]);
+            
+            dualCtx.restore();
+
+            dualFrameId = requestAnimationFrame(dualLoop);
+        }
+
+        /* =======================================================
+           SIMULATOR 2: TERMINATOR LINE (SLIDE 7)
+           ======================================================= */
+        let termCanvas, termCtx, termFrameId;
+        let termRunning = false;
+        
+        const termState = {
+            timeOfDay: 6.0, // 0 to 24
+            targetLat: -10, // Y offset for QLD, Australia
+        };
+
+        function startTerminatorSim() {
+            termCanvas = document.getElementById('terminator-canvas');
+            if (!termCanvas) return;
+            const bounds = termCanvas.getBoundingClientRect();
+            termCanvas.width = bounds.width;
+            termCanvas.height = bounds.height;
+            termCtx = termCanvas.getContext('2d');
+            termRunning = true;
+            termLoop();
+        }
+
+        function stopTerminatorSim() {
+            termRunning = false;
+            if (termFrameId) cancelAnimationFrame(termFrameId);
+        }
+
+        function handleTimeSlider(val) {
+            termState.timeOfDay = parseFloat(val);
+            
+            // Format Clock
+            let hours = Math.floor(termState.timeOfDay);
+            let mins = Math.floor((termState.timeOfDay - hours) * 60);
+            let timeStr = `${hours.toString().padStart(2, '0')}:${mins.toString().padStart(2, '0')}`;
+            
+            let phaseStr = "";
+            if (termState.timeOfDay < 5 || termState.timeOfDay > 19) phaseStr = "(Deep Night)";
+            else if (termState.timeOfDay >= 5 && termState.timeOfDay < 7) phaseStr = "(Sunrise)";
+            else if (termState.timeOfDay >= 7 && termState.timeOfDay < 17) phaseStr = "(Daytime)";
+            else if (termState.timeOfDay >= 17 && termState.timeOfDay <= 19) phaseStr = "(Sunset)";
+            
+            document.getElementById('clock-display').textContent = `${timeStr} ${phaseStr}`;
+            
+            // Update Feedback Box
+            const fb = document.getElementById('feedback-terminator');
+            if (termState.timeOfDay >= 6 && termState.timeOfDay < 18) {
+                fb.style.backgroundColor = "rgba(16, 185, 129, 0.08)";
+                fb.style.borderColor = "rgba(16, 185, 129, 0.2)";
+                fb.style.color = "var(--accent-green)";
+                fb.innerHTML = `<i class="fa-solid fa-sun"></i> Queensland is on the light side of the Terminator Line. It is Daytime!`;
+            } else {
+                fb.style.backgroundColor = "rgba(192, 132, 252, 0.08)";
+                fb.style.borderColor = "rgba(192, 132, 252, 0.2)";
+                fb.style.color = "var(--accent-purple)";
+                fb.innerHTML = `<i class="fa-solid fa-moon"></i> Queensland has crossed into the shadow. It is Nighttime!`;
+            }
+        }
+
+        function termLoop() {
+            if (!termRunning) return;
+            termCtx.fillStyle = "#040810";
+            termCtx.fillRect(0, 0, termCanvas.width, termCanvas.height);
+
+            const cx = termCanvas.width / 2;
+            const cy = termCanvas.height / 2;
+            const r = 120;
+
+            // Draw Sunlight Rays from Left
+            termCtx.fillStyle = "rgba(255,255,255,0.02)";
+            termCtx.fillRect(0, cy - r, cx, r * 2);
+            for(let i=0; i<5; i++) {
+                termCtx.strokeStyle = "rgba(245, 158, 11, 0.2)";
+                termCtx.lineWidth = 1;
+                termCtx.setLineDash([10, 5]);
+                termCtx.beginPath();
+                termCtx.moveTo(0, cy - 80 + (i*40));
+                termCtx.lineTo(cx - r - 20, cy - 80 + (i*40));
+                termCtx.stroke();
+            }
+            termCtx.setLineDash([]);
+
+            // Draw Earth Base (Top-Down Polar View)
+            termCtx.beginPath();
+            termCtx.arc(cx, cy, r, 0, Math.PI * 2);
+            termCtx.fillStyle = "#0284c7";
+            termCtx.fill();
+
+            // Map Time (0-24) to Angle (0 to 2PI)
+            // 0h = Right (Midnight), 6h = Bottom (Sunrise), 12h = Left (Noon), 18h = Top (Sunset)
+            const timeRatio = termState.timeOfDay / 24.0;
+            const currentAngle = timeRatio * Math.PI * 2;
+
+            // Draw spinning longitude lines to make rotation obvious
+            termCtx.strokeStyle = "rgba(255,255,255,0.2)";
+            termCtx.lineWidth = 1.5;
+            for(let i=0; i<8; i++) {
+                const lineAngle = currentAngle + (i * Math.PI / 4);
+                termCtx.beginPath();
+                termCtx.moveTo(cx, cy);
+                termCtx.lineTo(cx + Math.cos(lineAngle) * r, cy + Math.sin(lineAngle) * r);
+                termCtx.stroke();
+            }
+
+            // Draw North Pole Center Marker
+            termCtx.beginPath();
+            termCtx.arc(cx, cy, 4, 0, Math.PI * 2);
+            termCtx.fillStyle = "#ffffff";
+            termCtx.fill();
+            termCtx.fillStyle = "rgba(255,255,255,0.8)";
+            termCtx.font = "10px sans-serif";
+            termCtx.fillText("North Pole", cx - 25, cy - 10);
+            
+            // Plot QLD Marker (Positioned on the rotating disk)
+            const qldRadius = r * 0.7; // Placed slightly inward from equator
+            const markerX = cx + Math.cos(currentAngle) * qldRadius;
+            const markerY = cy + Math.sin(currentAngle) * qldRadius;
+
+            // Draw Night Shadow Overlay (Right half of the circle)
+            termCtx.beginPath();
+            termCtx.arc(cx, cy, r, -Math.PI/2, Math.PI/2);
+            termCtx.fillStyle = "rgba(4, 8, 16, 0.85)";
+            termCtx.fill();
+
+            // Draw Terminator Line
+            termCtx.strokeStyle = "#38bdf8";
+            termCtx.lineWidth = 3;
+            termCtx.beginPath();
+            termCtx.moveTo(cx, cy - r);
+            termCtx.lineTo(cx, cy + r);
+            termCtx.stroke();
+
+            // Draw QLD Marker on top of shadow so it remains highly visible
+            termCtx.beginPath();
+            termCtx.arc(markerX, markerY, 7, 0, Math.PI * 2);
+            termCtx.fillStyle = "#ef4444"; // Red for QLD
+            termCtx.fill();
+            termCtx.strokeStyle = "#ffffff";
+            termCtx.lineWidth = 2;
+            termCtx.stroke();
+            
+            // Glowing Label for readability over light/dark sides
+            termCtx.fillStyle = "#ffffff";
+            termCtx.shadowColor = "#000000";
+            termCtx.shadowBlur = 4;
+            termCtx.font = "bold 12px sans-serif";
+            termCtx.fillText("QLD", markerX - 12, markerY - 12);
+            termCtx.shadowBlur = 0;
+
+            termFrameId = requestAnimationFrame(termLoop);
+        }
+    </script>
+</body>
+</html>
