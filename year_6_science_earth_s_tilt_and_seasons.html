@@ -1,0 +1,1454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Year 6 Science: Earth's Tilt - Lesson 4</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;1,300&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <style>
+        /* 1. RESET & VARIABLES */
+        :root {
+            --space-dark: #090d16;
+            --space-card: #131a2b;
+            --space-border: #222f4d;
+            --accent-blue: #38bdf8;
+            --accent-purple: #c084fc;
+            --accent-orange: #f59e0b;
+            --accent-green: #10b981;
+            --accent-red: #ef4444;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --font-display: 'Merriweather', serif;
+            --font-body: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: var(--space-dark);
+            color: var(--text-main);
+            font-family: var(--font-body);
+            height: 100vh;
+            width: 100vw;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        /* 2. DECK LAYOUT WINDOW */
+        #presentation-wrapper {
+            flex-grow: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            padding: 20px;
+            overflow: hidden;
+        }
+
+        .slide {
+            display: none;
+            width: 100%;
+            max-width: 1200px;
+            height: 100%;
+            max-height: 675px; 
+            background-color: var(--space-card);
+            border: 1px solid var(--space-border);
+            border-radius: 16px;
+            padding: 40px 60px;
+            position: relative;
+            flex-direction: column;
+            justify-content: space-between;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            opacity: 0;
+            transform: scale(0.98);
+        }
+
+        .slide.active {
+            display: flex;
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        /* Slide Top Accents */
+        .slide::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 8px;
+            background: linear-gradient(90deg, var(--accent-orange), var(--accent-red), var(--accent-purple));
+            border-top-left-radius: 16px;
+            border-top-right-radius: 16px;
+        }
+
+        /* 3. SLIDE HEADER STYLING */
+        .slide-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            border-left: 5px solid var(--accent-orange);
+            padding-left: 18px;
+            margin-bottom: 20px;
+            height: 65px;
+        }
+
+        .slide-title-group h2 {
+            font-family: var(--font-display);
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--text-main);
+            line-height: 1.2;
+        }
+
+        .slide-title-group p {
+            color: var(--text-muted);
+            font-size: 14px;
+            margin-top: 4px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .ejss-badge {
+            background: rgba(245, 158, 11, 0.1);
+            border: 1px solid rgba(245, 158, 11, 0.3);
+            color: var(--accent-orange);
+            padding: 6px 14px;
+            border-radius: 30px;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            white-space: nowrap;
+        }
+
+        /* 4. CONTENT GRID DESIGNS */
+        .slide-content {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            width: 100%;
+            overflow: hidden;
+            padding-right: 8px;
+        }
+
+        .two-col {
+            display: grid;
+            grid-template-columns: 1.15fr 0.85fr;
+            gap: 35px;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+        }
+
+        .two-col-equal {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            align-items: start;
+            width: 100%;
+        }
+
+        /* Media Frame Layout */
+        .media-frame {
+            background-color: var(--space-dark);
+            border: 2px solid var(--space-border);
+            border-radius: 12px;
+            overflow: hidden;
+            height: 340px;
+            width: 100%;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .media-frame svg {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .media-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(9, 13, 22, 0.85);
+            padding: 10px 15px;
+            font-size: 13px;
+            color: var(--text-muted);
+            border-top: 1px solid var(--space-border);
+            text-align: center;
+        }
+
+        /* Title Slide Layout */
+        .hero-layout {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero-layout h1 {
+            font-family: var(--font-display);
+            font-size: 54px;
+            font-weight: 700;
+            color: #ffffff;
+            line-height: 1.15;
+            margin-bottom: 15px;
+            text-shadow: 0 4px 12px rgba(0,0,0,0.5);
+        }
+
+        .hero-divider {
+            height: 4px;
+            width: 100px;
+            background: linear-gradient(90deg, var(--accent-orange), var(--accent-red));
+            margin: 20px auto;
+            border-radius: 2px;
+        }
+
+        /* Cards/Tiles */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            width: 100%;
+        }
+
+        .concept-card {
+            background-color: var(--space-dark);
+            border: 1px solid var(--space-border);
+            border-radius: 12px;
+            padding: 20px;
+            transition: all 0.2s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .concept-card:hover {
+            border-color: var(--accent-orange);
+            transform: translateY(-3px);
+        }
+
+        .concept-card h3 {
+            font-family: var(--font-display);
+            font-size: 18px;
+            color: var(--accent-orange);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .concept-card p {
+            font-size: 14px;
+            line-height: 1.5;
+            color: var(--text-muted);
+        }
+
+        /* 5. INTERACTIVE VOCABULARY FLIP CARDS */
+        .vocab-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            width: 100%;
+        }
+
+        .vocab-card {
+            background-color: var(--space-dark);
+            border: 1px solid var(--space-border);
+            border-radius: 12px;
+            padding: 25px;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            min-height: 140px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .vocab-card::after {
+            content: 'Click Card to Reveal Explanation';
+            position: absolute;
+            bottom: 12px;
+            right: 15px;
+            font-size: 11px;
+            color: var(--accent-orange);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 600;
+            opacity: 0.7;
+            transition: opacity 0.2s ease;
+        }
+
+        .vocab-card.revealed::after {
+            content: 'Click to Hide Definition';
+            color: var(--accent-blue);
+        }
+
+        .vocab-word {
+            font-family: var(--font-display);
+            font-size: 22px;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 5px;
+            transition: color 0.3s ease;
+        }
+
+        .vocab-card.revealed .vocab-word {
+            color: var(--accent-orange);
+        }
+
+        .vocab-def {
+            font-size: 14px;
+            line-height: 1.6;
+            color: var(--text-muted);
+            margin-top: 10px;
+            display: none;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .vocab-card.revealed .vocab-def {
+            display: block;
+            opacity: 1;
+        }
+
+        /* Lists */
+        ul.custom-bullets, ol.custom-numbers {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        ul.custom-bullets li {
+            position: relative;
+            padding-left: 28px;
+            font-size: 16px;
+            line-height: 1.5;
+            color: var(--text-muted);
+        }
+
+        ul.custom-bullets li::before {
+            content: "\f058";
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            position: absolute;
+            left: 0;
+            top: 2px;
+            color: var(--accent-orange);
+            font-size: 16px;
+        }
+
+        ol.custom-numbers li {
+            position: relative;
+            padding-left: 36px;
+            font-size: 16px;
+            line-height: 1.5;
+            color: var(--text-muted);
+        }
+
+        ol.custom-numbers li::before {
+            content: attr(data-num);
+            position: absolute;
+            left: 0;
+            top: 1px;
+            background-color: var(--space-border);
+            color: var(--accent-orange);
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        /* Table Matrix styling */
+        .matrix-table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: var(--space-dark);
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid var(--space-border);
+        }
+
+        .matrix-table th {
+            background-color: rgba(255,255,255,0.02);
+            color: var(--accent-orange);
+            font-family: var(--font-display);
+            font-size: 16px;
+            font-weight: 700;
+            padding: 14px 20px;
+            text-align: left;
+            border-bottom: 2px solid var(--space-border);
+        }
+
+        .matrix-table td {
+            padding: 14px 20px;
+            border-bottom: 1px solid var(--space-border);
+            font-size: 15px;
+            color: var(--text-muted);
+        }
+
+        .matrix-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        /* 6. TEACHER SCAFFOLD NOTE ACCORDION */
+        .teacher-notes-panel {
+            background-color: rgba(245, 158, 11, 0.05);
+            border-top: 1px solid rgba(245, 158, 11, 0.2);
+            padding: 15px 60px;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            z-index: 10;
+            transition: transform 0.3s ease;
+            transform: translateY(100%);
+            height: 70px;
+        }
+
+        .teacher-notes-panel.visible {
+            transform: translateY(0);
+        }
+
+        .teacher-notes-panel i {
+            color: var(--accent-orange);
+            font-size: 20px;
+        }
+
+        .teacher-notes-panel p {
+            font-size: 13px;
+            color: #fcd34d;
+            font-style: italic;
+            line-height: 1.4;
+        }
+
+        /* 7. CONTROLS FOOTER BAR */
+        #deck-controls {
+            background-color: #0b0f19;
+            border-top: 1px solid var(--space-border);
+            padding: 15px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 20;
+        }
+
+        .control-btn-group {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .control-btn {
+            background-color: var(--space-card);
+            border: 1px solid var(--space-border);
+            color: var(--text-main);
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .control-btn:hover:not(:disabled) {
+            border-color: var(--accent-orange);
+            color: var(--accent-orange);
+            background-color: rgba(245, 158, 11, 0.05);
+        }
+
+        .control-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        .toggle-btn {
+            background-color: var(--space-card);
+            border: 1px solid var(--space-border);
+            color: var(--text-muted);
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s ease;
+        }
+
+        .toggle-btn.active {
+            border-color: var(--accent-orange);
+            color: var(--accent-orange);
+            background-color: rgba(245, 158, 11, 0.08);
+        }
+
+        #slide-indicator {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-muted);
+            background-color: var(--space-card);
+            border: 1px solid var(--space-border);
+            padding: 6px 16px;
+            border-radius: 20px;
+        }
+
+        /* 8. SIMULATOR CSS */
+        .interactive-sim-panel {
+            background-color: var(--space-dark);
+            border: 2px solid var(--space-border);
+            border-radius: 12px;
+            height: 440px;
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            box-shadow: inset 0 0 30px rgba(245, 158, 11, 0.04);
+        }
+
+        .sim-canvas {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+
+        .physics-terminal {
+            background-color: #111827;
+            border: 1px solid var(--space-border);
+            border-radius: 12px;
+            height: 440px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .terminal-tabs {
+            display: flex;
+            background-color: rgba(15, 23, 42, 0.6);
+            border-bottom: 1px solid var(--space-border);
+        }
+
+        .term-tab-btn {
+            flex: 1;
+            padding: 14px 4px;
+            background: none;
+            border: none;
+            border-bottom: 2px solid transparent;
+            color: var(--text-muted);
+            font-family: var(--font-body);
+            font-size: 11px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-align: center;
+            letter-spacing: 0.5px;
+        }
+
+        .term-tab-btn.active-tab {
+            color: var(--accent-orange);
+            border-bottom-color: var(--accent-orange);
+            background-color: rgba(245, 158, 11, 0.05);
+        }
+
+        .terminal-body {
+            flex-grow: 1;
+            padding: 22px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            overflow-y: auto;
+        }
+
+        .slider-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            background: rgba(255,255,255,0.01);
+            border: 1px solid var(--space-border);
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 10px;
+        }
+
+        .custom-slider {
+            width: 100%;
+            accent-color: var(--accent-orange);
+            cursor: pointer;
+            margin: 10px 0;
+        }
+
+        .telemetry-item {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--space-border);
+            border-radius: 8px;
+            padding: 12px;
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 10px;
+        }
+        
+        .telemetry-item .label {
+            font-size: 11px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 700;
+        }
+        
+        .telemetry-item .value {
+            font-size: 20px;
+            color: #ffffff;
+            font-weight: 700;
+            margin-top: 5px;
+        }
+
+        .interactive-feedback {
+            background-color: rgba(56, 189, 248, 0.08);
+            border: 1px solid rgba(56, 189, 248, 0.2);
+            border-radius: 6px;
+            padding: 12px;
+            font-size: 13px;
+            color: var(--accent-blue);
+            margin-top: 15px;
+            line-height: 1.4;
+        }
+        
+        .term-action-btn {
+            background-color: rgba(245, 158, 11, 0.03);
+            border: 1px solid var(--space-border);
+            color: var(--text-main);
+            padding: 12px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 13px;
+            text-align: left;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            font-family: var(--font-body);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 8px;
+        }
+
+        .term-action-btn:hover {
+            border-color: var(--accent-orange);
+            background-color: rgba(245, 158, 11, 0.1);
+            transform: translateX(4px);
+        }
+    </style>
+</head>
+<body>
+
+    <div id="presentation-wrapper">
+
+        <!-- SLIDE 1: Title Screen -->
+        <div class="slide active" id="slide-1">
+            <div class="slide-header" style="opacity: 0;"></div> 
+            <div class="slide-content">
+                <div class="hero-layout">
+                    <p style="color: var(--accent-orange); font-weight: 700; text-transform: uppercase; letter-spacing: 2px; font-size: 14px;">Year 6 Earth & Space Sciences</p>
+                    <h1>Earth's Tilt: The Engine of Seasons</h1>
+                    <div class="hero-divider"></div>
+                    <h3 style="color: #ffffff; font-family: var(--font-body); font-weight: 500; font-size: 22px; margin-bottom: 8px;">Lesson 4: Sunlight Angles</h3>
+                    <p style="color: var(--text-muted); font-size: 16px;">Investigating the 23.5-degree lean and why Queensland experiences summer while the Northern Hemisphere freezes.</p>
+                </div>
+            </div>
+            <div class="teacher-notes-panel">
+                <i class="fa-solid fa-lightbulb"></i>
+                <p>Welcome class! Today we answer a major question: If Earth's orbit is mostly a circle (not a stretched oval), why does our temperature drastically change every 6 months?</p>
+            </div>
+        </div>
+
+        <!-- SLIDE 2: See, Think, Wonder -->
+        <div class="slide" id="slide-2">
+            <div class="slide-header">
+                <div class="slide-title-group">
+                    <h2>See, Think, Wonder</h2>
+                    <p>December Disparities</p>
+                </div>
+                <div class="ejss-badge">TAKE OFF</div>
+            </div>
+            <div class="slide-content">
+                <div class="two-col">
+                    <div class="media-frame" style="flex-direction: column; position: relative; border: 2px solid var(--space-border);">
+                        <!-- Top Half: New York (Winter) -->
+                        <div style="width: 100%; height: 50%; position: relative; overflow: hidden;">
+                            <img src="https://images.unsplash.com/photo-1483664852095-d6cc6870702d?auto=format&fit=crop&q=80&w=800" onerror="this.onerror=null; this.src='https://placehold.co/800x400/cbd5e1/334155?text=Snowy+New+York';" alt="Snowy New York" style="width: 100%; height: 100%; object-fit: cover; opacity: 0.9;">
+                            <div style="position: absolute; bottom: 10px; left: 15px; background: rgba(9, 13, 22, 0.85); padding: 6px 12px; border-radius: 6px; border-left: 3px solid #cbd5e1;">
+                                <span style="color: white; font-family: var(--font-body); font-size: 13px; font-weight: 700;">New York, USA (Dec 21)</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Bottom Half: Brisbane (Summer) -->
+                        <div style="width: 100%; height: 50%; position: relative; overflow: hidden; border-top: 4px solid var(--space-dark);">
+                            <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80" onerror="this.onerror=null; this.src='https://placehold.co/800x400/38bdf8/ffffff?text=Sunny+Brisbane';" alt="Sunny Australian Beach" style="width: 100%; height: 100%; object-fit: cover; opacity: 0.95;">
+                            <div style="position: absolute; top: 10px; left: 15px; background: rgba(9, 13, 22, 0.85); padding: 6px 12px; border-radius: 6px; border-left: 3px solid var(--accent-orange);">
+                                <span style="color: white; font-family: var(--font-body); font-size: 13px; font-weight: 700;">Brisbane, QLD (Dec 21)</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <ul class="custom-bullets" style="gap: 15px;">
+                            <li style="color: #ffffff;"><strong>👀 SEE:</strong> What differences in weather and environment do you observe between these two locations on the exact same date?</li>
+                            <li style="color: #ffffff;"><strong>🧠 THINK:</strong> If both cities are on the same planet, at the same distance from the Sun, how can one be freezing while the other is hot?</li>
+                            <li style="color: #ffffff;"><strong>❓ WONDER:</strong> What structural feature of the Earth could cause sunlight to hit these places differently?</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="teacher-notes-panel">
+                <i class="fa-solid fa-lightbulb"></i>
+                <p>Use this hook to challenge the misconception that summer occurs because "Earth gets closer to the Sun." If that were true, the whole globe would have summer at the same time!</p>
+            </div>
+        </div>
+
+        <!-- SLIDE 3: Vocab Matrix -->
+        <div class="slide" id="slide-3">
+            <div class="slide-header">
+                <div class="slide-title-group">
+                    <h2>Core Terminology</h2>
+                    <p>Defining Planetary Geometry</p>
+                </div>
+                <div class="ejss-badge">Vocabulary Mastery</div>
+            </div>
+            <div class="slide-content">
+                <p style="margin-bottom: 20px; color: var(--text-muted);">Click each card to reveal the precise scientific structures that drive our weather cycle:</p>
+                <div class="vocab-grid">
+                    <div class="vocab-card" onclick="toggleVocab(this)">
+                        <div class="vocab-word">Axial Tilt</div>
+                        <div class="vocab-def">The angle at which a planet leans away from a perfectly straight vertical line. Earth is permanently leaning at a <strong>23.5-degree angle</strong>.</div>
+                    </div>
+                    <div class="vocab-card" onclick="toggleVocab(this)">
+                        <div class="vocab-word">Hemisphere</div>
+                        <div class="vocab-def">Half of a sphere. The Earth is divided by the Equator into the Northern Hemisphere (top half) and the Southern Hemisphere (bottom half, where Australia is).</div>
+                    </div>
+                    <div class="vocab-card" onclick="toggleVocab(this)">
+                        <div class="vocab-word">Equinox</div>
+                        <div class="vocab-def">Two days a year (March & Sept) when the Earth's tilt is perfectly sideways to the Sun, causing everywhere on Earth to have exactly equal 12-hour days and nights.</div>
+                    </div>
+                </div>
+            </div>
+            <div class="teacher-notes-panel">
+                <i class="fa-solid fa-lightbulb"></i>
+                <p>Have students lean 23.5 degrees in their chairs. Explain that Earth stays locked in this "leaning" posture for its entire orbit.</p>
+            </div>
+        </div>
+
+        <!-- SLIDE 4: Explicit Teaching - The Constant Posture -->
+        <div class="slide" id="slide-4">
+            <div class="slide-header">
+                <div class="slide-title-group">
+                    <h2>The 23.5° Constant</h2>
+                    <p>Earth is not a Wobble Board</p>
+                </div>
+                <div class="ejss-badge">EXPLICIT TEACHING</div>
+            </div>
+            <div class="slide-content">
+                <div class="two-col">
+                    <div>
+                        <h3 style="color: var(--accent-orange); margin-bottom: 12px;">Locked in Space</h3>
+                        <p style="margin-bottom: 15px;">A common mistake is thinking Earth "wobbles" back and forth during the year to change the seasons. <strong>It does not.</strong></p>
+                        <p style="color: #ffffff;">Earth's axis is essentially locked, pointing at the exact same distant star (Polaris) all year long.</p>
+                        <p style="margin-top: 15px; color: var(--text-muted);">Because it keeps this posture while walking in a massive circle around the Sun, sometimes the Northern half is pointing toward the fire, and 6 months later, the Southern half is pointing toward the fire.</p>
+                    </div>
+                    <div style="background-color: rgba(255,255,255,0.02); border: 1px solid var(--space-border); padding: 25px; border-radius: 12px;">
+                        <h4 style="color: var(--accent-blue); font-size: 16px; margin-bottom: 15px; display: flex; align-items: center; gap: 8px;">
+                            <i class="fa-solid fa-compass"></i> The Posture Rule:
+                        </h4>
+                        <p style="font-size: 14px; color: var(--text-muted); line-height: 1.5;">If you lean your body to the right, and walk in a circle around a campfire without changing your lean, your head will be close to the fire on one side of the circle, and far away on the other side.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="teacher-notes-panel">
+                <i class="fa-solid fa-lightbulb"></i>
+                <p>Demonstrate this physically. Put a chair in the middle (Sun), lean right, and walk around it while keeping your lean locked to the right.</p>
+            </div>
+        </div>
+
+        <!-- SLIDE 5: Explicit Teaching - Direct vs Indirect -->
+        <div class="slide" id="slide-5">
+            <div class="slide-header">
+                <div class="slide-title-group">
+                    <h2>Direct vs. Indirect Energy</h2>
+                    <p>The Flashlight Analogy</p>
+                </div>
+                <div class="ejss-badge">EXPLICIT TEACHING</div>
+            </div>
+            <div class="slide-content">
+                <div class="two-col-equal">
+                    <div style="background-color: rgba(239, 68, 68, 0.05); border: 1px solid rgba(239, 68, 68, 0.2); padding: 25px; border-radius: 12px;">
+                        <h3 style="color: var(--accent-red); margin-bottom: 10px;"><i class="fa-solid fa-fire"></i> Direct Light (Summer)</h3>
+                        <p style="font-size: 14px; color: var(--text-muted); line-height: 1.5; margin-bottom: 15px;">When a hemisphere is tilted <strong>toward</strong> the Sun, the sunlight hits the ground straight on.</p>
+                        <ul class="custom-bullets" style="--accent-orange: var(--accent-red); font-size: 13px;">
+                            <li>Acts like a flashlight pointed straight down.</li>
+                            <li>Energy is highly concentrated in a small circle.</li>
+                            <li>Results in intense heat and higher temperatures.</li>
+                        </ul>
+                    </div>
+                    <div style="background-color: rgba(56, 189, 248, 0.05); border: 1px solid rgba(56, 189, 248, 0.2); padding: 25px; border-radius: 12px;">
+                        <h3 style="color: var(--accent-blue); margin-bottom: 10px;"><i class="fa-solid fa-snowflake"></i> Indirect Light (Winter)</h3>
+                        <p style="font-size: 14px; color: var(--text-muted); line-height: 1.5; margin-bottom: 15px;">When a hemisphere is tilted <strong>away</strong> from the Sun, the sunlight hits the ground at a steep slant.</p>
+                        <ul class="custom-bullets" style="--accent-orange: var(--accent-blue); font-size: 13px;">
+                            <li>Acts like a flashlight pointed at an angle.</li>
+                            <li>The exact same amount of energy gets stretched over a much larger, weaker oval.</li>
+                            <li>Results in cooler temperatures.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="teacher-notes-panel">
+                <i class="fa-solid fa-lightbulb"></i>
+                <p>If you have a flashlight, shine it directly down onto a desk, then angle it. Show how the light pool spreads out and gets dimmer.</p>
+            </div>
+        </div>
+
+        <!-- SLIDE 6: INTERACTIVE SEASON SIMULATOR -->
+        <div class="slide" id="slide-6">
+            <div class="slide-header">
+                <div class="slide-title-group">
+                    <h2>Orbital Season Sandbox</h2>
+                    <p>Tracking the 23.5° Incidence Angle</p>
+                </div>
+                <div class="ejss-badge">SPREAD YOUR WINGS</div>
+            </div>
+            <div class="slide-content">
+                <div class="two-col">
+                    
+                    <!-- Left: Interactive Simulator Canvas -->
+                    <div class="interactive-sim-panel">
+                        <canvas id="season-canvas" class="sim-canvas"></canvas>
+                        <div style="position: absolute; top: 15px; left: 15px; font-family: monospace; font-size: 11px; color: rgba(255, 255, 255, 0.4);">
+                            VIEW: SOLAR SYSTEM PROFILE<br>EARTH TILT: 23.5° CONSTANT
+                        </div>
+                    </div>
+
+                    <!-- Right: Physics Terminal & Sliders -->
+                    <div class="physics-terminal">
+                        <div class="terminal-tabs">
+                            <button class="term-tab-btn active-tab" style="pointer-events: none;">ORBIT CONTROLS</button>
+                        </div>
+                        <div class="terminal-body">
+                            
+                            <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 5px;">Drag the slider to move Earth along its 12-month orbit. Observe how the fixed tilt changes which hemisphere receives direct solar rays.</p>
+                            
+                            <div class="slider-group">
+                                <div style="display: flex; justify-content: space-between; font-size: 11px; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">
+                                    <span>Time of Year:</span>
+                                    <span id="slider-month-label" style="color: var(--accent-orange);">December (Summer)</span>
+                                </div>
+                                <!-- 0 = Dec, 3 = Mar, 6 = Jun, 9 = Sep -->
+                                <input type="range" min="0" max="11" step="1" value="0" class="custom-slider" id="month-slider" oninput="updateSeasonSim(this.value)">
+                                <div style="display: flex; justify-content: space-between; font-size: 10px; color: var(--text-muted); padding: 0 5px;">
+                                    <span>Dec</span>
+                                    <span>Mar</span>
+                                    <span>Jun</span>
+                                    <span>Sep</span>
+                                    <span>Dec</span>
+                                </div>
+                            </div>
+
+                            <div class="telemetry-item" style="margin-top: 15px; border-left: 4px solid var(--accent-orange);">
+                                <span class="label">QLD Sunlight Angle</span>
+                                <span class="value" id="qld-angle-readout" style="color: var(--accent-orange);">Direct (High Intensity)</span>
+                            </div>
+
+                            <div class="telemetry-item" style="border-left: 4px solid var(--accent-blue);">
+                                <span class="label">Northern Hemisphere Status</span>
+                                <span class="value" id="nh-status-readout" style="font-size: 16px;">Tilted Away (Winter)</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="teacher-notes-panel">
+                <i class="fa-solid fa-lightbulb"></i>
+                <p>Have students drag the slider to June. Notice that the axis is STILL pointing the same way, but now Earth is on the other side of the Sun, so the bottom half is in shadow.</p>
+            </div>
+        </div>
+
+        <!-- SLIDE 7: Local Context -->
+        <div class="slide" id="slide-7">
+            <div class="slide-header">
+                <div class="slide-title-group">
+                    <h2>Summer in Queensland</h2>
+                    <p>The Tropic of Capricorn</p>
+                </div>
+                <div class="ejss-badge">LOCAL CONTEXT</div>
+            </div>
+            <div class="slide-content">
+                <div class="two-col">
+                    <div class="media-frame" style="background-color: #000000; overflow: hidden; display: flex; align-items: center; justify-content: center; position: relative;">
+                        <!-- Deep space background stars -->
+                        <div style="position: absolute; width: 100%; height: 100%; background-image: radial-gradient(circle, #ffffff 1px, transparent 1px); background-size: 40px 40px; opacity: 0.15;"></div>
+                        
+                        <svg viewBox="0 0 400 300" width="100%" height="100%" style="z-index: 1;">
+                            <defs>
+                                <radialGradient id="globe-glow" cx="30%" cy="30%" r="70%">
+                                    <stop offset="0%" stop-color="#38bdf8"/>
+                                    <stop offset="60%" stop-color="#0284c7"/>
+                                    <stop offset="95%" stop-color="#0369a1"/>
+                                    <stop offset="100%" stop-color="#082f49"/>
+                                </radialGradient>
+                                <radialGradient id="atmos-glow" cx="50%" cy="50%" r="50%">
+                                    <stop offset="85%" stop-color="rgba(56, 189, 248, 0)"/>
+                                    <stop offset="100%" stop-color="rgba(56, 189, 248, 0.4)"/>
+                                </radialGradient>
+                            </defs>
+                            
+                            <!-- Atmosphere Outer Glow -->
+                            <circle cx="200" cy="150" r="128" fill="url(#atmos-glow)" />
+                            
+                            <!-- Earth Base 3D Sphere -->
+                            <circle cx="200" cy="150" r="120" fill="url(#globe-glow)" />
+                            
+                            <!-- Australia Detailed Silhouette -->
+                            <g fill="#10b981" opacity="0.9">
+                                <path d="M 220,165 C 230,150 255,145 270,155 C 285,150 295,160 300,175 C 310,190 300,210 285,220 C 270,230 255,230 240,220 C 230,225 215,215 210,200 C 205,185 210,175 220,165 Z" />
+                                <path d="M 265,235 C 275,232 285,240 275,248 C 265,248 260,240 265,235 Z" /> <!-- Tasmania -->
+                                <path d="M 170,120 C 180,110 195,115 205,130 C 210,140 190,150 175,145 C 160,140 165,125 170,120 Z" /> <!-- Indonesian Archipelago fragment -->
+                            </g>
+                            
+                            <!-- Atmospheric Cloud layer (Stylized) -->
+                            <path d="M 110,100 C 140,80 180,100 200,85 C 230,90 250,70 280,80 C 270,110 210,120 180,130 Z" fill="#ffffff" opacity="0.25" filter="blur(3px)"/>
+                            <path d="M 100,200 C 130,180 160,210 190,195 C 210,200 220,220 200,230 Z" fill="#ffffff" opacity="0.2" filter="blur(2px)"/>
+                            
+                            <!-- Equator -->
+                            <line x1="80" y1="150" x2="320" y2="150" stroke="#ffffff" stroke-dasharray="4,4" stroke-width="1.5" />
+                            <text x="50" y="153" font-family="'Plus Jakarta Sans', sans-serif" font-size="10" fill="#ffffff">Equator</text>
+                            
+                            <!-- Tropic of Capricorn -->
+                            <line x1="85" y1="195" x2="315" y2="195" stroke="#ef4444" stroke-dasharray="2,4" stroke-width="2" />
+                            <text x="325" y="198" font-family="'Plus Jakarta Sans', sans-serif" font-size="10" fill="#ef4444">Tropic of Capricorn</text>
+                            
+                            <!-- Brisbane Dot -->
+                            <circle cx="280" cy="195" r="4" fill="#ffffff" />
+                            <circle cx="280" cy="195" r="8" stroke="#ffffff" stroke-width="1.5" fill="none">
+                                <animate attributeName="r" values="4;14;4" dur="2s" repeatCount="indefinite" />
+                                <animate attributeName="opacity" values="1;0;1" dur="2s" repeatCount="indefinite" />
+                            </circle>
+                            <text x="290" y="188" font-family="'Plus Jakarta Sans', sans-serif" font-size="12" fill="#ffffff" font-weight="bold" text-shadow="0px 2px 4px rgba(0,0,0,0.8)">Brisbane</text>
+                            
+                            <!-- Tilt Line Indicator -->
+                            <line x1="200" y1="10" x2="200" y2="290" stroke="rgba(255,255,255,0.2)" stroke-width="1" stroke-dasharray="2,2"/>
+                            <line x1="160" y1="20" x2="240" y2="280" stroke="#f59e0b" stroke-width="2.5" />
+                            <text x="135" y="15" font-family="'Plus Jakarta Sans', sans-serif" font-size="11" fill="#f59e0b" font-weight="bold">23.5° Axis Tilt</text>
+                        </svg>
+                    </div>
+                    <div>
+                        <h3 style="color: var(--accent-orange); margin-bottom: 12px;">December 21 (Summer Solstice)</h3>
+                        <p style="margin-bottom: 15px;">On this date, the Southern Hemisphere is tilted at its absolute maximum toward the Sun.</p>
+                        <p style="color: var(--text-muted); line-height: 1.5;">The Sun's most direct rays hit a line called the <strong>Tropic of Capricorn</strong>, which passes right through central Queensland!</p>
+                        <div style="background-color: rgba(239, 68, 68, 0.1); border-left: 4px solid var(--accent-red); padding: 15px; margin-top: 15px; border-radius: 0 8px 8px 0;">
+                            <p style="font-size: 13px; color: #fca5a5; margin: 0;">This is why our summers in Brisbane are so intensely hot and bright. The Sun is passing almost directly overhead at noon.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="teacher-notes-panel">
+                <i class="fa-solid fa-lightbulb"></i>
+                <p>Connect this to their local geography. Ask them how hot the playground feels in December compared to July. It's all because of that direct overhead angle.</p>
+            </div>
+        </div>
+
+        <!-- SLIDE 8: Explicit Teaching - Milestones -->
+        <div class="slide" id="slide-8">
+            <div class="slide-header">
+                <div class="slide-title-group">
+                    <h2>Orbital Milestones</h2>
+                    <p>Solstices and Equinoxes</p>
+                </div>
+                <div class="ejss-badge">EXPLICIT TEACHING</div>
+            </div>
+            <div class="slide-content">
+                <div class="card-grid">
+                    <div class="concept-card" style="border-top: 4px solid var(--accent-orange);">
+                        <h3>Summer Solstice</h3>
+                        <p style="margin-bottom: 8px;"><strong>Dec 21 (Southern Hemisphere)</strong></p>
+                        <p style="font-size: 13px;">The day the pole is tilted closest to the Sun. We experience our longest day of sunlight and shortest night of the year.</p>
+                    </div>
+                    <div class="concept-card" style="border-top: 4px solid var(--accent-blue);">
+                        <h3>Winter Solstice</h3>
+                        <p style="margin-bottom: 8px;"><strong>June 21 (Southern Hemisphere)</strong></p>
+                        <p style="font-size: 13px;">The day the pole is tilted furthest away from the Sun. We experience our shortest day of sunlight and longest, coldest night.</p>
+                    </div>
+                    <div class="concept-card" style="border-top: 4px solid var(--accent-green);">
+                        <h3>The Equinoxes</h3>
+                        <p style="margin-bottom: 8px;"><strong>March & September</strong></p>
+                        <p style="font-size: 13px;">Earth is "sideways" to the Sun. Neither hemisphere leans toward the star. Everywhere on Earth gets exactly 12 hours of day and 12 hours of night. (Spring & Autumn).</p>
+                    </div>
+                </div>
+            </div>
+            <div class="teacher-notes-panel">
+                <i class="fa-solid fa-lightbulb"></i>
+                <p>Equinox comes from Latin: "Equi" (Equal) and "Nox" (Night). Equal Night!</p>
+            </div>
+        </div>
+
+        <!-- SLIDE 9: Terminal Verification -->
+        <div class="slide" id="slide-9">
+            <div class="slide-header">
+                <div class="slide-title-group">
+                    <h2>Opposite Hemispheres</h2>
+                    <p>Testing the Rule of Opposites</p>
+                </div>
+                <div class="ejss-badge">SPREAD YOUR WINGS</div>
+            </div>
+            <div class="slide-content">
+                <div class="two-col">
+                    <div>
+                        <h3 style="color: var(--text-main); margin-bottom: 15px;">The Rule of Opposites</h3>
+                        <p style="color: var(--text-muted); line-height: 1.5;">Because it is a single rigid sphere, it is physically impossible for both poles to tilt toward the Sun at the same time.</p>
+                        <p style="margin-top: 15px; color: var(--accent-blue); font-weight: 600;">Therefore, whatever season the Northern Hemisphere is experiencing, the Southern Hemisphere MUST experience the exact opposite.</p>
+                    </div>
+                    <div class="physics-terminal" style="height: 300px;">
+                        <div class="terminal-body" style="justify-content: center;">
+                            <p style="font-size: 12px; color: var(--accent-orange); margin-bottom: 10px;">Select a month to verify hemisphere weather data:</p>
+                            
+                            <button class="term-action-btn" onclick="verifyHemisphere('july')">
+                                <i class="fa-solid fa-calendar"></i> Check data for: Mid-July
+                            </button>
+                            <button class="term-action-btn" onclick="verifyHemisphere('dec')">
+                                <i class="fa-solid fa-calendar"></i> Check data for: Late December
+                            </button>
+                            
+                            <div class="interactive-feedback" id="feedback-hemi"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="teacher-notes-panel">
+                <i class="fa-solid fa-lightbulb"></i>
+                <p>Have students click the terminal buttons to prove to themselves that an Australian Christmas is hot, while a US/UK Christmas is snowy.</p>
+            </div>
+        </div>
+
+        <!-- SLIDE 10: Soar (What-if Scenario) - DIRECT FROM PDF -->
+        <div class="slide" id="slide-10">
+            <div class="slide-header">
+                <div class="slide-title-group">
+                    <h2>The "What-If" Physics Challenge</h2>
+                    <p>Testing an Upright Earth</p>
+                </div>
+                <div class="ejss-badge">SOAR & TRANSFER</div>
+            </div>
+            <div class="slide-content">
+                <div class="two-col">
+                    <div>
+                        <h3 style="color: var(--accent-orange); margin-bottom: 12px;">Hypothesis Generation</h3>
+                        <p style="color: var(--text-main); font-weight: 600; font-size: 20px; line-height: 1.4;">What would happen to our weather and daylight if the Earth was NOT tilted on its axis (0° tilt)?</p>
+                        <p style="margin-top: 15px; color: var(--text-muted); font-size: 14px;">Imagine Earth sitting perfectly straight up and down while orbiting the Sun.</p>
+                        
+                        <!-- Hidden answer box from PDF -->
+                        <div style="background-color: rgba(16, 185, 129, 0.08); border: 1px dashed rgba(16, 185, 129, 0.4); padding: 15px; border-radius: 8px; margin-top: 25px; color: var(--accent-green); cursor: pointer;" onclick="this.innerHTML = '<strong>Scientific Outcome:</strong> Every place on Earth would have the same amount of sunlight all year long. Day and night lengths would stay the same everywhere, without much change throughout the year. We would have <strong>NO SEASONS!</strong>'">
+                            <i class="fa-solid fa-eye"></i> Click to reveal the scientific outcome...
+                        </div>
+                    </div>
+                    <div class="media-frame">
+                        <svg viewBox="0 0 400 300" width="100%" height="100%" style="background-color: #020617; border-radius: 8px;">
+                            <polygon points="0,50 150,50 150,250 0,250" fill="rgba(245,158,11,0.1)" />
+                            
+                            <circle cx="200" cy="150" r="90" fill="#0284c7" />
+                            <path d="M 200,60 A 90,90 0 0,1 200,240 L 200,60 Z" fill="#090d16" opacity="0.85" />
+                            
+                            <!-- Straight Up and Down Axis -->
+                            <line x1="200" y1="20" x2="200" y2="280" stroke="#ef4444" stroke-width="3" />
+                            <text x="185" y="15" font-family="'Plus Jakarta Sans', sans-serif" font-size="12" fill="#ef4444" font-weight="bold">0° TILT</text>
+                            
+                            <!-- Equator lines receiving equal light -->
+                            <line x1="110" y1="150" x2="290" y2="150" stroke="#fff" stroke-dasharray="4,4" />
+                            <line x1="120" y1="100" x2="280" y2="100" stroke="#fff" stroke-dasharray="2,2" opacity="0.5" />
+                            <line x1="120" y1="200" x2="280" y2="200" stroke="#fff" stroke-dasharray="2,2" opacity="0.5" />
+                        </svg>
+                    </div>
+                </div>
+            </div>
+            <div class="teacher-notes-panel">
+                <i class="fa-solid fa-lightbulb"></i>
+                <p>This directly addresses the PDF unit question. Without a tilt, sunlight incidence never changes. The equator stays hot forever, poles stay frozen, and we never get seasons.</p>
+            </div>
+        </div>
+
+        <!-- SLIDE 11: Data Analysis Matrix -->
+        <div class="slide" id="slide-11">
+            <div class="slide-header">
+                <div class="slide-title-group">
+                    <h2>Scientific Data Matrix</h2>
+                    <p>Comparing Global Temperature Trends</p>
+                </div>
+                <div class="ejss-badge">SOAR & TRANSFER</div>
+            </div>
+            <div class="slide-content">
+                <p style="margin-bottom: 15px; color: var(--text-muted);">Analyze the average high temperatures for two cities across the year:</p>
+                <table class="matrix-table">
+                    <thead>
+                        <tr>
+                            <th>City & Hemisphere</th>
+                            <th>January Avg High</th>
+                            <th>July Avg High</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="font-weight: 700; color: #ffffff;">Brisbane, AUS (Southern)</td>
+                            <td style="color: var(--accent-orange); font-weight: 700;">30°C (Direct Light)</td>
+                            <td style="color: var(--accent-blue); font-weight: 600;">22°C (Indirect Light)</td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight: 700; color: #ffffff;">London, UK (Northern)</td>
+                            <td style="color: var(--accent-blue); font-weight: 600;">9°C (Indirect Light)</td>
+                            <td style="color: var(--accent-orange); font-weight: 700;">24°C (Direct Light)</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p style="margin-top: 15px; font-size: 14px; color: var(--accent-green); font-weight: 600; line-height: 1.5;">
+                    <i class="fa-solid fa-chart-line"></i> Notice the mathematical inversion. When Brisbane hits its peak heat due to direct sunlight in Jan, London hits its coldest lows. Six months later, the orbital position flips the temperatures.
+                </p>
+            </div>
+            <div class="teacher-notes-panel">
+                <i class="fa-solid fa-lightbulb"></i>
+                <p>Use this data to concretely prove the "Rule of Opposites" discussed on Slide 9.</p>
+            </div>
+        </div>
+
+        <!-- SLIDE 12: EJSS Self-Assessment Rubric -->
+        <div class="slide" id="slide-12">
+            <div class="slide-header">
+                <div class="slide-title-group">
+                    <h2>Self-Assessment</h2>
+                    <p>Track Your Progress</p>
+                </div>
+                <div class="ejss-badge">EJSS Standards</div>
+            </div>
+            <div class="slide-content">
+                <div class="card-grid">
+                    <div class="concept-card" style="border-top: 4px solid var(--text-muted);">
+                        <h3 style="color: var(--text-muted);"><i class="fa-solid fa-star"></i> Level 1</h3>
+                        <p>I know that Earth leans on a 23.5-degree angle and does not stand straight up.</p>
+                    </div>
+                    <div class="concept-card" style="border-top: 4px solid var(--accent-purple);">
+                        <h3><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i> Level 2</h3>
+                        <p>I can explain how leaning toward the Sun creates concentrated summer heat, and leaning away creates winter.</p>
+                    </div>
+                    <div class="concept-card" style="border-top: 4px solid var(--accent-orange);">
+                        <h3 style="color: var(--accent-orange);"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i> Level 3</h3>
+                        <p>I can hypothesize exactly what would happen to Earth's climate and seasons if the axial tilt was removed.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="teacher-notes-panel">
+                <i class="fa-solid fa-lightbulb"></i>
+                <p>Have students show their level using a discrete hand gesture against their chest (1, 2, or 3 fingers).</p>
+            </div>
+        </div>
+
+        <!-- SLIDE 13: Diagnostic Exit Card -->
+        <div class="slide" id="slide-13">
+            <div class="slide-header">
+                <div class="slide-title-group">
+                    <h2>Exit Card Challenge</h2>
+                    <p>Consolidating Earth's Tilt</p>
+                </div>
+                <div class="ejss-badge">DIAGNOSTIC CHECK</div>
+            </div>
+            <div class="slide-content">
+                <div style="background-color: var(--space-dark); border: 1px solid var(--space-border); padding: 30px; border-radius: 12px;">
+                    <h3 style="color: var(--accent-orange); margin-bottom: 15px;"><i class="fa-solid fa-ticket-simple"></i> Answer in your Science Journal:</h3>
+                    <ol class="custom-numbers" style="gap: 15px;">
+                        <li data-num="1">What is the exact degree of Earth's axial tilt?</li>
+                        <li data-num="2">Using the flashlight analogy, explain the difference between Direct and Indirect sunlight.</li>
+                        <li data-num="3">If it is the Summer Solstice in Australia, what season is it in Europe, and why?</li>
+                    </ol>
+                </div>
+            </div>
+            <div class="teacher-notes-panel">
+                <i class="fa-solid fa-lightbulb"></i>
+                <p>Collect journals or exit slips at the door to assess student grasp of orbit mechanics and axial tilt before the next lesson.</p>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- PRESENTATION DECK CONTROLS -->
+    <div id="deck-controls">
+        <div class="control-btn-group">
+            <button class="toggle-btn" id="teacher-toggle-btn" onclick="toggleTeacherNotes()">
+                <i class="fa-solid fa-chalkboard-user"></i> Teacher Notes
+            </button>
+        </div>
+        
+        <div class="control-btn-group">
+            <button class="control-btn" id="prev-btn" onclick="navigateSlide(-1)" disabled>
+                <i class="fa-solid fa-chevron-left"></i>
+            </button>
+            <div id="slide-indicator">1 / 13</div>
+            <button class="control-btn" id="next-btn" onclick="navigateSlide(1)">
+                <i class="fa-solid fa-chevron-right"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- PRESENTEATION ENGINE JAVASCRIPT -->
+    <script>
+        let currentSlide = 1;
+        const totalSlides = 13;
+
+        function navigateSlide(direction) {
+            const activeSlide = document.getElementById(`slide-${currentSlide}`);
+            activeSlide.classList.remove('active');
+
+            currentSlide += direction;
+            if (currentSlide < 1) currentSlide = 1;
+            if (currentSlide > totalSlides) currentSlide = totalSlides;
+
+            const targetSlide = document.getElementById(`slide-${currentSlide}`);
+            targetSlide.classList.add('active');
+
+            document.getElementById('slide-indicator').textContent = `${currentSlide} / ${totalSlides}`;
+            document.getElementById('prev-btn').disabled = (currentSlide === 1);
+            document.getElementById('next-btn').disabled = (currentSlide === totalSlides);
+
+            // Handle Simulators
+            if (currentSlide === 6) {
+                startSeasonSim();
+            } else {
+                stopSeasonSim();
+            }
+        }
+
+        document.addEventListener('keydown', function(event) {
+            if (event.key === "ArrowRight" || event.key === "Spacebar" || event.key === " ") {
+                if (currentSlide < totalSlides) {
+                    event.preventDefault();
+                    navigateSlide(1);
+                }
+            } else if (event.key === "ArrowLeft") {
+                if (currentSlide > 1) {
+                    event.preventDefault();
+                    navigateSlide(-1);
+                }
+            }
+        });
+
+        function toggleVocab(cardElement) {
+            cardElement.classList.toggle('revealed');
+        }
+
+        function toggleTeacherNotes() {
+            const toggleButton = document.getElementById('teacher-toggle-btn');
+            const notePanels = document.querySelectorAll('.teacher-notes-panel');
+            
+            toggleButton.classList.toggle('active');
+            
+            notePanels.forEach(panel => {
+                panel.classList.toggle('visible');
+            });
+        }
+
+        function verifyHemisphere(month) {
+            const fb = document.getElementById('feedback-hemi');
+            fb.style.display = "block";
+            
+            if (month === 'july') {
+                fb.style.backgroundColor = "rgba(56, 189, 248, 0.08)";
+                fb.style.borderColor = "rgba(56, 189, 248, 0.2)";
+                fb.style.color = "var(--accent-blue)";
+                fb.innerHTML = `<strong>July Data:</strong> The Northern Hemisphere is pointing TOWARD the Sun (Summer / Direct Light). Because of the solid rigid axis, the Southern Hemisphere is forced to point AWAY (Winter / Indirect Light).`;
+            } else {
+                fb.style.backgroundColor = "rgba(245, 158, 11, 0.08)";
+                fb.style.borderColor = "rgba(245, 158, 11, 0.2)";
+                fb.style.color = "var(--accent-orange)";
+                fb.innerHTML = `<strong>December Data:</strong> The Southern Hemisphere is pointing TOWARD the Sun (Summer / Direct Light). The Northern Hemisphere is forced to point AWAY (Winter / Indirect Light).`;
+            }
+        }
+
+        /* =======================================================
+           SIMULATOR: ORBITAL SEASON TILT (SLIDE 6)
+           ======================================================= */
+        let simCanvas, ctx, simFrameId;
+        let simRunning = false;
+        
+        const simState = {
+            monthIndex: 0, // 0 = Dec, 6 = Jun
+            tiltAngle: 23.5 * (Math.PI / 180), // Keep axis tilted fixed (pointing left)
+        };
+
+        const monthLabels = [
+            "December (Summer Solstice)", "January", "February", 
+            "March (Autumn Equinox)", "April", "May", 
+            "June (Winter Solstice)", "July", "August", 
+            "September (Spring Equinox)", "October", "November"
+        ];
+
+        function startSeasonSim() {
+            simCanvas = document.getElementById('season-canvas');
+            if (!simCanvas) return;
+            const bounds = simCanvas.getBoundingClientRect();
+            simCanvas.width = bounds.width;
+            simCanvas.height = bounds.height;
+            ctx = simCanvas.getContext('2d');
+            simRunning = true;
+            updateSeasonSim(document.getElementById('month-slider').value);
+            seasonLoop();
+        }
+
+        function stopSeasonSim() {
+            simRunning = false;
+            if (simFrameId) cancelAnimationFrame(simFrameId);
+        }
+
+        function updateSeasonSim(val) {
+            simState.monthIndex = parseInt(val);
+            document.getElementById('slider-month-label').textContent = monthLabels[simState.monthIndex];
+            
+            const qldReadout = document.getElementById('qld-angle-readout');
+            const nhReadout = document.getElementById('nh-status-readout');
+
+            // Logic for HUD updates based on month (0 is Dec, right side of sun)
+            if (simState.monthIndex === 0 || simState.monthIndex === 1 || simState.monthIndex === 11) {
+                qldReadout.textContent = "Direct (High Intensity Heat)";
+                qldReadout.style.color = "var(--accent-orange)";
+                nhReadout.textContent = "Tilted Away (Winter)";
+                nhReadout.style.color = "var(--accent-blue)";
+            } else if (simState.monthIndex === 5 || simState.monthIndex === 6 || simState.monthIndex === 7) {
+                qldReadout.textContent = "Indirect (Slanted / Cool)";
+                qldReadout.style.color = "var(--accent-blue)";
+                nhReadout.textContent = "Tilted Toward (Summer)";
+                nhReadout.style.color = "var(--accent-orange)";
+            } else {
+                qldReadout.textContent = "Moderate (Equinox Phase)";
+                qldReadout.style.color = "var(--accent-green)";
+                nhReadout.textContent = "Moderate (Equinox Phase)";
+                nhReadout.style.color = "var(--accent-green)";
+            }
+        }
+
+        function seasonLoop() {
+            if (!simRunning) return;
+            ctx.fillStyle = "#090d16";
+            ctx.fillRect(0, 0, simCanvas.width, simCanvas.height);
+
+            const cx = simCanvas.width / 2;
+            const cy = simCanvas.height / 2;
+            const orbitA = 180; // width of ellipse
+            const orbitB = 60;  // height of ellipse for 3D perspective
+
+            // Draw Orbit Track
+            ctx.strokeStyle = "rgba(255,255,255,0.1)";
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.ellipse(cx, cy, orbitA, orbitB, 0, 0, Math.PI * 2);
+            ctx.stroke();
+
+            // Draw Sun
+            ctx.beginPath();
+            ctx.arc(cx, cy, 25, 0, Math.PI * 2);
+            ctx.fillStyle = "#f59e0b";
+            ctx.fill();
+            ctx.shadowBlur = 20;
+            ctx.shadowColor = "#f59e0b";
+            ctx.fill();
+            ctx.shadowBlur = 0;
+
+            // Calculate Earth Position (0 = Dec = Right side)
+            // Month 0 to 11 -> Angle 0 to 2PI
+            const orbitAngle = (simState.monthIndex / 12) * Math.PI * 2;
+            const ex = cx + orbitA * Math.cos(orbitAngle);
+            const ey = cy + orbitB * Math.sin(orbitAngle);
+
+            // Draw Sunlight Rays from Sun to Earth
+            ctx.strokeStyle = "rgba(245, 158, 11, 0.3)";
+            ctx.lineWidth = 1;
+            ctx.setLineDash([5, 5]);
+            ctx.beginPath();
+            ctx.moveTo(cx, cy);
+            ctx.lineTo(ex, ey - 10);
+            ctx.moveTo(cx, cy);
+            ctx.lineTo(ex, ey + 10);
+            ctx.stroke();
+            ctx.setLineDash([]);
+
+            // Draw Earth
+            const earthRadius = 20;
+            
+            // Draw dark shadow half depending on position relative to sun
+            // In 2D, if sun is at cx, earth at ex, shadow is opposite.
+            ctx.save();
+            ctx.translate(ex, ey);
+            
+            // Draw Blue Globe
+            ctx.beginPath();
+            ctx.arc(0, 0, earthRadius, 0, Math.PI * 2);
+            ctx.fillStyle = "#0284c7";
+            ctx.fill();
+
+            // Draw shadow based on angle to sun
+            const angleToSun = Math.atan2(cy - ey, cx - ex);
+            ctx.rotate(angleToSun - Math.PI/2);
+            ctx.beginPath();
+            ctx.arc(0, 0, earthRadius, 0, Math.PI);
+            ctx.fillStyle = "rgba(0,0,0,0.7)";
+            ctx.fill();
+            ctx.restore();
+
+            // Draw Axis and Equator (Fixed tilt)
+            // Let's say axis ALWAYS points top-left (approx -23.5 deg from vertical)
+            ctx.save();
+            ctx.translate(ex, ey);
+            ctx.rotate(-simState.tiltAngle);
+
+            // Axis line
+            ctx.strokeStyle = "#ffffff";
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.moveTo(0, -30);
+            ctx.lineTo(0, 30);
+            ctx.stroke();
+
+            // Equator
+            ctx.strokeStyle = "rgba(255,255,255,0.5)";
+            ctx.lineWidth = 1.5;
+            ctx.beginPath();
+            ctx.moveTo(-earthRadius, 0);
+            ctx.lineTo(earthRadius, 0);
+            ctx.stroke();
+            
+            // QLD Marker (Southern Hemisphere, so below equator in this local transform)
+            ctx.beginPath();
+            ctx.arc(0, 10, 3, 0, Math.PI*2);
+            ctx.fillStyle = "#ef4444";
+            ctx.fill();
+
+            ctx.restore();
+
+            simFrameId = requestAnimationFrame(seasonLoop);
+        }
+    </script>
+</body>
+</html>
