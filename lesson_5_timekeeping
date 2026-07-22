@@ -1,0 +1,1435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Year 6 Science: Timekeeping & The Night Sky - Lesson 5</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;1,300&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <style>
+        /* 1. RESET & VARIABLES */
+        :root {
+            --space-dark: #090d16;
+            --space-card: #131a2b;
+            --space-border: #222f4d;
+            --accent-blue: #38bdf8;
+            --accent-purple: #c084fc;
+            --accent-orange: #f59e0b;
+            --accent-green: #10b981;
+            --accent-red: #ef4444;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --font-display: 'Merriweather', serif;
+            --font-body: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: var(--space-dark);
+            color: var(--text-main);
+            font-family: var(--font-body);
+            height: 100vh;
+            width: 100vw;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        /* 2. DECK LAYOUT WINDOW */
+        #presentation-wrapper {
+            flex-grow: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            padding: 20px;
+            overflow: hidden;
+        }
+
+        .slide {
+            display: none;
+            width: 100%;
+            max-width: 1200px;
+            height: 100%;
+            max-height: 675px; 
+            background-color: var(--space-card);
+            border: 1px solid var(--space-border);
+            border-radius: 16px;
+            padding: 40px 60px;
+            position: relative;
+            flex-direction: column;
+            justify-content: space-between;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            opacity: 0;
+            transform: scale(0.98);
+        }
+
+        .slide.active {
+            display: flex;
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        /* Slide Top Accents */
+        .slide::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 8px;
+            background: linear-gradient(90deg, var(--accent-purple), var(--accent-blue), var(--accent-green));
+            border-top-left-radius: 16px;
+            border-top-right-radius: 16px;
+        }
+
+        /* 3. SLIDE HEADER STYLING */
+        .slide-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            border-left: 5px solid var(--accent-purple);
+            padding-left: 18px;
+            margin-bottom: 20px;
+            height: 65px;
+        }
+
+        .slide-title-group h2 {
+            font-family: var(--font-display);
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--text-main);
+            line-height: 1.2;
+        }
+
+        .slide-title-group p {
+            color: var(--text-muted);
+            font-size: 14px;
+            margin-top: 4px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .ejss-badge {
+            background: rgba(192, 132, 252, 0.1);
+            border: 1px solid rgba(192, 132, 252, 0.3);
+            color: var(--accent-purple);
+            padding: 6px 14px;
+            border-radius: 30px;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            white-space: nowrap;
+        }
+
+        /* 4. CONTENT GRID DESIGNS */
+        .slide-content {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            width: 100%;
+            overflow: hidden;
+            padding-right: 8px;
+        }
+
+        .two-col {
+            display: grid;
+            grid-template-columns: 1.15fr 0.85fr;
+            gap: 35px;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+        }
+
+        .two-col-equal {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            align-items: start;
+            width: 100%;
+        }
+
+        /* Media Frame Layout */
+        .media-frame {
+            background-color: var(--space-dark);
+            border: 2px solid var(--space-border);
+            border-radius: 12px;
+            overflow: hidden;
+            height: 340px;
+            width: 100%;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .media-frame svg, .media-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .media-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(9, 13, 22, 0.85);
+            padding: 10px 15px;
+            font-size: 13px;
+            color: var(--text-muted);
+            border-top: 1px solid var(--space-border);
+            text-align: center;
+        }
+
+        /* Title Slide Layout */
+        .hero-layout {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero-layout h1 {
+            font-family: var(--font-display);
+            font-size: 54px;
+            font-weight: 700;
+            color: #ffffff;
+            line-height: 1.15;
+            margin-bottom: 15px;
+            text-shadow: 0 4px 12px rgba(0,0,0,0.5);
+        }
+
+        .hero-divider {
+            height: 4px;
+            width: 100px;
+            background: linear-gradient(90deg, var(--accent-purple), var(--accent-blue));
+            margin: 20px auto;
+            border-radius: 2px;
+        }
+
+        /* Cards/Tiles */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            width: 100%;
+        }
+
+        .concept-card {
+            background-color: var(--space-dark);
+            border: 1px solid var(--space-border);
+            border-radius: 12px;
+            padding: 20px;
+            transition: all 0.2s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .concept-card:hover {
+            border-color: var(--accent-purple);
+            transform: translateY(-3px);
+        }
+
+        .concept-card h3 {
+            font-family: var(--font-display);
+            font-size: 18px;
+            color: var(--accent-purple);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .concept-card p {
+            font-size: 14px;
+            line-height: 1.5;
+            color: var(--text-muted);
+        }
+
+        /* 5. INTERACTIVE VOCABULARY FLIP CARDS */
+        .vocab-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            width: 100%;
+        }
+
+        .vocab-card {
+            background-color: var(--space-dark);
+            border: 1px solid var(--space-border);
+            border-radius: 12px;
+            padding: 25px;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            min-height: 140px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .vocab-card::after {
+            content: 'Click Card to Reveal Explanation';
+            position: absolute;
+            bottom: 12px;
+            right: 15px;
+            font-size: 11px;
+            color: var(--accent-purple);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 600;
+            opacity: 0.7;
+            transition: opacity 0.2s ease;
+        }
+
+        .vocab-card.revealed::after {
+            content: 'Click to Hide Definition';
+            color: var(--accent-blue);
+        }
+
+        .vocab-word {
+            font-family: var(--font-display);
+            font-size: 22px;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 5px;
+            transition: color 0.3s ease;
+        }
+
+        .vocab-card.revealed .vocab-word {
+            color: var(--accent-purple);
+        }
+
+        .vocab-def {
+            font-size: 14px;
+            line-height: 1.6;
+            color: var(--text-muted);
+            margin-top: 10px;
+            display: none;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .vocab-card.revealed .vocab-def {
+            display: block;
+            opacity: 1;
+        }
+
+        /* Lists */
+        ul.custom-bullets, ol.custom-numbers {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        ul.custom-bullets li {
+            position: relative;
+            padding-left: 28px;
+            font-size: 16px;
+            line-height: 1.5;
+            color: var(--text-muted);
+        }
+
+        ul.custom-bullets li::before {
+            content: "\f058";
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            position: absolute;
+            left: 0;
+            top: 2px;
+            color: var(--accent-purple);
+            font-size: 16px;
+        }
+
+        ol.custom-numbers li {
+            position: relative;
+            padding-left: 36px;
+            font-size: 16px;
+            line-height: 1.5;
+            color: var(--text-muted);
+        }
+
+        ol.custom-numbers li::before {
+            content: attr(data-num);
+            position: absolute;
+            left: 0;
+            top: 1px;
+            background-color: var(--space-border);
+            color: var(--accent-purple);
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        /* Table Matrix styling */
+        .matrix-table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: var(--space-dark);
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid var(--space-border);
+        }
+
+        .matrix-table th {
+            background-color: rgba(255,255,255,0.02);
+            color: var(--accent-purple);
+            font-family: var(--font-display);
+            font-size: 16px;
+            font-weight: 700;
+            padding: 14px 20px;
+            text-align: left;
+            border-bottom: 2px solid var(--space-border);
+        }
+
+        .matrix-table td {
+            padding: 14px 20px;
+            border-bottom: 1px solid var(--space-border);
+            font-size: 15px;
+            color: var(--text-muted);
+        }
+
+        .matrix-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        /* 6. TEACHER SCAFFOLD NOTE ACCORDION */
+        .teacher-notes-panel {
+            background-color: rgba(192, 132, 252, 0.05);
+            border-top: 1px solid rgba(192, 132, 252, 0.2);
+            padding: 15px 60px;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            z-index: 10;
+            transition: transform 0.3s ease;
+            transform: translateY(100%);
+            height: 70px;
+        }
+
+        .teacher-notes-panel.visible {
+            transform: translateY(0);
+        }
+
+        .teacher-notes-panel i {
+            color: var(--accent-purple);
+            font-size: 20px;
+        }
+
+        .teacher-notes-panel p {
+            font-size: 13px;
+            color: #d8b4fe;
+            font-style: italic;
+            line-height: 1.4;
+        }
+
+        /* 7. CONTROLS FOOTER BAR */
+        #deck-controls {
+            background-color: #0b0f19;
+            border-top: 1px solid var(--space-border);
+            padding: 15px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 20;
+        }
+
+        .control-btn-group {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .control-btn {
+            background-color: var(--space-card);
+            border: 1px solid var(--space-border);
+            color: var(--text-main);
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .control-btn:hover:not(:disabled) {
+            border-color: var(--accent-purple);
+            color: var(--accent-purple);
+            background-color: rgba(192, 132, 252, 0.05);
+        }
+
+        .control-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        .toggle-btn {
+            background-color: var(--space-card);
+            border: 1px solid var(--space-border);
+            color: var(--text-muted);
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s ease;
+        }
+
+        .toggle-btn.active {
+            border-color: var(--accent-purple);
+            color: var(--accent-purple);
+            background-color: rgba(192, 132, 252, 0.08);
+        }
+
+        #slide-indicator {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-muted);
+            background-color: var(--space-card);
+            border: 1px solid var(--space-border);
+            padding: 6px 16px;
+            border-radius: 20px;
+        }
+
+        /* 8. SIMULATOR CSS */
+        .interactive-sim-panel {
+            background-color: var(--space-dark);
+            border: 2px solid var(--space-border);
+            border-radius: 12px;
+            height: 440px;
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            box-shadow: inset 0 0 30px rgba(192, 132, 252, 0.04);
+        }
+
+        .sim-canvas {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+
+        .physics-terminal {
+            background-color: #111827;
+            border: 1px solid var(--space-border);
+            border-radius: 12px;
+            height: 440px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .terminal-tabs {
+            display: flex;
+            background-color: rgba(15, 23, 42, 0.6);
+            border-bottom: 1px solid var(--space-border);
+        }
+
+        .term-tab-btn {
+            flex: 1;
+            padding: 14px 4px;
+            background: none;
+            border: none;
+            border-bottom: 2px solid transparent;
+            color: var(--text-muted);
+            font-family: var(--font-body);
+            font-size: 11px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-align: center;
+            letter-spacing: 0.5px;
+        }
+
+        .term-tab-btn.active-tab {
+            color: var(--accent-purple);
+            border-bottom-color: var(--accent-purple);
+            background-color: rgba(192, 132, 252, 0.05);
+        }
+
+        .terminal-body {
+            flex-grow: 1;
+            padding: 22px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            overflow-y: auto;
+        }
+
+        .slider-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            background: rgba(255,255,255,0.01);
+            border: 1px solid var(--space-border);
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 10px;
+        }
+
+        .custom-slider {
+            width: 100%;
+            accent-color: var(--accent-purple);
+            cursor: pointer;
+            margin: 10px 0;
+        }
+
+        .telemetry-item {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--space-border);
+            border-radius: 8px;
+            padding: 12px;
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 10px;
+        }
+        
+        .telemetry-item .label {
+            font-size: 11px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 700;
+        }
+        
+        .telemetry-item .value {
+            font-size: 18px;
+            color: #ffffff;
+            font-weight: 700;
+            margin-top: 5px;
+        }
+
+        .interactive-feedback {
+            background-color: rgba(56, 189, 248, 0.08);
+            border: 1px solid rgba(56, 189, 248, 0.2);
+            border-radius: 6px;
+            padding: 12px;
+            font-size: 13px;
+            color: var(--accent-blue);
+            margin-top: 15px;
+            line-height: 1.4;
+        }
+        
+        .term-action-btn {
+            background-color: rgba(192, 132, 252, 0.03);
+            border: 1px solid var(--space-border);
+            color: var(--text-main);
+            padding: 12px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 13px;
+            text-align: left;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            font-family: var(--font-body);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 8px;
+        }
+
+        .term-action-btn:hover {
+            border-color: var(--accent-purple);
+            background-color: rgba(192, 132, 252, 0.1);
+            transform: translateX(4px);
+        }
+    </style>
+</head>
+<body>
+
+    <div id="presentation-wrapper">
+
+        <!-- SLIDE 1: Title Screen -->
+        <div class="slide active" id="slide-1">
+            <div class="slide-header" style="opacity: 0;"></div> 
+            <div class="slide-content">
+                <div class="hero-layout">
+                    <p style="color: var(--accent-purple); font-weight: 700; text-transform: uppercase; letter-spacing: 2px; font-size: 14px;">Year 6 Earth & Space Sciences</p>
+                    <h1>Timekeeping & The Night Sky</h1>
+                    <div class="hero-divider"></div>
+                    <h3 style="color: #ffffff; font-family: var(--font-body); font-weight: 500; font-size: 22px; margin-bottom: 8px;">Lesson 5: Cultural Astronomy</h3>
+                    <p style="color: var(--text-muted); font-size: 16px;">Tracing cultural constellations and understanding how ancient societies mapped the stars to tell time.</p>
+                </div>
+            </div>
+            <div class="teacher-notes-panel">
+                <i class="fa-solid fa-lightbulb"></i>
+                <p>Welcome class! Today we explore how humans used the sky as a giant, perfect clock and calendar long before smartphones existed.</p>
+            </div>
+        </div>
+
+        <!-- SLIDE 2: See, Think, Wonder (UPDATED LAYOUT) -->
+        <div class="slide" id="slide-2">
+            <div class="slide-header">
+                <div class="slide-title-group">
+                    <h2>See, Think, Wonder</h2>
+                    <p>Ancient Observatories</p>
+                </div>
+                <div class="ejss-badge">TAKE OFF</div>
+            </div>
+            <div class="slide-content">
+                <div class="two-col">
+                    <div class="media-frame" style="flex-direction: row; gap: 15px; background: transparent; border: none; height: 340px;">
+                        <!-- Left: Digital Clock -->
+                        <div style="flex: 1; height: 100%; position: relative; border-radius: 12px; overflow: hidden; border: 2px solid var(--space-border);">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/7/77/Digital_clock_23_59.jpg" alt="Modern Digital Clock" style="width: 100%; height: 100%; object-fit: cover;">
+                            <div style="position: absolute; bottom: 10px; left: 10px; background: rgba(9, 13, 22, 0.85); padding: 4px 8px; border-radius: 6px; border-left: 3px solid #cbd5e1;">
+                                <span style="color: white; font-family: var(--font-body); font-size: 11px; font-weight: 700;">Modern Clock</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Right: Stonehenge -->
+                        <div style="flex: 1; height: 100%; position: relative; border-radius: 12px; overflow: hidden; border: 2px solid var(--space-border);">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/3/3c/Stonehenge2007_07_30.jpg" alt="Stonehenge" style="width: 100%; height: 100%; object-fit: cover;">
+                            <div style="position: absolute; bottom: 10px; left: 10px; background: rgba(9, 13, 22, 0.85); padding: 4px 8px; border-radius: 6px; border-left: 3px solid var(--accent-purple);">
+                                <span style="color: white; font-family: var(--font-body); font-size: 11px; font-weight: 700;">Ancient Stone Circle</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <ul class="custom-bullets" style="gap: 15px;">
+                            <li style="color: #ffffff;"><strong>👀 SEE:</strong> Look at the ancient stone structure. Notice how the large stones create narrow "windows."</li>
+                            <li style="color: #ffffff;"><strong>🧠 THINK:</strong> Why would ancient people spend years moving stones weighing 25 tons just to look at the sky through them?</li>
+                            <li style="color: #ffffff;"><strong>❓ WONDER:</strong> If you had no calendar or phone, how could looking at the stars tell you when winter was coming?</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="teacher-notes-panel">
+                <i class="fa-solid fa-lightbulb"></i>
+                <p>Prompt students to think about survival. Knowing when seasons changed was literally a matter of life and death for planting crops.</p>
+            </div>
+        </div>
+
+        <!-- SLIDE 3: Vocab Matrix -->
+        <div class="slide" id="slide-3">
+            <div class="slide-header">
+                <div class="slide-title-group">
+                    <h2>Core Terminology</h2>
+                    <p>Mapping the Celestial Sphere</p>
+                </div>
+                <div class="ejss-badge">Vocabulary Mastery</div>
+            </div>
+            <div class="slide-content">
+                <p style="margin-bottom: 20px; color: var(--text-muted);">Click each card to reveal how we label the night sky:</p>
+                <div class="vocab-grid">
+                    <div class="vocab-card" onclick="toggleVocab(this)">
+                        <div class="vocab-word">Constellation</div>
+                        <div class="vocab-def">A recognized grouping of stars that forms a pattern or outline, usually representing an animal, mythological person, or creature.</div>
+                    </div>
+                    <div class="vocab-card" onclick="toggleVocab(this)">
+                        <div class="vocab-word">Navigation</div>
+                        <div class="vocab-def">The science of directing the course of a ship, aircraft, or person from one place to another using fixed reference points like stars.</div>
+                    </div>
+                    <div class="vocab-card" onclick="toggleVocab(this)">
+                        <div class="vocab-word">Celestial Sphere</div>
+                        <div class="vocab-def">An imaginary giant dome surrounding Earth on which all stars appear to be projected, rotating as the Earth spins.</div>
+                    </div>
+                </div>
+            </div>
+            <div class="teacher-notes-panel">
+                <i class="fa-solid fa-lightbulb"></i>
+                <p>Highlight that the stars in a constellation are not actually close to each other in space; they just look that way from our specific viewpoint on Earth.</p>
+            </div>
+        </div>
+
+        <!-- SLIDE 4: Explicit Teaching - The Original Calendar -->
+        <div class="slide" id="slide-4">
+            <div class="slide-header">
+                <div class="slide-title-group">
+                    <h2>The Original Calendar</h2>
+                    <p>Farming by the Stars</p>
+                </div>
+                <div class="ejss-badge">EXPLICIT TEACHING</div>
+            </div>
+            <div class="slide-content">
+                <div class="two-col">
+                    <div>
+                        <h3 style="color: var(--accent-blue); margin-bottom: 12px;">Survival Dependencies</h3>
+                        <p style="margin-bottom: 15px;">Thousands of years ago, survival depended on knowing precisely when to plant seeds and harvest crops before frost arrived.</p>
+                        <p style="color: #ffffff;">Because Earth orbits the Sun, the night sky slowly shifts. Different constellations are visible at different times of the year.</p>
+                        <p style="margin-top: 15px; color: var(--text-muted);">Ancient astronomers realised that when specific stars (like Sirius) rose just before sunrise, the seasons were about to change.</p>
+                    </div>
+                    <div style="background-color: rgba(255,255,255,0.02); border: 1px solid var(--space-border); padding: 25px; border-radius: 12px;">
+                        <h4 style="color: var(--accent-purple); font-size: 16px; margin-bottom: 15px; display: flex; align-items: center; gap: 8px;">
+                            <i class="fa-solid fa-wheat-awn"></i> The Sky Clock:
+                        </h4>
+                        <p style="font-size: 14px; color: var(--text-muted); line-height: 1.5;">To the ancient Egyptians, the Nile River flooded perfectly on schedule every year, right after the brightest star in the sky became visible in the East. The sky was a giant, reliable warning system.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="teacher-notes-panel">
+                <i class="fa-solid fa-lightbulb"></i>
+                <p>Connect this back to Lesson 3 (Orbiting). We see different stars because Earth is literally looking out into a different part of the galaxy as it moves around the Sun.</p>
+            </div>
+        </div>
+
+        <!-- SLIDE 5: Explicit Teaching - Cultural Constellations -->
+        <div class="slide" id="slide-5">
+            <div class="slide-header">
+                <div class="slide-title-group">
+                    <h2>Cultural Perspectives</h2>
+                    <p>Same Stars, Different Stories</p>
+                </div>
+                <div class="ejss-badge">EXPLICIT TEACHING</div>
+            </div>
+            <div class="slide-content">
+                <div class="two-col-equal">
+                    <div style="background-color: rgba(56, 189, 248, 0.05); border: 1px solid rgba(56, 189, 248, 0.2); padding: 25px; border-radius: 12px;">
+                        <h3 style="color: var(--accent-blue); margin-bottom: 10px;"><i class="fa-solid fa-book-journal-whills"></i> Western / Greek Astronomy</h3>
+                        <p style="font-size: 14px; color: var(--text-muted); line-height: 1.5; margin-bottom: 15px;">Most official star maps today use 88 constellations based primarily on ancient Greek mythology.</p>
+                        <ul class="custom-bullets" style="--accent-purple: var(--accent-blue); font-size: 13px;">
+                            <li>They connected dots of light to draw heroes, gods, and monsters (like Orion the Hunter).</li>
+                            <li>Used for storytelling and maritime navigation across the Mediterranean.</li>
+                        </ul>
+                    </div>
+                    <div style="background-color: rgba(16, 185, 129, 0.05); border: 1px solid rgba(16, 185, 129, 0.2); padding: 25px; border-radius: 12px;">
+                        <h3 style="color: var(--accent-green); margin-bottom: 10px;"><i class="fa-solid fa-earth-oceania"></i> First Nations Astronomy</h3>
+                        <p style="font-size: 14px; color: var(--text-muted); line-height: 1.5; margin-bottom: 15px;">Aboriginal Australians have mapped the sky for over 65,000 years, creating the world's oldest astronomical system.</p>
+                        <ul class="custom-bullets" style="--accent-purple: var(--accent-green); font-size: 13px;">
+                            <li>Often looked at the <strong>dark spaces</strong> between stars, not just the bright dots.</li>
+                            <li>Star positions dictated complex hunting seasons and seasonal food availability.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="teacher-notes-panel">
+                <i class="fa-solid fa-lightbulb"></i>
+                <p>This is a great cross-curricular link to History. Emphasize that there is no "correct" way to draw a constellation; it is entirely based on human culture and imagination.</p>
+            </div>
+        </div>
+
+        <!-- SLIDE 6: INTERACTIVE PLANISPHERE SIMULATOR -->
+        <div class="slide" id="slide-6">
+            <div class="slide-header">
+                <div class="slide-title-group">
+                    <h2>The Planisphere Sandbox</h2>
+                    <p>Rotating the Night Sky by Season</p>
+                </div>
+                <div class="ejss-badge">SPREAD YOUR WINGS</div>
+            </div>
+            <div class="slide-content">
+                <div class="two-col">
+                    
+                    <!-- Left: Interactive Simulator Canvas -->
+                    <div class="interactive-sim-panel" style="border-radius: 50%; width: 440px; height: 440px; border: 4px solid var(--space-border); margin: 0 auto; box-shadow: 0 0 40px rgba(192, 132, 252, 0.15);">
+                        <canvas id="sky-canvas" class="sim-canvas"></canvas>
+                        <div style="position: absolute; top: 15px; left: 0; right: 0; text-align: center; font-family: monospace; font-size: 11px; color: rgba(255, 255, 255, 0.6); pointer-events: none;">
+                            SOUTHERN HEMISPHERE VIEW<br>LOOKING SOUTH
+                        </div>
+                    </div>
+
+                    <!-- Right: Terminal & Sliders -->
+                    <div class="physics-terminal">
+                        <div class="terminal-tabs">
+                            <button class="term-tab-btn active-tab" style="pointer-events: none;">CALENDAR CONTROLS</button>
+                        </div>
+                        <div class="terminal-body">
+                            
+                            <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 5px;">Drag the slider to move through the Earth's orbit. Notice how the visible stars change as we look out into different parts of space.</p>
+                            
+                            <div class="slider-group">
+                                <div style="display: flex; justify-content: space-between; font-size: 11px; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">
+                                    <span>Month:</span>
+                                    <span id="slider-sky-month" style="color: var(--accent-purple);">January</span>
+                                </div>
+                                <input type="range" min="0" max="11" step="1" value="0" class="custom-slider" id="sky-slider" oninput="updateSkySim(this.value)">
+                            </div>
+
+                            <div class="telemetry-item" style="margin-top: 15px; border-left: 4px solid var(--accent-purple);">
+                                <span class="label">Prominent Constellation</span>
+                                <span class="value" id="sky-constellation-readout" style="color: var(--accent-purple);">Orion (The Hunter)</span>
+                            </div>
+
+                            <div class="telemetry-item" style="border-left: 4px solid var(--accent-blue);">
+                                <span class="label">Seasonal Indicator</span>
+                                <span class="value" id="sky-season-readout" style="font-size: 16px;">Summer Stars High</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="teacher-notes-panel">
+                <i class="fa-solid fa-lightbulb"></i>
+                <p>Have students drag to Winter (June/July) and notice how Scorpius dominates the sky, while Orion is hidden below the horizon.</p>
+            </div>
+        </div>
+
+        <!-- SLIDE 7: Local / Global Context -->
+        <div class="slide" id="slide-7">
+            <div class="slide-header">
+                <div class="slide-title-group">
+                    <h2>The Dark Constellations</h2>
+                    <p>The Emu in the Sky</p>
+                </div>
+                <div class="ejss-badge">CULTURAL CONTEXT</div>
+            </div>
+            <div class="slide-content">
+                <div class="two-col">
+                    <div class="media-frame" style="background-color: #000000; overflow: hidden; display: flex; align-items: center; justify-content: center; position: relative;">
+                        <!-- Wikimedia Milky Way Photo (Stable) -->
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/4/43/ESO-VLT-Laser-phot-33a-07.jpg" alt="Milky Way Galaxy" style="width: 100%; height: 100%; object-fit: cover;">
+                        
+                        <!-- Emu Silhouette Overlay Graphic -->
+                        <svg viewBox="0 0 400 300" width="100%" height="100%" style="position: absolute; top:0; left:0; z-index: 10;">
+                            <!-- Approximate Emu drawing matching Milky way dust lanes -->
+                            <path d="M 120,80 C 130,90 140,110 130,120 C 120,130 90,140 100,160 C 110,180 180,180 200,200 C 220,220 280,240 320,210 C 350,180 320,130 280,140 C 250,150 200,130 180,100 C 170,80 140,70 120,80 Z" fill="rgba(0,0,0,0.6)" stroke="rgba(255,255,255,0.3)" stroke-width="2" stroke-dasharray="4,4" />
+                            <!-- Eye (Coalsack Nebula next to Southern Cross) -->
+                            <circle cx="125" cy="100" r="4" fill="#ffffff" opacity="0.8"/>
+                            <text x="140" y="105" font-family="'Plus Jakarta Sans', sans-serif" font-size="10" fill="#ffffff" font-weight="bold">Coalsack (The Eye)</text>
+                        </svg>
+                    </div>
+                    <div>
+                        <h3 style="color: var(--accent-green); margin-bottom: 12px;">Looking at the Shadows</h3>
+                        <p style="margin-bottom: 15px;">Unlike Greek constellations that connect bright stars, many Aboriginal astronomical traditions outline shapes in the <strong>dark dust lanes</strong> of the Milky Way galaxy.</p>
+                        <p style="color: var(--text-muted); line-height: 1.5;">The most famous is the <em>Emu in the Sky</em>. The head is located in the Coalsack Nebula, right next to the Southern Cross.</p>
+                        <div style="background-color: rgba(16, 185, 129, 0.1); border-left: 4px solid var(--accent-green); padding: 15px; margin-top: 15px; border-radius: 0 8px 8px 0;">
+                            <p style="font-size: 13px; color: #a7f3d0; margin: 0;"><strong>Timekeeping:</strong> When the Emu first appears in the sky in April or May, it looks like it is running. This signaled to Indigenous groups that it was the season to hunt for Emu eggs.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="teacher-notes-panel">
+                <i class="fa-solid fa-lightbulb"></i>
+                <p>Have students try to spot the "dark shapes" in the image rather than the bright stars. This requires a complete shift in visual perspective!</p>
+            </div>
+        </div>
+
+        <!-- SLIDE 8: Explicit Teaching - Navigation -->
+        <div class="slide" id="slide-8">
+            <div class="slide-header">
+                <div class="slide-title-group">
+                    <h2>Navigating by the Stars</h2>
+                    <p>Finding the Poles</p>
+                </div>
+                <div class="ejss-badge">EXPLICIT TEACHING</div>
+            </div>
+            <div class="slide-content">
+                <div class="card-grid">
+                    <div class="concept-card" style="border-top: 4px solid var(--accent-blue);">
+                        <h3>Northern Hemisphere: Polaris</h3>
+                        <p style="margin-bottom: 8px;"><strong>The North Star</strong></p>
+                        <p style="font-size: 13px;">Polaris happens to sit almost exactly above Earth's North Pole. While other stars spin across the sky, Polaris stays perfectly still, always pointing straight North.</p>
+                    </div>
+                    <div class="concept-card" style="border-top: 4px solid var(--accent-purple);">
+                        <h3>Southern Hemisphere: Crux</h3>
+                        <p style="margin-bottom: 8px;"><strong>The Southern Cross</strong></p>
+                        <p style="font-size: 13px;">We don't have a bright "South Star." Instead, navigators extend a line through the long axis of the Southern Cross to find the invisible South Celestial Pole.</p>
+                    </div>
+                    <div class="concept-card" style="border-top: 4px solid var(--accent-orange);">
+                        <h3>Ancient Wayfinders</h3>
+                        <p style="margin-bottom: 8px;"><strong>Polynesian Voyaging</strong></p>
+                        <p style="font-size: 13px;">Using only their deep knowledge of star paths rising and setting, Polynesian navigators successfully crossed thousands of miles of open Pacific Ocean.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="teacher-notes-panel">
+                <i class="fa-solid fa-lightbulb"></i>
+                <p>This explains why the Southern Cross is on the Australian flag; it is our primary celestial navigation tool in the Southern Hemisphere.</p>
+            </div>
+        </div>
+
+        <!-- SLIDE 9: Terminal Verification (WITH NEW IMAGE) -->
+        <div class="slide" id="slide-9">
+            <div class="slide-header">
+                <div class="slide-title-group">
+                    <h2>Cultural Star Decoder</h2>
+                    <p>One Star Cluster, Three Meanings</p>
+                </div>
+                <div class="ejss-badge">SPREAD YOUR WINGS</div>
+            </div>
+            <div class="slide-content">
+                <div class="two-col">
+                    <div>
+                        <div class="media-frame" style="height: 180px; margin-bottom: 20px;">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/4/4e/Pleiades_large.jpg" alt="Pleiades Star Cluster in the night sky" style="width: 100%; height: 100%; object-fit: cover; border-radius: 10px;">
+                        </div>
+                        <h3 style="color: var(--text-main); margin-bottom: 15px;">The Pleiades Cluster</h3>
+                        <p style="color: var(--text-muted); line-height: 1.5;">This tight cluster of bright blue stars is highly visible globally. Let's see how different cultures interpreted the exact same grouping of light.</p>
+                    </div>
+                    <div class="physics-terminal" style="height: 340px;">
+                        <div class="terminal-body" style="justify-content: center;">
+                            <p style="font-size: 12px; color: var(--accent-purple); margin-bottom: 10px;">Select a cultural perspective to decode the stars:</p>
+                            
+                            <button class="term-action-btn" onclick="verifyCulture('greek')">
+                                <i class="fa-solid fa-masks-theater"></i> Ancient Greek Mythology
+                            </button>
+                            <button class="term-action-btn" onclick="verifyCulture('aboriginal')">
+                                <i class="fa-solid fa-earth-oceania"></i> Australian First Nations
+                            </button>
+                            <button class="term-action-btn" onclick="verifyCulture('japan')">
+                                <i class="fa-solid fa-torii-gate"></i> Japanese Culture
+                            </button>
+                            
+                            <div class="interactive-feedback" id="feedback-culture"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="teacher-notes-panel">
+                <i class="fa-solid fa-lightbulb"></i>
+                <p>Subaru (Japanese) is a great real-world link. The car brand Subaru is named after this cluster, and their logo actually features the stars!</p>
+            </div>
+        </div>
+
+        <!-- SLIDE 10: Soar (What-if Scenario) -->
+        <div class="slide" id="slide-10">
+            <div class="slide-header">
+                <div class="slide-title-group">
+                    <h2>The "What-If" Physics Challenge</h2>
+                    <p>Testing Star Fixity</p>
+                </div>
+                <div class="ejss-badge">SOAR & TRANSFER</div>
+            </div>
+            <div class="slide-content">
+                <div class="two-col">
+                    <div>
+                        <h3 style="color: var(--accent-purple); margin-bottom: 12px;">Hypothesis Generation</h3>
+                        <p style="color: var(--text-main); font-weight: 600; font-size: 20px; line-height: 1.4;">What would happen to human history if stars constantly moved around randomly each night instead of staying in fixed patterns?</p>
+                        
+                        <!-- Hidden answer box -->
+                        <div style="background-color: rgba(16, 185, 129, 0.08); border: 1px dashed rgba(16, 185, 129, 0.4); padding: 15px; border-radius: 8px; margin-top: 25px; color: var(--accent-green); cursor: pointer;" onclick="this.innerHTML = '<strong>Scientific Outcome:</strong> We would have had no reliable celestial clocks or calendars. Without predictable stars, early farming would fail, and open-ocean maritime exploration (like the Polynesians crossing the Pacific) would have been nearly impossible without compasses.'">
+                            <i class="fa-solid fa-eye"></i> Click to reveal the historical impact...
+                        </div>
+                    </div>
+                    <div class="media-frame">
+                        <svg viewBox="0 0 400 300" width="100%" height="100%" style="background-color: #020617; border-radius: 8px;">
+                            <!-- Random moving stars -->
+                            <circle cx="100" cy="150" r="3" fill="#fff">
+                                <animate attributeName="cx" values="100; 300; 50; 200; 100" dur="4s" repeatCount="indefinite" />
+                                <animate attributeName="cy" values="150; 50; 250; 100; 150" dur="5s" repeatCount="indefinite" />
+                            </circle>
+                            <circle cx="200" cy="200" r="2" fill="#38bdf8">
+                                <animate attributeName="cx" values="200; 50; 350; 100; 200" dur="6s" repeatCount="indefinite" />
+                                <animate attributeName="cy" values="200; 250; 50; 150; 200" dur="4s" repeatCount="indefinite" />
+                            </circle>
+                            <circle cx="300" cy="100" r="4" fill="#f59e0b">
+                                <animate attributeName="cx" values="300; 150; 50; 350; 300" dur="3s" repeatCount="indefinite" />
+                                <animate attributeName="cy" values="100; 250; 100; 50; 100" dur="7s" repeatCount="indefinite" />
+                            </circle>
+                            <circle cx="150" cy="50" r="2" fill="#c084fc">
+                                <animate attributeName="cx" values="150; 350; 250; 50; 150" dur="5s" repeatCount="indefinite" />
+                                <animate attributeName="cy" values="50; 150; 250; 200; 50" dur="3s" repeatCount="indefinite" />
+                            </circle>
+
+                            <text x="200" y="150" font-family="'Plus Jakarta Sans', sans-serif" font-size="16" fill="#ef4444" font-weight="bold" text-anchor="middle" opacity="0.6">CHAOTIC SKY</text>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+            <div class="teacher-notes-panel">
+                <i class="fa-solid fa-lightbulb"></i>
+                <p>This thought experiment helps students realise how lucky we are that stars are so incredibly far away, appearing "fixed" on the canvas of space.</p>
+            </div>
+        </div>
+
+        <!-- SLIDE 11: Data Analysis Matrix -->
+        <div class="slide" id="slide-11">
+            <div class="slide-header">
+                <div class="slide-title-group">
+                    <h2>Scientific Data Matrix</h2>
+                    <p>Constellation Visibility by Season</p>
+                </div>
+                <div class="ejss-badge">SOAR & TRANSFER</div>
+            </div>
+            <div class="slide-content">
+                <p style="margin-bottom: 15px; color: var(--text-muted);">Analyze the evening visibility of major constellations in the Southern Hemisphere:</p>
+                <table class="matrix-table">
+                    <thead>
+                        <tr>
+                            <th>Constellation</th>
+                            <th>Summer (Dec - Feb)</th>
+                            <th>Winter (Jun - Aug)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="font-weight: 700; color: #ffffff;">Orion (The Hunter)</td>
+                            <td style="color: var(--accent-orange); font-weight: 700;">High & Visible</td>
+                            <td style="color: #64748b; font-weight: 600;">Hidden below horizon</td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight: 700; color: #ffffff;">Scorpius (The Scorpion)</td>
+                            <td style="color: #64748b; font-weight: 600;">Hidden below horizon</td>
+                            <td style="color: var(--accent-blue); font-weight: 700;">High & Visible</td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight: 700; color: #ffffff;">Crux (Southern Cross)</td>
+                            <td style="color: var(--accent-purple); font-weight: 700;">Visible (Low in South)</td>
+                            <td style="color: var(--accent-purple); font-weight: 700;">Visible (High in South)</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p style="margin-top: 15px; font-size: 14px; color: var(--accent-green); font-weight: 600; line-height: 1.5;">
+                    <i class="fa-solid fa-earth-americas"></i> Why is the Southern Cross visible in BOTH seasons? Because it is located so close to the celestial pole, it simply spins in a tight circle in the sky rather than dipping below the edge of the Earth.
+                </p>
+            </div>
+            <div class="teacher-notes-panel">
+                <i class="fa-solid fa-lightbulb"></i>
+                <p>Stars that never set below the horizon are called "Circumpolar." This is why Crux is such a reliable navigation tool!</p>
+            </div>
+        </div>
+
+        <!-- SLIDE 12: EJSS Self-Assessment Rubric -->
+        <div class="slide" id="slide-12">
+            <div class="slide-header">
+                <div class="slide-title-group">
+                    <h2>Self-Assessment</h2>
+                    <p>Track Your Progress</p>
+                </div>
+                <div class="ejss-badge">EJSS Standards</div>
+            </div>
+            <div class="slide-content">
+                <div class="card-grid">
+                    <div class="concept-card" style="border-top: 4px solid var(--text-muted);">
+                        <h3 style="color: var(--text-muted);"><i class="fa-solid fa-star"></i> Level 1</h3>
+                        <p>I know what a constellation is and that different cultures drew different patterns in the stars.</p>
+                    </div>
+                    <div class="concept-card" style="border-top: 4px solid var(--accent-purple);">
+                        <h3><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i> Level 2</h3>
+                        <p>I can explain how ancient societies used the predictable movement of stars to create calendars and know when to farm.</p>
+                    </div>
+                    <div class="concept-card" style="border-top: 4px solid var(--accent-orange);">
+                        <h3 style="color: var(--accent-orange);"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i> Level 3</h3>
+                        <p>I can evaluate how navigation and historical exploration depended entirely on fixed celestial spheres.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="teacher-notes-panel">
+                <i class="fa-solid fa-lightbulb"></i>
+                <p>Have students show their level using a discrete hand gesture against their chest (1, 2, or 3 fingers).</p>
+            </div>
+        </div>
+
+        <!-- SLIDE 13: Diagnostic Exit Card -->
+        <div class="slide" id="slide-13">
+            <div class="slide-header">
+                <div class="slide-title-group">
+                    <h2>Exit Card Challenge</h2>
+                    <p>Consolidating the Celestial Sphere</p>
+                </div>
+                <div class="ejss-badge">DIAGNOSTIC CHECK</div>
+            </div>
+            <div class="slide-content">
+                <div style="background-color: var(--space-dark); border: 1px solid var(--space-border); padding: 30px; border-radius: 12px;">
+                    <h3 style="color: var(--accent-purple); margin-bottom: 15px;"><i class="fa-solid fa-ticket-simple"></i> Answer in your Science Journal:</h3>
+                    <ol class="custom-numbers" style="gap: 15px; --accent-purple: #c084fc;">
+                        <li data-num="1">Define the term 'Constellation'.</li>
+                        <li data-num="2">Explain why seeing specific stars rise early in the morning was crucial for ancient farming societies.</li>
+                        <li data-num="3">How does First Nations astronomical mapping of the "Emu in the Sky" differ from standard Greek constellations?</li>
+                    </ol>
+                </div>
+            </div>
+            <!-- Teacher Notes Panel Intentionally Removed for Slide 13 -->
+        </div>
+
+    </div>
+
+    <!-- PRESENTATION DECK CONTROLS -->
+    <div id="deck-controls">
+        <div class="control-btn-group">
+            <button class="toggle-btn" id="teacher-toggle-btn" onclick="toggleTeacherNotes()">
+                <i class="fa-solid fa-chalkboard-user"></i> Teacher Notes
+            </button>
+        </div>
+        
+        <div class="control-btn-group">
+            <button class="control-btn" id="prev-btn" onclick="navigateSlide(-1)" disabled>
+                <i class="fa-solid fa-chevron-left"></i>
+            </button>
+            <div id="slide-indicator">1 / 13</div>
+            <button class="control-btn" id="next-btn" onclick="navigateSlide(1)">
+                <i class="fa-solid fa-chevron-right"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- PRESENTEATION ENGINE JAVASCRIPT -->
+    <script>
+        let currentSlide = 1;
+        const totalSlides = 13;
+
+        function navigateSlide(direction) {
+            const activeSlide = document.getElementById(`slide-${currentSlide}`);
+            activeSlide.classList.remove('active');
+
+            currentSlide += direction;
+            if (currentSlide < 1) currentSlide = 1;
+            if (currentSlide > totalSlides) currentSlide = totalSlides;
+
+            const targetSlide = document.getElementById(`slide-${currentSlide}`);
+            targetSlide.classList.add('active');
+
+            document.getElementById('slide-indicator').textContent = `${currentSlide} / ${totalSlides}`;
+            document.getElementById('prev-btn').disabled = (currentSlide === 1);
+            document.getElementById('next-btn').disabled = (currentSlide === totalSlides);
+
+            // Handle Simulators
+            if (currentSlide === 6) {
+                startSkySim();
+            } else {
+                stopSkySim();
+            }
+        }
+
+        document.addEventListener('keydown', function(event) {
+            if (event.key === "ArrowRight" || event.key === "Spacebar" || event.key === " ") {
+                if (currentSlide < totalSlides) {
+                    event.preventDefault();
+                    navigateSlide(1);
+                }
+            } else if (event.key === "ArrowLeft") {
+                if (currentSlide > 1) {
+                    event.preventDefault();
+                    navigateSlide(-1);
+                }
+            }
+        });
+
+        function toggleVocab(cardElement) {
+            cardElement.classList.toggle('revealed');
+        }
+
+        function toggleTeacherNotes() {
+            const toggleButton = document.getElementById('teacher-toggle-btn');
+            const notePanels = document.querySelectorAll('.teacher-notes-panel');
+            
+            toggleButton.classList.toggle('active');
+            
+            notePanels.forEach(panel => {
+                panel.classList.toggle('visible');
+            });
+        }
+
+        function verifyCulture(culture) {
+            const fb = document.getElementById('feedback-culture');
+            fb.style.display = "block";
+            
+            if (culture === 'greek') {
+                fb.style.backgroundColor = "rgba(56, 189, 248, 0.08)";
+                fb.style.borderColor = "rgba(56, 189, 248, 0.2)";
+                fb.style.color = "var(--accent-blue)";
+                fb.innerHTML = `<strong>The Seven Sisters:</strong> In Greek myth, these stars represented the seven daughters of the titan Atlas, who were transformed into stars to escape Orion.`;
+            } else if (culture === 'aboriginal') {
+                fb.style.backgroundColor = "rgba(16, 185, 129, 0.08)";
+                fb.style.borderColor = "rgba(16, 185, 129, 0.2)";
+                fb.style.color = "var(--accent-green)";
+                fb.innerHTML = `<strong>The Kungkarangkalpa:</strong> Many First Nations groups also view these stars as a group of young women (sisters) fleeing from a man represented by Orion, sharing a strikingly similar narrative across the world.`;
+            } else if (culture === 'japan') {
+                fb.style.backgroundColor = "rgba(192, 132, 252, 0.08)";
+                fb.style.borderColor = "rgba(192, 132, 252, 0.2)";
+                fb.style.color = "var(--accent-purple)";
+                fb.innerHTML = `<strong>Subaru:</strong> In Japan, the cluster is known as Subaru, which translates to "gathered together." The famous car company uses this exact star cluster for its logo!`;
+            }
+        }
+
+        /* =======================================================
+           SIMULATOR: PLANISPHERE SKY DOME (SLIDE 6)
+           ======================================================= */
+        let skyCanvas, skyCtx, skyFrameId;
+        let skyRunning = false;
+        
+        const skyState = {
+            monthIndex: 0,
+            rotationOffset: 0
+        };
+
+        const skyMonths = [
+            "January", "February", "March", "April", 
+            "May", "June", "July", "August", 
+            "September", "October", "November", "December"
+        ];
+
+        // Generate some static random stars for the background
+        const backgroundStars = [];
+        for(let i=0; i<150; i++) {
+            backgroundStars.push({
+                x: (Math.random() - 0.5) * 440,
+                y: (Math.random() - 0.5) * 440,
+                r: Math.random() * 1.5,
+                alpha: 0.3 + Math.random() * 0.7
+            });
+        }
+
+        function startSkySim() {
+            skyCanvas = document.getElementById('sky-canvas');
+            if (!skyCanvas) return;
+            const bounds = skyCanvas.getBoundingClientRect();
+            skyCanvas.width = bounds.width;
+            skyCanvas.height = bounds.height;
+            skyCtx = skyCanvas.getContext('2d');
+            skyRunning = true;
+            updateSkySim(document.getElementById('sky-slider').value);
+            skyLoop();
+        }
+
+        function stopSkySim() {
+            skyRunning = false;
+            if (skyFrameId) cancelAnimationFrame(skyFrameId);
+        }
+
+        function updateSkySim(val) {
+            skyState.monthIndex = parseInt(val);
+            document.getElementById('slider-sky-month').textContent = skyMonths[skyState.monthIndex];
+            
+            // 0 = Jan, 11 = Dec.
+            // Map month to a rotation angle. 12 months = 2PI rotation.
+            skyState.rotationOffset = (skyState.monthIndex / 12) * Math.PI * 2;
+            
+            const conReadout = document.getElementById('sky-constellation-readout');
+            const seaReadout = document.getElementById('sky-season-readout');
+
+            if (skyState.monthIndex >= 11 || skyState.monthIndex <= 1) { // Dec, Jan, Feb
+                conReadout.textContent = "Orion (The Hunter)";
+                seaReadout.textContent = "Summer Stars High";
+                seaReadout.style.color = "var(--accent-orange)";
+            } else if (skyState.monthIndex >= 5 && skyState.monthIndex <= 7) { // Jun, Jul, Aug
+                conReadout.textContent = "Scorpius (The Scorpion)";
+                seaReadout.textContent = "Winter Stars High";
+                seaReadout.style.color = "var(--accent-blue)";
+            } else {
+                conReadout.textContent = "Crux (Southern Cross)";
+                seaReadout.textContent = "Equinox Transition";
+                seaReadout.style.color = "var(--accent-purple)";
+            }
+        }
+
+        function skyLoop() {
+            if (!skyRunning) return;
+            
+            const cx = skyCanvas.width / 2;
+            const cy = skyCanvas.height / 2;
+
+            // Clear background
+            skyCtx.fillStyle = "#020617";
+            skyCtx.fillRect(0, 0, skyCanvas.width, skyCanvas.height);
+
+            skyCtx.save();
+            skyCtx.translate(cx, cy);
+            
+            // Rotate the entire sky dome based on the month slider
+            skyCtx.rotate(skyState.rotationOffset);
+
+            // Draw generic background stars
+            backgroundStars.forEach(star => {
+                skyCtx.beginPath();
+                skyCtx.arc(star.x, star.y, star.r, 0, Math.PI*2);
+                skyCtx.fillStyle = `rgba(255, 255, 255, ${star.alpha})`;
+                skyCtx.fill();
+            });
+
+            // --- DRAW CONSTELLATIONS ---
+            
+            // South Celestial Pole (Center)
+            skyCtx.beginPath();
+            skyCtx.arc(0, 0, 2, 0, Math.PI*2);
+            skyCtx.fillStyle = "#94a3b8";
+            skyCtx.fill();
+
+            // CRUX (Southern Cross) - Close to pole, always visible
+            skyCtx.strokeStyle = "rgba(192, 132, 252, 0.4)";
+            skyCtx.lineWidth = 1.5;
+            skyCtx.beginPath();
+            skyCtx.moveTo(0, -40); // Top
+            skyCtx.lineTo(0, -90); // Bottom
+            skyCtx.moveTo(-20, -60); // Left
+            skyCtx.lineTo(25, -70); // Right
+            skyCtx.stroke();
+            
+            // Crux Stars
+            skyCtx.fillStyle = "#ffffff";
+            [ [0,-40], [0,-90], [-20,-60], [25,-70], [10,-80] ].forEach(p => {
+                skyCtx.beginPath(); skyCtx.arc(p[0], p[1], 3, 0, Math.PI*2); skyCtx.fill();
+            });
+
+            // SCORPIUS (Visible when rotated to bottom - Winter)
+            skyCtx.strokeStyle = "rgba(56, 189, 248, 0.4)";
+            skyCtx.beginPath();
+            skyCtx.moveTo(-80, -140);
+            skyCtx.lineTo(-110, -120); // Claws
+            skyCtx.lineTo(-90, -160); 
+            skyCtx.lineTo(-50, -180); // Antares (Heart)
+            skyCtx.lineTo(0, -190);
+            skyCtx.lineTo(30, -170); // Tail curve
+            skyCtx.lineTo(50, -140);
+            skyCtx.lineTo(30, -120); // Stinger
+            skyCtx.stroke();
+            
+            // Scorpius Stars
+            [ [-80,-140], [-110,-120], [-90,-160], [0,-190], [30,-170], [50,-140], [30,-120] ].forEach(p => {
+                skyCtx.fillStyle = "#ffffff";
+                skyCtx.beginPath(); skyCtx.arc(p[0], p[1], 2.5, 0, Math.PI*2); skyCtx.fill();
+            });
+            // Antares (Red Giant)
+            skyCtx.fillStyle = "#ef4444";
+            skyCtx.beginPath(); skyCtx.arc(-50, -180, 4, 0, Math.PI*2); skyCtx.fill();
+
+            // ORION (Visible when rotated to top - Summer)
+            // Placed opposite to Scorpius
+            skyCtx.strokeStyle = "rgba(245, 158, 11, 0.4)";
+            skyCtx.beginPath();
+            skyCtx.moveTo(-30, 140); // Shoulder
+            skyCtx.lineTo(30, 140); // Shoulder
+            skyCtx.lineTo(10, 170); // Belt
+            skyCtx.lineTo(-10, 170); // Belt
+            skyCtx.lineTo(-30, 140);
+            skyCtx.moveTo(10, 170);
+            skyCtx.lineTo(40, 210); // Foot
+            skyCtx.moveTo(-10, 170);
+            skyCtx.lineTo(-40, 210); // Foot
+            skyCtx.stroke();
+            
+            // Orion Stars
+            skyCtx.fillStyle = "#ffffff";
+            [ [-30,140], [30,140], [10,170], [0,170], [-10,170], [40,210], [-40,210] ].forEach(p => {
+                skyCtx.beginPath(); skyCtx.arc(p[0], p[1], 3, 0, Math.PI*2); skyCtx.fill();
+            });
+            // Betelgeuse (Red) and Rigel (Blue)
+            skyCtx.fillStyle = "#f59e0b";
+            skyCtx.beginPath(); skyCtx.arc(30, 140, 4, 0, Math.PI*2); skyCtx.fill(); // Top right in this orientation
+            skyCtx.fillStyle = "#38bdf8";
+            skyCtx.beginPath(); skyCtx.arc(-40, 210, 4, 0, Math.PI*2); skyCtx.fill(); // Bottom left
+
+            skyCtx.restore();
+
+            // Draw Horizon Mask (To hide stars that "set")
+            // A semi-transparent dark circle to simulate edge of visible sky
+            skyCtx.beginPath();
+            skyCtx.arc(cx, cy, cx, 0, Math.PI*2);
+            skyCtx.lineWidth = 40;
+            skyCtx.strokeStyle = "#090d16";
+            skyCtx.stroke();
+
+            skyFrameId = requestAnimationFrame(skyLoop);
+        }
+    </script>
+</body>
+</html>
