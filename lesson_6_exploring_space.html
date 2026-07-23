@@ -1,0 +1,1380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Year 6 Science: Exploring Space - Lesson 6</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;1,300&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <style>
+        /* 1. RESET & VARIABLES */
+        :root {
+            --space-dark: #090d16;
+            --space-card: #131a2b;
+            --space-border: #222f4d;
+            --accent-blue: #38bdf8;
+            --accent-purple: #c084fc;
+            --accent-orange: #f59e0b;
+            --accent-green: #10b981;
+            --accent-red: #ef4444;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --font-display: 'Merriweather', serif;
+            --font-body: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: var(--space-dark);
+            color: var(--text-main);
+            font-family: var(--font-body);
+            height: 100vh;
+            width: 100vw;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        /* 2. DECK LAYOUT WINDOW */
+        #presentation-wrapper {
+            flex-grow: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            padding: 20px;
+            overflow: hidden;
+        }
+
+        .slide {
+            display: none;
+            width: 100%;
+            max-width: 1200px;
+            height: 100%;
+            max-height: 675px; 
+            background-color: var(--space-card);
+            border: 1px solid var(--space-border);
+            border-radius: 16px;
+            padding: 40px 60px;
+            position: relative;
+            flex-direction: column;
+            justify-content: space-between;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            opacity: 0;
+            transform: scale(0.98);
+        }
+
+        .slide.active {
+            display: flex;
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        /* Slide Top Accents */
+        .slide::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 8px;
+            background: linear-gradient(90deg, var(--accent-blue), var(--accent-green), var(--accent-purple));
+            border-top-left-radius: 16px;
+            border-top-right-radius: 16px;
+        }
+
+        /* 3. SLIDE HEADER STYLING */
+        .slide-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            border-left: 5px solid var(--accent-blue);
+            padding-left: 18px;
+            margin-bottom: 20px;
+            height: 65px;
+        }
+
+        .slide-title-group h2 {
+            font-family: var(--font-display);
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--text-main);
+            line-height: 1.2;
+        }
+
+        .slide-title-group p {
+            color: var(--text-muted);
+            font-size: 14px;
+            margin-top: 4px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .ejss-badge {
+            background: rgba(56, 189, 248, 0.1);
+            border: 1px solid rgba(56, 189, 248, 0.3);
+            color: var(--accent-blue);
+            padding: 6px 14px;
+            border-radius: 30px;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            white-space: nowrap;
+        }
+
+        /* 4. CONTENT GRID DESIGNS */
+        .slide-content {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            width: 100%;
+            overflow: hidden;
+            padding-right: 8px;
+        }
+
+        .two-col {
+            display: grid;
+            grid-template-columns: 1.15fr 0.85fr;
+            gap: 35px;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+        }
+
+        .two-col-equal {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            align-items: start;
+            width: 100%;
+        }
+
+        /* Media Frame Layout */
+        .media-frame {
+            background-color: var(--space-dark);
+            border: 2px solid var(--space-border);
+            border-radius: 12px;
+            overflow: hidden;
+            height: 340px;
+            width: 100%;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .media-frame svg, .media-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .media-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(9, 13, 22, 0.85);
+            padding: 10px 15px;
+            font-size: 13px;
+            color: var(--text-muted);
+            border-top: 1px solid var(--space-border);
+            text-align: center;
+        }
+
+        /* Title Slide Layout */
+        .hero-layout {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero-layout h1 {
+            font-family: var(--font-display);
+            font-size: 54px;
+            font-weight: 700;
+            color: #ffffff;
+            line-height: 1.15;
+            margin-bottom: 15px;
+            text-shadow: 0 4px 12px rgba(0,0,0,0.5);
+        }
+
+        .hero-divider {
+            height: 4px;
+            width: 100px;
+            background: linear-gradient(90deg, var(--accent-blue), var(--accent-green));
+            margin: 20px auto;
+            border-radius: 2px;
+        }
+
+        /* Cards/Tiles */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            width: 100%;
+        }
+
+        .concept-card {
+            background-color: var(--space-dark);
+            border: 1px solid var(--space-border);
+            border-radius: 12px;
+            padding: 20px;
+            transition: all 0.2s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .concept-card:hover {
+            border-color: var(--accent-blue);
+            transform: translateY(-3px);
+        }
+
+        .concept-card h3 {
+            font-family: var(--font-display);
+            font-size: 18px;
+            color: var(--accent-blue);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .concept-card p {
+            font-size: 14px;
+            line-height: 1.5;
+            color: var(--text-muted);
+        }
+
+        /* 5. INTERACTIVE VOCABULARY FLIP CARDS */
+        .vocab-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            width: 100%;
+        }
+
+        .vocab-card {
+            background-color: var(--space-dark);
+            border: 1px solid var(--space-border);
+            border-radius: 12px;
+            padding: 25px;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            min-height: 140px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .vocab-card::after {
+            content: 'Click Card to Reveal Explanation';
+            position: absolute;
+            bottom: 12px;
+            right: 15px;
+            font-size: 11px;
+            color: var(--accent-blue);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 600;
+            opacity: 0.7;
+            transition: opacity 0.2s ease;
+        }
+
+        .vocab-card.revealed::after {
+            content: 'Click to Hide Definition';
+            color: var(--accent-green);
+        }
+
+        .vocab-word {
+            font-family: var(--font-display);
+            font-size: 22px;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 5px;
+            transition: color 0.3s ease;
+        }
+
+        .vocab-card.revealed .vocab-word {
+            color: var(--accent-blue);
+        }
+
+        .vocab-def {
+            font-size: 14px;
+            line-height: 1.6;
+            color: var(--text-muted);
+            margin-top: 10px;
+            display: none;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .vocab-card.revealed .vocab-def {
+            display: block;
+            opacity: 1;
+        }
+
+        /* Lists */
+        ul.custom-bullets, ol.custom-numbers {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        ul.custom-bullets li {
+            position: relative;
+            padding-left: 28px;
+            font-size: 16px;
+            line-height: 1.5;
+            color: var(--text-muted);
+        }
+
+        ul.custom-bullets li::before {
+            content: "\f058";
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            position: absolute;
+            left: 0;
+            top: 2px;
+            color: var(--accent-blue);
+            font-size: 16px;
+        }
+
+        ol.custom-numbers li {
+            position: relative;
+            padding-left: 36px;
+            font-size: 16px;
+            line-height: 1.5;
+            color: var(--text-muted);
+        }
+
+        ol.custom-numbers li::before {
+            content: attr(data-num);
+            position: absolute;
+            left: 0;
+            top: 1px;
+            background-color: var(--space-border);
+            color: var(--accent-blue);
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        /* Table Matrix styling */
+        .matrix-table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: var(--space-dark);
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid var(--space-border);
+        }
+
+        .matrix-table th {
+            background-color: rgba(255,255,255,0.02);
+            color: var(--accent-blue);
+            font-family: var(--font-display);
+            font-size: 16px;
+            font-weight: 700;
+            padding: 14px 20px;
+            text-align: left;
+            border-bottom: 2px solid var(--space-border);
+        }
+
+        .matrix-table td {
+            padding: 14px 20px;
+            border-bottom: 1px solid var(--space-border);
+            font-size: 15px;
+            color: var(--text-muted);
+        }
+
+        .matrix-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        /* 6. TEACHER SCAFFOLD NOTE ACCORDION */
+        .teacher-notes-panel {
+            background-color: rgba(56, 189, 248, 0.05);
+            border-top: 1px solid rgba(56, 189, 248, 0.2);
+            padding: 15px 60px;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            z-index: 10;
+            transition: transform 0.3s ease;
+            transform: translateY(100%);
+            height: 70px;
+        }
+
+        .teacher-notes-panel.visible {
+            transform: translateY(0);
+        }
+
+        .teacher-notes-panel i {
+            color: var(--accent-blue);
+            font-size: 20px;
+        }
+
+        .teacher-notes-panel p {
+            font-size: 13px;
+            color: #bae6fd;
+            font-style: italic;
+            line-height: 1.4;
+        }
+
+        /* 7. CONTROLS FOOTER BAR */
+        #deck-controls {
+            background-color: #0b0f19;
+            border-top: 1px solid var(--space-border);
+            padding: 15px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 20;
+        }
+
+        .control-btn-group {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .control-btn {
+            background-color: var(--space-card);
+            border: 1px solid var(--space-border);
+            color: var(--text-main);
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .control-btn:hover:not(:disabled) {
+            border-color: var(--accent-blue);
+            color: var(--accent-blue);
+            background-color: rgba(56, 189, 248, 0.05);
+        }
+
+        .control-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        .toggle-btn {
+            background-color: var(--space-card);
+            border: 1px solid var(--space-border);
+            color: var(--text-muted);
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s ease;
+        }
+
+        .toggle-btn.active {
+            border-color: var(--accent-blue);
+            color: var(--accent-blue);
+            background-color: rgba(56, 189, 248, 0.08);
+        }
+
+        #slide-indicator {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-muted);
+            background-color: var(--space-card);
+            border: 1px solid var(--space-border);
+            padding: 6px 16px;
+            border-radius: 20px;
+        }
+
+        /* Physics Terminal styling for activities */
+        .physics-terminal {
+            background-color: #111827;
+            border: 1px solid var(--space-border);
+            border-radius: 12px;
+            height: 440px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .terminal-tabs {
+            display: flex;
+            background-color: rgba(15, 23, 42, 0.6);
+            border-bottom: 1px solid var(--space-border);
+        }
+
+        .term-tab-btn {
+            flex: 1;
+            padding: 14px 4px;
+            background: none;
+            border: none;
+            border-bottom: 2px solid transparent;
+            color: var(--text-muted);
+            font-family: var(--font-body);
+            font-size: 11px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-align: center;
+            letter-spacing: 0.5px;
+        }
+
+        .term-tab-btn.active-tab {
+            color: var(--accent-blue);
+            border-bottom-color: var(--accent-blue);
+            background-color: rgba(56, 189, 248, 0.05);
+        }
+
+        .terminal-body {
+            flex-grow: 1;
+            padding: 22px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            overflow-y: auto;
+        }
+
+        .interactive-feedback {
+            background-color: rgba(56, 189, 248, 0.08);
+            border: 1px solid rgba(56, 189, 248, 0.2);
+            border-radius: 6px;
+            padding: 12px;
+            font-size: 13px;
+            color: var(--accent-blue);
+            margin-top: 15px;
+            line-height: 1.4;
+            display: none;
+        }
+        
+        .interactive-feedback.incorrect {
+            background-color: rgba(239, 68, 68, 0.08);
+            border-color: rgba(239, 68, 68, 0.2);
+            color: #f87171;
+        }
+        
+        .term-action-btn {
+            background-color: rgba(56, 189, 248, 0.03);
+            border: 1px solid var(--space-border);
+            color: var(--text-main);
+            padding: 12px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 13px;
+            text-align: left;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            font-family: var(--font-body);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 8px;
+        }
+
+        .term-action-btn:hover {
+            border-color: var(--accent-blue);
+            background-color: rgba(56, 189, 248, 0.1);
+            transform: translateX(4px);
+        }
+
+        /* Timeline Styles */
+        .timeline-container {
+            position: relative;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .timeline-line {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--space-border);
+            z-index: 1;
+            transform: translateY(-50%);
+        }
+
+        .timeline-node {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+            width: 120px;
+        }
+
+        .timeline-dot {
+            width: 20px;
+            height: 20px;
+            background-color: var(--space-dark);
+            border: 4px solid var(--accent-blue);
+            border-radius: 50%;
+            margin-bottom: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .timeline-node:hover .timeline-dot,
+        .timeline-node.active .timeline-dot {
+            background-color: var(--accent-blue);
+            box-shadow: 0 0 15px rgba(56, 189, 248, 0.6);
+            transform: scale(1.2);
+        }
+
+        .timeline-date {
+            font-family: var(--font-display);
+            font-weight: 700;
+            color: var(--text-muted);
+            font-size: 14px;
+            transition: color 0.3s ease;
+        }
+        
+        .timeline-node:hover .timeline-date,
+        .timeline-node.active .timeline-date {
+            color: #ffffff;
+        }
+
+        .timeline-content-panel {
+            background-color: rgba(255,255,255,0.02);
+            border: 1px solid var(--space-border);
+            border-radius: 12px;
+            padding: 30px;
+            margin-top: 25px;
+            min-height: 340px;
+            display: flex;
+            align-items: center;
+            gap: 40px;
+        }
+        
+        .timeline-content-image {
+            width: 500px;
+            height: 320px;
+            border-radius: 8px;
+            object-fit: cover;
+            border: 2px solid var(--space-border);
+            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.5);
+        }
+        
+        /* Spinoff Tech Styles */
+        .spinoff-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            width: 100%;
+        }
+
+        .spinoff-card {
+            background-color: var(--space-dark);
+            border: 1px solid var(--space-border);
+            border-radius: 12px;
+            height: 300px;
+            cursor: pointer;
+            position: relative;
+            perspective: 1000px;
+        }
+
+        .spinoff-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            transform-style: preserve-3d;
+        }
+
+        .spinoff-card.flipped .spinoff-card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .spinoff-card-front, .spinoff-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            overflow: hidden;
+        }
+
+        .spinoff-card-front {
+            background-color: var(--space-dark);
+            border: 1px solid var(--space-border);
+        }
+
+        .spinoff-card-front img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+        
+        .spinoff-card-front h3 {
+            font-family: var(--font-body);
+            font-size: 16px;
+            color: var(--text-main);
+            margin: 0;
+            padding: 10px;
+            background: rgba(9, 13, 22, 0.85);
+            width: 100%;
+            position: absolute;
+            bottom: 0;
+            border-top: 1px solid var(--space-border);
+        }
+
+        .spinoff-card-back {
+            background-color: rgba(56, 189, 248, 0.05);
+            border: 1px solid rgba(56, 189, 248, 0.3);
+            transform: rotateY(180deg);
+            padding: 25px;
+            text-align: left;
+        }
+
+        .spinoff-card-back h3 {
+            color: var(--accent-blue);
+            font-size: 18px;
+            margin-bottom: 12px;
+            font-family: var(--font-display);
+        }
+        
+        .spinoff-card-back p {
+            font-size: 14px;
+            line-height: 1.5;
+            color: var(--text-main);
+        }
+    </style>
+</head>
+<body>
+
+    <div id="presentation-wrapper">
+
+        <!-- SLIDE 1: Title Screen -->
+        <div class="slide active" id="slide-1">
+            <div class="slide-header" style="opacity: 0;"></div> 
+            <div class="slide-content">
+                <div class="hero-layout">
+                    <p style="color: var(--accent-blue); font-weight: 700; text-transform: uppercase; letter-spacing: 2px; font-size: 14px;">Year 6 Earth & Space Sciences</p>
+                    <h1>Exploring Space</h1>
+                    <div class="hero-divider"></div>
+                    <h3 style="color: #ffffff; font-family: var(--font-body); font-weight: 500; font-size: 22px; margin-bottom: 8px;">Lesson 6: Humanity's Journey</h3>
+                    <p style="color: var(--text-muted); font-size: 16px;">Tracing the evolution of space technology from early telescopes to interstellar probes and human collaboration.</p>
+                </div>
+            </div>
+            <div class="teacher-notes-panel">
+                <i class="fa-solid fa-lightbulb"></i>
+                <p>Welcome class! In our final lesson for this unit, we look at how humans finally broke free from Earth's gravity to explore the cosmos we've been studying.</p>
+            </div>
+        </div>
+
+        <!-- SLIDE 2: See, Think, Wonder -->
+        <div class="slide" id="slide-2">
+            <div class="slide-header">
+                <div class="slide-title-group">
+                    <h2>See, Think, Wonder</h2>
+                    <p>Changing Perspectives</p>
+                </div>
+                <div class="ejss-badge">TAKE OFF</div>
+            </div>
+            <div class="slide-content">
+                <div class="two-col">
+                    <div class="media-frame" style="flex-direction: row; gap: 15px; background: transparent; border: none; height: 340px;">
+                        <!-- Left: Galileo's Moon Drawing -->
+                        <div style="flex: 1; height: 100%; position: relative; border-radius: 12px; overflow: hidden; border: 2px solid var(--space-border);">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/e/ee/Galileos_Moon.jpg" onerror="this.onerror=null; this.src='https://placehold.co/600x600/131a2b/ffffff?text=Galileo+Sketch';" alt="Galileo's early drawings of the Moon" style="width: 100%; height: 100%; object-fit: cover; object-position: top;">
+                            <div style="position: absolute; bottom: 10px; left: 10px; background: rgba(9, 13, 22, 0.85); padding: 4px 8px; border-radius: 6px; border-left: 3px solid #cbd5e1;">
+                                <span style="color: white; font-family: var(--font-body); font-size: 11px; font-weight: 700;">Galileo's Sketch (1610)</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Right: Modern Telescope Image of Moon -->
+                        <div style="flex: 1; height: 100%; position: relative; border-radius: 12px; overflow: hidden; border: 2px solid var(--space-border);">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/e/e1/FullMoon2010.jpg" onerror="this.onerror=null; this.src='https://placehold.co/600x600/131a2b/38bdf8?text=Modern+Moon';" alt="Modern detailed photograph of the Moon" style="width: 100%; height: 100%; object-fit: cover;">
+                            <div style="position: absolute; bottom: 10px; left: 10px; background: rgba(9, 13, 22, 0.85); padding: 4px 8px; border-radius: 6px; border-left: 3px solid var(--accent-blue);">
+                                <span style="color: white; font-family: var(--font-body); font-size: 11px; font-weight: 700;">Modern Telescope Image</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <ul class="custom-bullets" style="gap: 15px;">
+                            <li style="color: #ffffff;"><strong>👀 SEE:</strong> Compare the early hand-drawn sketch of the Moon with the modern photograph. What differences in detail do you observe?</li>
+                            <li style="color: #ffffff;"><strong>🧠 THINK:</strong> How did Galileo's early observations change the idea that space was "perfect and unchanging"?</li>
+                            <li style="color: #ffffff;"><strong>❓ WONDER:</strong> What technologies were invented between 1610 and today to allow us to see space in such incredible detail?</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="teacher-notes-panel">
+                <i class="fa-solid fa-lightbulb"></i>
+                <p>Prompt students to realise that for most of human history, we only had our eyes. Telescopes were the first tool to extend our vision.</p>
+            </div>
+        </div>
+
+        <!-- SLIDE 3: Vocab Matrix -->
+        <div class="slide" id="slide-3">
+            <div class="slide-header">
+                <div class="slide-title-group">
+                    <h2>Core Terminology</h2>
+                    <p>Tools of Discovery</p>
+                </div>
+                <div class="ejss-badge">Vocabulary Mastery</div>
+            </div>
+            <div class="slide-content">
+                <p style="margin-bottom: 20px; color: var(--text-muted);">Click each card to reveal the technologies that helped us explore beyond Earth:</p>
+                <div class="vocab-grid">
+                    <div class="vocab-card" onclick="toggleVocab(this)">
+                        <div class="vocab-word">Telescope</div>
+                        <div class="vocab-def">An instrument that uses lenses or mirrors to gather and magnify faint light or other electromagnetic waves from distant celestial objects.</div>
+                    </div>
+                    <div class="vocab-card" onclick="toggleVocab(this)">
+                        <div class="vocab-word">Satellite</div>
+                        <div class="vocab-def">An artificial object intentionally placed into orbit around Earth or another celestial body to gather information or assist with communication.</div>
+                    </div>
+                    <div class="vocab-card" onclick="toggleVocab(this)">
+                        <div class="vocab-word">Space Probe</div>
+                        <div class="vocab-def">An uncrewed, robotic spacecraft sent far beyond Earth's orbit to gather scientific data about other planets, moons, or deep space.</div>
+                    </div>
+                </div>
+            </div>
+            <div class="teacher-notes-panel">
+                <i class="fa-solid fa-lightbulb"></i>
+                <p>Ensure students understand the difference between a satellite (which orbits a body) and a probe (which travels away to explore).</p>
+            </div>
+        </div>
+
+        <!-- SLIDE 4: Explicit Teaching - The Power of Telescopes -->
+        <div class="slide" id="slide-4">
+            <div class="slide-header">
+                <div class="slide-title-group">
+                    <h2>Expanding Our Vision</h2>
+                    <p>The Evolution of Telescopes</p>
+                </div>
+                <div class="ejss-badge">EXPLICIT TEACHING</div>
+            </div>
+            <div class="slide-content">
+                <div class="two-col-equal">
+                    <div style="padding-right: 15px;">
+                        <h3 style="color: var(--accent-blue); margin-bottom: 15px;">Seeing the Invisible</h3>
+                        <p style="margin-bottom: 20px; font-size: 16px; line-height: 1.6;">Early optical telescopes, like Galileo's, used simple glass lenses to gather visible light. They revealed that the Moon had mountains and craters.</p>
+                        <p style="color: #ffffff; font-size: 16px; line-height: 1.6; margin-bottom: 20px;">However, Earth's atmosphere blurs and blocks a lot of light from space.</p>
+                        <p style="color: var(--text-muted); font-size: 15px; line-height: 1.6;">To solve this, scientists put telescopes <strong>in space</strong>, orbiting above the atmosphere. They also built telescopes that can "see" other types of energy, like radio waves and infrared light.</p>
+                    </div>
+                    <div class="media-frame" style="height: 440px;">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/3/3f/HST-SM4.jpeg" onerror="this.onerror=null; this.src='https://placehold.co/800x600/131a2b/38bdf8?text=Hubble+Telescope';" alt="Hubble Space Telescope in orbit" style="object-position: center;">
+                        <div class="media-caption">The Hubble Space Telescope orbits above Earth's atmosphere to capture high-resolution images of deep space.</div>
+                    </div>
+                </div>
+            </div>
+            <div class="teacher-notes-panel">
+                <i class="fa-solid fa-lightbulb"></i>
+                <p>Mention the James Webb Space Telescope (JWST) as the modern successor to Hubble, capable of seeing infrared light from the very first galaxies.</p>
+            </div>
+        </div>
+
+        <!-- SLIDE 5: Space Exploration Timeline -->
+        <div class="slide" id="slide-5">
+            <div class="slide-header">
+                <div class="slide-title-group">
+                    <h2>Milestones in Space</h2>
+                    <p>The Timeline of Discovery</p>
+                </div>
+                <div class="ejss-badge">INTERACTIVE TIMELINE</div>
+            </div>
+            <div class="slide-content">
+                <p style="margin-bottom: 30px; color: var(--text-muted); text-align: center;">Click on the timeline nodes to explore key moments in space exploration history:</p>
+                
+                <div class="timeline-container">
+                    <div class="timeline-line"></div>
+                    
+                    <div class="timeline-node active" onclick="updateTimeline(0, this)">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-date">1957</div>
+                    </div>
+                    <div class="timeline-node" onclick="updateTimeline(1, this)">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-date">1961</div>
+                    </div>
+                    <div class="timeline-node" onclick="updateTimeline(2, this)">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-date">1969</div>
+                    </div>
+                    <div class="timeline-node" onclick="updateTimeline(3, this)">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-date">1977</div>
+                    </div>
+                    <div class="timeline-node" onclick="updateTimeline(4, this)">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-date">1998</div>
+                    </div>
+                </div>
+
+                <div class="timeline-content-panel" id="timeline-info">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/b/be/Sputnik_asm.jpg" onerror="this.onerror=null; this.src='https://placehold.co/800x600/131a2b/38bdf8?text=Sputnik';" alt="Sputnik 1" class="timeline-content-image" id="tl-img">
+                    <div style="flex: 1;">
+                        <h3 style="color: var(--accent-blue); margin-bottom: 15px; font-size: 28px;" id="tl-title">Sputnik 1: The First Satellite</h3>
+                        <p style="color: var(--text-main); line-height: 1.6; font-size: 18px;" id="tl-desc">The Soviet Union successfully launched Sputnik 1, the world's first artificial satellite. About the size of a beach ball, it took 98 minutes to orbit Earth on its elliptical path, officially beginning the Space Age.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="teacher-notes-panel">
+                <i class="fa-solid fa-lightbulb"></i>
+                <p>Have students click through the timeline. Discuss the rapid progression of technology from the first satellite to landing humans on the Moon in just 12 years.</p>
+            </div>
+        </div>
+
+        <!-- SLIDE 6: Explicit Teaching - Apollo 11 -->
+        <div class="slide" id="slide-6">
+            <div class="slide-header">
+                <div class="slide-title-group">
+                    <h2>A Giant Leap</h2>
+                    <p>The Apollo 11 Mission</p>
+                </div>
+                <div class="ejss-badge">EXPLICIT TEACHING</div>
+            </div>
+            <div class="slide-content">
+                <div class="two-col-equal">
+                    <div style="background-color: rgba(56, 189, 248, 0.05); border: 1px solid rgba(56, 189, 248, 0.2); padding: 25px; border-radius: 12px; height: 100%;">
+                        <h3 style="color: var(--accent-blue); margin-bottom: 15px;"><i class="fa-solid fa-shoe-prints"></i> The First Moon Landing</h3>
+                        <p style="font-size: 14px; color: var(--text-main); line-height: 1.6; margin-bottom: 15px;">On July 20, 1969, American astronauts Neil Armstrong and Buzz Aldrin became the first humans to walk on the lunar surface.</p>
+                        <p style="font-size: 14px; color: var(--text-muted); line-height: 1.6;">As he stepped off the lunar module, Neil Armstrong famously broadcast back to Earth:</p>
+                        <div style="background-color: rgba(0,0,0,0.3); border-left: 3px solid var(--accent-blue); padding: 12px; margin-top: 15px; font-style: italic; color: #bae6fd;">
+                            "That's one small step for [a] man, one giant leap for mankind."
+                        </div>
+                    </div>
+                    <div class="media-frame" style="height: 100%; min-height: 300px;">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/1/1e/Aldrin_Apollo_11_original.jpg" onerror="this.onerror=null; this.src='https://placehold.co/800x600/131a2b/ffffff?text=Apollo+11';" alt="Buzz Aldrin on the Moon" style="object-position: center top;">
+                    </div>
+                </div>
+            </div>
+            <div class="teacher-notes-panel">
+                <i class="fa-solid fa-lightbulb"></i>
+                <p>Discuss the quote. Ask students: What did Armstrong mean? It was a small physical step for him, but a massive technological achievement for all of humanity.</p>
+            </div>
+        </div>
+
+        <!-- SLIDE 7: Probes and Deep Space -->
+        <div class="slide" id="slide-7">
+            <div class="slide-header">
+                <div class="slide-title-group">
+                    <h2>Exploring the Outer Solar System</h2>
+                    <p>The Voyager Missions</p>
+                </div>
+                <div class="ejss-badge">EXPLICIT TEACHING</div>
+            </div>
+            <div class="slide-content">
+                <div class="two-col">
+                    <div class="media-frame" style="background-color: #000000; overflow: hidden; display: flex; align-items: center; justify-content: center; position: relative;">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/d/d2/Voyager_spacecraft_model.png" onerror="this.onerror=null; this.src='https://placehold.co/800x600/131a2b/10b981?text=Voyager+Probe';" alt="Model of Voyager space probe" style="width: 90%; height: 90%; object-fit: contain;">
+                    </div>
+                    <div>
+                        <h3 style="color: var(--accent-green); margin-bottom: 12px;">Voyager 1 & 2</h3>
+                        <p style="margin-bottom: 15px;">Launched in 1977, these robotic <strong>space probes</strong> were sent to explore the outer planets (Jupiter, Saturn, Uranus, Neptune).</p>
+                        <p style="color: var(--text-muted); line-height: 1.5;">They sent back the first detailed, close-up images of these gas and ice giants, their rings, and their many moons.</p>
+                        <div style="background-color: rgba(16, 185, 129, 0.1); border-left: 4px solid var(--accent-green); padding: 15px; margin-top: 15px; border-radius: 0 8px 8px 0;">
+                            <p style="font-size: 13px; color: #a7f3d0; margin: 0;"><strong>Interstellar Travel:</strong> Voyager 1 is now the farthest human-made object from Earth. It has officially left our solar system and entered interstellar space, and is still sending faint signals back to Earth!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="teacher-notes-panel">
+                <i class="fa-solid fa-lightbulb"></i>
+                <p>Link this back to Lesson 1 (The Cosmic Tether). The Pale Blue Dot image was taken by Voyager 1 as it looked back towards Earth from the edge of the solar system.</p>
+            </div>
+        </div>
+
+        <!-- SLIDE 8: The ISS and Collaboration -->
+        <div class="slide" id="slide-8">
+            <div class="slide-header">
+                <div class="slide-title-group">
+                    <h2>Living in Space</h2>
+                    <p>The International Space Station</p>
+                </div>
+                <div class="ejss-badge">GLOBAL COLLABORATION</div>
+            </div>
+            <div class="slide-content">
+                <div class="card-grid">
+                    <div class="concept-card" style="border-top: 4px solid var(--accent-blue);">
+                        <h3>What is the ISS?</h3>
+                        <p style="margin-bottom: 8px;"><strong>A Floating Laboratory</strong></p>
+                        <p style="font-size: 13px;">The International Space Station is a large spacecraft in orbit around Earth. It serves as a home where crews of astronauts and cosmonauts live and work in microgravity.</p>
+                    </div>
+                    <div class="concept-card" style="border-top: 4px solid var(--accent-purple);">
+                        <h3>Global Teamwork</h3>
+                        <p style="margin-bottom: 8px;"><strong>Working Together</strong></p>
+                        <p style="font-size: 13px;">The ISS is a collaborative project involving space agencies from the United States, Russia, Europe, Japan, and Canada, showing what humanity can achieve through cooperation.</p>
+                    </div>
+                    <div class="concept-card" style="border-top: 4px solid var(--accent-orange);">
+                        <h3>Scientific Research</h3>
+                        <p style="margin-bottom: 8px;"><strong>Benefits for Earth</strong></p>
+                        <p style="font-size: 13px;">Astronauts conduct experiments that are impossible on Earth. This research helps us understand human health, grow food in space, and develop new materials.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="teacher-notes-panel">
+                <i class="fa-solid fa-lightbulb"></i>
+                <p>Emphasize that the ISS has been continuously occupied since November 2000. For over 20 years, there has always been someone living off-planet.</p>
+            </div>
+        </div>
+
+        <!-- SLIDE 9: Terminal Verification (Spinoff Tech) -->
+        <div class="slide" id="slide-9">
+            <div class="slide-header">
+                <div class="slide-title-group">
+                    <h2>Spinoff Technologies</h2>
+                    <p>Space Inventions on Earth</p>
+                </div>
+                <div class="ejss-badge">SPREAD YOUR WINGS</div>
+            </div>
+            <div class="slide-content">
+                <h3 style="color: var(--text-main); margin-bottom: 10px; text-align: center;">Benefits for Everyday Life</h3>
+                <p style="color: var(--text-muted); line-height: 1.5; margin-bottom: 25px; text-align: center; max-width: 800px; margin-left: auto; margin-right: auto;">Many technologies developed to solve the extreme challenges of space travel have been adapted into "spinoff" products that we use on Earth every day. Click to flip the cards and discover their origins.</p>
+                
+                <div class="spinoff-grid">
+                    <!-- Spinoff Card 1 -->
+                    <div class="spinoff-card" onclick="this.classList.toggle('flipped')">
+                        <div class="spinoff-card-inner">
+                            <div class="spinoff-card-front">
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/4/41/Left_side_of_Flying_Camera.jpg" onerror="this.onerror=null; this.src='https://placehold.co/400x300/131a2b/38bdf8?text=Smartphone+Camera';" alt="Space Camera Technology">
+                                <h3>Digital Cameras</h3>
+                            </div>
+                            <div class="spinoff-card-back" style="background-color: rgba(56, 189, 248, 0.08); border-color: rgba(56, 189, 248, 0.3);">
+                                <h3 style="color: var(--accent-blue);">CMOS Image Sensors</h3>
+                                <p>To take digital pictures in space without adding too much weight, NASA engineers developed tiny, lightweight image sensors. This exact technology is now in almost every smartphone camera in the world!</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Spinoff Card 2 -->
+                    <div class="spinoff-card" onclick="this.classList.toggle('flipped')">
+                        <div class="spinoff-card-inner">
+                            <div class="spinoff-card-front">
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/0/00/Water_drop_impact_on_a_water-surface_-_%281%29.jpg" onerror="this.onerror=null; this.src='https://placehold.co/400x300/131a2b/10b981?text=Water+Filter';" alt="Water purification">
+                                <h3>Water Purifiers</h3>
+                            </div>
+                            <div class="spinoff-card-back" style="background-color: rgba(16, 185, 129, 0.08); border-color: rgba(16, 185, 129, 0.3);">
+                                <h3 style="color: var(--accent-green);">Water Filtration</h3>
+                                <p>Astronauts on the Apollo missions needed a reliable way to purify water in space. NASA developed advanced filtration systems using silver ions that are now used worldwide to provide clean drinking water.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Spinoff Card 3 -->
+                    <div class="spinoff-card" onclick="this.classList.toggle('flipped')">
+                        <div class="spinoff-card-inner">
+                            <div class="spinoff-card-front">
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/e/e0/Marathon_runners_wrapped_in_space_blankets.jpg" onerror="this.onerror=null; this.src='https://placehold.co/400x300/131a2b/f59e0b?text=Space+Blanket';" alt="Runner in foil blanket">
+                                <h3>Foil Space Blankets</h3>
+                            </div>
+                            <div class="spinoff-card-back" style="background-color: rgba(245, 158, 11, 0.08); border-color: rgba(245, 158, 11, 0.3);">
+                                <h3 style="color: var(--accent-orange);">Radiant Barrier Foil</h3>
+                                <p>Created by NASA in 1964 to insulate spacecraft from extreme temperature swings in space, this lightweight, heat-reflective metallic material is now used in emergency blankets, building insulation, and even to keep marathon runners warm.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="teacher-notes-panel">
+                <i class="fa-solid fa-lightbulb"></i>
+                <p>Have students suggest other things they think might be spinoffs (e.g., memory foam, scratch-resistant lenses, invisible braces).</p>
+            </div>
+        </div>
+
+        <!-- SLIDE 10: Soar (What-if Scenario) -->
+        <div class="slide" id="slide-10">
+            <div class="slide-header">
+                <div class="slide-title-group">
+                    <h2>The "What-If" Physics Challenge</h2>
+                    <p>Living on Mars</p>
+                </div>
+                <div class="ejss-badge">SOAR & TRANSFER</div>
+            </div>
+            <div class="slide-content">
+                <div class="two-col">
+                    <div>
+                        <h3 style="color: var(--accent-orange); margin-bottom: 12px;">Hypothesis Generation</h3>
+                        <p style="color: var(--text-main); font-weight: 600; font-size: 20px; line-height: 1.4;">If humans were to establish a permanent settlement on Mars, what major challenges would they need new technologies to solve?</p>
+                        <p style="margin-top: 15px; color: var(--text-muted); font-size: 14px;">Think about the differences between Earth and Mars discussed in earlier lessons (atmosphere, temperature, gravity, water).</p>
+                        
+                        <!-- Hidden answer box -->
+                        <div style="background-color: rgba(245, 158, 11, 0.08); border: 1px dashed rgba(245, 158, 11, 0.4); padding: 15px; border-radius: 8px; margin-top: 25px; color: var(--accent-orange); cursor: pointer;" onclick="this.innerHTML = '<strong>Technological Needs:</strong> Humans would need habitats that create breathable air and protect from radiation (since Mars lacks a thick atmosphere). We would need ways to extract water from Martian ice, grow food in enclosed systems, and generate reliable power (like solar or nuclear).'">
+                            <i class="fa-solid fa-eye"></i> Click to reveal necessary technologies...
+                        </div>
+                    </div>
+                    <div class="media-frame">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/d/d8/NASA_Mars_Rover.jpg" onerror="this.onerror=null; this.src='https://placehold.co/800x600/131a2b/f59e0b?text=Mars+Rover';" alt="Mars Rover Curiosity" style="object-position: center;">
+                    </div>
+                </div>
+            </div>
+            <div class="teacher-notes-panel">
+                <i class="fa-solid fa-lightbulb"></i>
+                <p>Encourage students to think critically about basic human needs (air, water, food, shelter) and how difficult those are to fulfill on a frozen, barren planet.</p>
+            </div>
+        </div>
+
+        <!-- SLIDE 11: Data Analysis Matrix -->
+        <div class="slide" id="slide-11">
+            <div class="slide-header">
+                <div class="slide-title-group">
+                    <h2>Scientific Data Matrix</h2>
+                    <p>Comparing Space Missions</p>
+                </div>
+                <div class="ejss-badge">SOAR & TRANSFER</div>
+            </div>
+            <div class="slide-content">
+                <p style="margin-bottom: 15px; color: var(--text-muted);">Compare the characteristics of different types of space exploration missions:</p>
+                <table class="matrix-table">
+                    <thead>
+                        <tr>
+                            <th>Mission Type</th>
+                            <th>Target Destination</th>
+                            <th>Crew Status</th>
+                            <th>Mission Duration</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="font-weight: 700; color: #ffffff;">Apollo 11</td>
+                            <td style="color: var(--text-muted);">The Moon</td>
+                            <td style="color: var(--accent-blue); font-weight: 600;">Crewed (3 Humans)</td>
+                            <td style="color: var(--text-muted);">8 Days</td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight: 700; color: #ffffff;">Voyager 1</td>
+                            <td style="color: var(--text-muted);">Outer Planets / Interstellar</td>
+                            <td style="color: var(--accent-orange); font-weight: 600;">Uncrewed (Robotic Probe)</td>
+                            <td style="color: var(--text-muted);">45+ Years (Ongoing)</td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight: 700; color: #ffffff;">ISS Expedition</td>
+                            <td style="color: var(--text-muted);">Low Earth Orbit</td>
+                            <td style="color: var(--accent-blue); font-weight: 600;">Crewed (Usually 6-7)</td>
+                            <td style="color: var(--text-muted);">Typically 6 Months</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p style="margin-top: 15px; font-size: 14px; color: var(--accent-green); font-weight: 600; line-height: 1.5;">
+                    <i class="fa-solid fa-robot"></i> Notice that uncrewed robotic probes can undertake much longer and more dangerous missions than crewed missions, as they don't require life support systems (food, water, air, radiation shielding) to keep humans alive.
+                </p>
+            </div>
+            <div class="teacher-notes-panel">
+                <i class="fa-solid fa-lightbulb"></i>
+                <p>Use this table to discuss the pros and cons of sending robots versus humans into space.</p>
+            </div>
+        </div>
+
+        <!-- SLIDE 12: EJSS Self-Assessment Rubric -->
+        <div class="slide" id="slide-12">
+            <div class="slide-header">
+                <div class="slide-title-group">
+                    <h2>Self-Assessment</h2>
+                    <p>Track Your Progress</p>
+                </div>
+                <div class="ejss-badge">EJSS Standards</div>
+            </div>
+            <div class="slide-content">
+                <div class="card-grid">
+                    <div class="concept-card" style="border-top: 4px solid var(--text-muted);">
+                        <h3 style="color: var(--text-muted);"><i class="fa-solid fa-star"></i> Level 1</h3>
+                        <p>I can identify key milestones in space exploration, such as the first satellite and the Moon landing.</p>
+                    </div>
+                    <div class="concept-card" style="border-top: 4px solid var(--accent-blue);">
+                        <h3><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i> Level 2</h3>
+                        <p>I can explain how different technologies (telescopes, probes, satellites) gather different information about space.</p>
+                    </div>
+                    <div class="concept-card" style="border-top: 4px solid var(--accent-orange);">
+                        <h3 style="color: var(--accent-orange);"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i> Level 3</h3>
+                        <p>I can evaluate how space exploration technologies have benefited everyday life on Earth through spinoff inventions.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="teacher-notes-panel">
+                <i class="fa-solid fa-lightbulb"></i>
+                <p>Have students show their level using a discrete hand gesture against their chest (1, 2, or 3 fingers).</p>
+            </div>
+        </div>
+
+        <!-- SLIDE 13: Diagnostic Exit Card -->
+        <div class="slide" id="slide-13">
+            <div class="slide-header">
+                <div class="slide-title-group">
+                    <h2>Exit Card Challenge</h2>
+                    <p>Consolidating the Unit</p>
+                </div>
+                <div class="ejss-badge">DIAGNOSTIC CHECK</div>
+            </div>
+            <div class="slide-content">
+                <div style="background-color: var(--space-dark); border: 1px solid var(--space-border); padding: 30px; border-radius: 12px;">
+                    <h3 style="color: var(--accent-blue); margin-bottom: 15px;"><i class="fa-solid fa-ticket-simple"></i> Answer in your Science Journal:</h3>
+                    <ol class="custom-numbers" style="gap: 15px; --accent-blue: #38bdf8;">
+                        <li data-num="1">How did the invention of the telescope change our understanding of the universe?</li>
+                        <li data-num="2">What was the primary purpose of the Voyager space probes?</li>
+                        <li data-num="3">Name one technology you use on Earth that was originally developed for space exploration.</li>
+                    </ol>
+                </div>
+            </div>
+            <!-- Teacher Notes Panel Intentionally Removed for Slide 13 -->
+        </div>
+
+    </div>
+
+    <!-- PRESENTATION DECK CONTROLS -->
+    <div id="deck-controls">
+        <div class="control-btn-group">
+            <button class="toggle-btn" id="teacher-toggle-btn" onclick="toggleTeacherNotes()">
+                <i class="fa-solid fa-chalkboard-user"></i> Teacher Notes
+            </button>
+        </div>
+        
+        <div class="control-btn-group">
+            <button class="control-btn" id="prev-btn" onclick="navigateSlide(-1)" disabled>
+                <i class="fa-solid fa-chevron-left"></i>
+            </button>
+            <div id="slide-indicator">1 / 13</div>
+            <button class="control-btn" id="next-btn" onclick="navigateSlide(1)">
+                <i class="fa-solid fa-chevron-right"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- PRESENTEATION ENGINE JAVASCRIPT -->
+    <script>
+        let currentSlide = 1;
+        const totalSlides = 13;
+
+        function navigateSlide(direction) {
+            const activeSlide = document.getElementById(`slide-${currentSlide}`);
+            activeSlide.classList.remove('active');
+
+            currentSlide += direction;
+            if (currentSlide < 1) currentSlide = 1;
+            if (currentSlide > totalSlides) currentSlide = totalSlides;
+
+            const targetSlide = document.getElementById(`slide-${currentSlide}`);
+            targetSlide.classList.add('active');
+
+            document.getElementById('slide-indicator').textContent = `${currentSlide} / ${totalSlides}`;
+            document.getElementById('prev-btn').disabled = (currentSlide === 1);
+            document.getElementById('next-btn').disabled = (currentSlide === totalSlides);
+        }
+
+        document.addEventListener('keydown', function(event) {
+            if (event.key === "ArrowRight" || event.key === "Spacebar" || event.key === " ") {
+                if (currentSlide < totalSlides) {
+                    event.preventDefault();
+                    navigateSlide(1);
+                }
+            } else if (event.key === "ArrowLeft") {
+                if (currentSlide > 1) {
+                    event.preventDefault();
+                    navigateSlide(-1);
+                }
+            }
+        });
+
+        function toggleVocab(cardElement) {
+            cardElement.classList.toggle('revealed');
+        }
+
+        function toggleTeacherNotes() {
+            const toggleButton = document.getElementById('teacher-toggle-btn');
+            const notePanels = document.querySelectorAll('.teacher-notes-panel');
+            
+            toggleButton.classList.toggle('active');
+            
+            notePanels.forEach(panel => {
+                panel.classList.toggle('visible');
+            });
+        }
+
+        // Timeline Data
+        const timelineData = [
+            {
+                title: "Sputnik 1: The First Satellite",
+                desc: "The Soviet Union successfully launched Sputnik 1, the world's first artificial satellite. About the size of a beach ball, it took 98 minutes to orbit Earth on its elliptical path, officially beginning the Space Age.",
+                img: "https://upload.wikimedia.org/wikipedia/commons/b/be/Sputnik_asm.jpg"
+            },
+            {
+                title: "Yuri Gagarin: First Human in Space",
+                desc: "Russian cosmonaut Yuri Gagarin became the first human to journey into outer space. His Vostok 1 spacecraft completed one orbit of the Earth in a flight that lasted 108 minutes.",
+                img: "https://upload.wikimedia.org/wikipedia/commons/e/e5/Yuri_Gagarin_with_awards.jpg"
+            },
+            {
+                title: "Apollo 11: The Moon Landing",
+                desc: "American astronauts Neil Armstrong and Buzz Aldrin became the first humans to land on the Moon. They spent about two and a half hours outside the spacecraft collecting lunar material to bring back to Earth.",
+                img: "https://upload.wikimedia.org/wikipedia/commons/1/1e/Aldrin_Apollo_11_original.jpg"
+            },
+            {
+                title: "Voyager Probes Launched",
+                desc: "NASA launched the twin Voyager 1 and Voyager 2 probes to explore the outer solar system. They have provided incredible close-up images of Jupiter, Saturn, Uranus, and Neptune.",
+                img: "https://upload.wikimedia.org/wikipedia/commons/d/d2/Voyager_spacecraft_model.png"
+            },
+            {
+                title: "ISS Construction Begins",
+                desc: "The first module of the International Space Station (ISS) was launched into orbit. It has been continuously occupied since November 2000, serving as a microgravity and space environment research laboratory.",
+                img: "https://upload.wikimedia.org/wikipedia/commons/0/04/International_Space_Station_after_undocking_of_STS-132.jpg"
+            }
+        ];
+
+        function updateTimeline(index, element) {
+            // Update active state on nodes
+            document.querySelectorAll('.timeline-node').forEach(node => {
+                node.classList.remove('active');
+            });
+            element.classList.add('active');
+
+            // Update content panel
+            const data = timelineData[index];
+            document.getElementById('tl-title').textContent = data.title;
+            document.getElementById('tl-desc').textContent = data.desc;
+            
+            const imgEl = document.getElementById('tl-img');
+            imgEl.src = data.img;
+            
+            // Fallback for javascript injected images
+            imgEl.onerror = function() {
+                this.onerror = null;
+                this.src = 'https://placehold.co/800x600/131a2b/38bdf8?text=Timeline+Image';
+            };
+        }
+    </script>
+</body>
+</html>
